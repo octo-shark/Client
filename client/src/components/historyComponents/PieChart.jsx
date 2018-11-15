@@ -3,7 +3,7 @@ import {Pie} from 'react-chartjs-2';
 
 class PieChart extends React.Component{
   constructor(props){
-    super();
+    super(props);
     this.state = {
 
     }
@@ -30,7 +30,7 @@ class PieChart extends React.Component{
   }
   render(){
     return (
-      <div>
+      <div className='border'>
       <Pie data={this.data}/>
       </div>
     )

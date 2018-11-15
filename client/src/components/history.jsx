@@ -1,5 +1,7 @@
 import React from 'react';
-import PieChart from './PieChart.jsx' 
+import PieChart from './historyComponents/PieChart.jsx' 
+import BackLog from './historyComponents/BackLog.jsx'
+import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 class History extends React.Component {
   constructor() {
     super();
@@ -11,7 +13,9 @@ class History extends React.Component {
   render() {
     return(
       <div>
-        <PieChart></PieChart>
+        <PieChart/>
+        <BackLog/>
+        <ActivityLogs/>
       </div>
     )
   }

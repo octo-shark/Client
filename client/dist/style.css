@@ -1,0 +1,8 @@
+.border{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  width: 500px;
+  height: 500px;
+  
+}
