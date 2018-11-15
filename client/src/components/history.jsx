@@ -1,6 +1,6 @@
 import React from 'react';
 import PieChart from './historyComponents/PieChart.jsx' 
-import BackLog from './historyComponents/BackLog.jsx'
+import BackLogs from './historyComponents/BackLogs.jsx'
 import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 class History extends React.Component {
   constructor() {
@@ -13,8 +13,9 @@ class History extends React.Component {
   render() {
     return(
       <div>
+        <h1>History</h1>
         <PieChart/>
-        <BackLog/>
+        <BackLogs/>
         <ActivityLogs/>
       </div>
     )

@@ -11,7 +11,7 @@ class BackLog extends React.Component {
   
   render() {
     return(
-      <div className='border'>
+      <div id='backLogs'>
       BackLog!
       <Log/>
       </div>

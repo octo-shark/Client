@@ -15,11 +15,9 @@ class Log extends React.Component {
   render() {
     return(
       <div className='border'>
-        <div>
           <MorningLog/>
           <AfternoonLog/>
           <EveningLog/>
-        </div>
       </div>
     )
   }

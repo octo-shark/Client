@@ -10,10 +10,9 @@ class ActivityLogs extends React.Component {
   
   render() {
     return(
-      <div className='border'>
-        <div>
+      <div id='activityLogs'>
+          Activity Log!
           <ActivityLog/>
-        </div>
       </div>
     )
   }

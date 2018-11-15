@@ -30,7 +30,7 @@ class PieChart extends React.Component{
   }
   render(){
     return (
-      <div className='border'>
+      <div id='pieChart'>
       <Pie data={this.data}/>
       </div>
     )

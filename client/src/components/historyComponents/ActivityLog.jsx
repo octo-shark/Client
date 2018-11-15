@@ -10,12 +10,17 @@ class ActivityLog extends React.Component {
   
   render() {
     return(
-      <div className='border'>
-        <div>
-          this.props.ActivityName
-          this.props.ActivityDescription
-          this.props.ActivityTime
-        </div>
+      <div id='activityLog'>
+        <p>
+        this.props.ActivityName 
+        </p>
+        <p id='activityLog_Time'>
+        this.props.ActivityTime
+        </p>
+        <p>
+        this.props.ActivityDescription
+        </p>
+        
       </div>
     )
   }
