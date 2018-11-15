@@ -12,11 +12,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.7.3",
     "express": "^4.16.4",
     "moment": "^2.22.2",
     "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-svg-piechart": "^2.1.1"
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.6.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
