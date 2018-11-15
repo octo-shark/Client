@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
@@ -44,15 +45,17 @@ class App extends React.Component {
       }
     };
   }
-
+  
   render() {
     return(
+
       <div style={s.wrap}>
         <div style={s.nav}>
           <NavBar/>
         </div>
         <div style={s.page}>
           <Main settings={this.state.settings}/>
+
         </div>
       </div>
     )
