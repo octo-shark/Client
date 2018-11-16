@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
@@ -52,6 +53,7 @@ class App extends React.Component {
       orientation: 0
     };
   }
+<<<<<<< HEAD:client/src/app.jsx
 
   startTimer(selection) {
 
@@ -60,14 +62,23 @@ class App extends React.Component {
 
   }
 
+=======
+  
+>>>>>>> 447dda6757081a8f585543a1f21bfc699fad69e5:client/src/index.jsx
   render() {
     return(
+
       <div style={s.wrap}>
         <div style={s.nav}>
           <NavBar/>
         </div>
         <div style={s.page}>
+<<<<<<< HEAD:client/src/app.jsx
           <Main settings={this.state.settings} orientation={this.state.orientation} />
+=======
+          <Main settings={this.state.settings}/>
+
+>>>>>>> 447dda6757081a8f585543a1f21bfc699fad69e5:client/src/index.jsx
         </div>
       </div>
     )
