@@ -1,0 +1,38 @@
+.border{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  margin: 25px;
+  position: static;
+}
+#pieChart{
+  position: absolute;
+  width: 25%;
+  height: 25%;
+}
+#activityLogs{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  position: absolute;
+  padding: 25px;
+  right: 15%;
+  width: 250px;
+}
+#activityLog{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+}
+#activityLog_Time{
+  text-align: right;
+  position: relative;
+}
+#backLogs{
+  position: absolute;
+  width: 25%;
+  bottom: 0px;
+}
+/* #backLog{
+
+} */
