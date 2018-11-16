@@ -8,9 +8,10 @@ const s = {
 }
 
 const TimerDisplay = (props) => (
-  <div syle={s.wrap}>
-    <a style={s.timer}>{props.timeCount}</a>
+  <div id="timer" syle={s.wrap}>
+    <a style={s.timer}>{props.runTime}</a>
   </div>
 );
+
 
 export default TimerDisplay;
