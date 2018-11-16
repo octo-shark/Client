@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
+import timer from './components/timer.js';
 
 const s = {
   wrap: {
@@ -23,9 +23,9 @@ const s = {
     backgroundColor: 'pink'
   },
   sim: {
-    backgroundColor: 'lightBlue'
   }
 }
+
 
 class App extends React.Component {
   constructor() {
@@ -44,25 +44,66 @@ class App extends React.Component {
         ]
       },
       history: {},
-      timer: {
-        on: false,
-        start: 0,
-        stop: 0,
-        count: 0
-      },
-      orientation: 0
-    };
+      on: false,
+      start: 0,
+      stop: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      orientation: 0,
+      startTime: null,
+      stopTime: null,
+    }
+            
+  };
+
+  startTimer() {
+    this.timerInterval = setInterval(this.tick(), 1000);
+    this.setState({startTime: Date.now()});
+  }
+
+  stopTimer() {
+    clearInterval(this.timerInterval);
+    this.setState({ stopTime: Date.now()})
+    console.log(Date.now() - this.state.startTime);
+    console.log('FROM APP', this.state.hours, this.state.minutes, this.state.seconds);
+  }
+
+  tick() {
+    console.log('tik');
+    this.setState({
+      seconds: this.state.seconds + 1
+    })
+    if(this.state.seconds > 59) { 
+      this.setState({
+        minutes: this.state.minutes + 1,
+        seconds: 0
+      })
+    }
+    if (this.state.minutes > 59) {
+      this.setState({
+        hours: this.state.hours + 1,
+        minutes: 0
+      })
+    }
   }
 
   render() {
     return(
-
       <div style={s.wrap}>
         <div style={s.nav}>
           <NavBar/>
         </div>
         <div style={s.page}>
-          <Main settings={this.state.settings} orientation={this.state.orientation} />
+          <Main
+            settings={this.state.settings} 
+            orientation={this.state.orientation}
+            startTimer={this.startTimer.bind(this)}
+            stopTimer={this.stopTimer.bind(this)}
+            seconds={this.state.seconds}
+            minutes={this.state.minutes}
+            hours={this.state.hours}
+          />
         </div>
       </div>
     )

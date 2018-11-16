@@ -10,58 +10,22 @@ const s = {
   seconds: {
     fontSize: 20
   }
-}
+};
 
-class StopWatch extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      hours: 0,
-      minutes: 0,
-      seconds: 0
-    }
+const format = (num = 2) => {
+  let str = '';
+  if (num < 10) str += '0';
+  str += num.toString();
+  return str;
+};
 
-  }
-  timer() {
-    this.setState({
-      seconds: this.state.seconds + 1
-    })
-    if(this.state.seconds > 59) { 
-      this.setState({
-        minutes: this.state.minutes + 1,
-        seconds: 0
-      })
-    }
-    if (this.state.minutes > 59) {
-      this.setState({
-        hours: this.state.hours + 1,
-        minutes: 0
-      })
-    }
-  }
-  
-  format(num) {
-    let str = '';
-    if (num < 10) str += '0';
-    str += num.toString();
-    return str;
-  }
-
-  componentDidMount() {
-    this.intervalId = setInterval(this.timer.bind(this), 1000);
-  }
-  componentWillUnmount(){
-    clearInterval(this.intervalId);
-  }
-  render() {
-    return(
-      <div>
-        <a style={s.hours}>{this.format(this.state.hours)}:</a>
-        <a style={s.minutes}>{this.format(this.state.minutes)}:</a>
-        <a style={s.seconds}>{this.format(this.state.seconds)}</a>
-      </div>
-    );
-  }
-}
+const StopWatch = (props) => (
+  <div>
+    {console.log('FROM STOPWATCH', props)}
+    <a style={s.hours}>{props.hours}:</a>
+    <a style={s.minutes}>{props.minutes}:</a>
+    <a style={s.seconds}>{props.seconds}</a>
+  </div>
+)
 
 export default StopWatch;

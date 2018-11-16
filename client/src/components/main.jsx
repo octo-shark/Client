@@ -32,7 +32,6 @@ class Main extends React.Component {
     super(props);
     this.state = {
        curActivity: 'name',
-       startTime: 0,
       history: [
         {name: 'Eating', start: 'hh:mm', finish: 'hh:mm', color: 0},
         {name: 'Code Share', start: 'hh:mm', finish: 'hh:mm', color: 0},
@@ -43,33 +42,31 @@ class Main extends React.Component {
     };
   }
 
-  startTimer() {
-    this.setState({startTime: new Date()});
-    console.log('started timer');
-  }
-  stopTimer() {
-    console.log(new Date() - this.state.startTime);
-    this.setState({startTime: new Date()}); // FIXME
-  }
-  formatTime(raw) {
-
-  }
-  tick() {
-
-  }
-  
-
+  // startTimer() {
+  //   this.setState({startTime: new Date()});
+  //   console.log('started timer');
+  // }
+  // stopTimer() {
+  //   console.log(new Date() - this.state.startTime);
+  //   this.setState({startTime: new Date()}); // FIXME
+  // }
+ 
   render() {
     return (
       <div style={s.wrap}>
+      {console.log('FROM MAIN', this.props.hours, this.props.minutes, this.props.seconds)}
         <div style={s.timerBox}>
-           <StopWatch/>
+           <StopWatch
+             seconds={this.props.seconds}
+             minutes={this.props.minutes}
+             hours={this.props.hours}
+           />
         </div>
         <div style={s.historyBox}>
           <HistoryStack history={this.state.history}/>
         </div>
         <div>
-          <DeviceSim startTimer={this.startTimer.bind(this)} stopTimer={this.stopTimer.bind(this)}/>
+          <DeviceSim startTimer={this.props.startTimer} stopTimer={this.props.stopTimer}/>
         </div>
       </div>
     );
