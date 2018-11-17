@@ -1,5 +1,11 @@
 import React from 'react';
 
+
+const s = {
+  wrap: {
+    backgroundColor: 'lightGrey'
+  }
+}
 class ActivityLog extends React.Component {
   constructor(props) {
     super(props);
@@ -10,11 +16,11 @@ class ActivityLog extends React.Component {
   
   render() {
     return(
-      <div id='activityLog'>
+      <div style={s.wrap}>
         <p>
         this.props.ActivityName 
         </p>
-        <p id='activityLog_Time'>
+        <p >
         this.props.ActivityTime
         </p>
         <p>

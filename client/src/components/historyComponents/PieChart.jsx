@@ -1,6 +1,9 @@
 import React from 'react';
 import {Pie} from 'react-chartjs-2';
 
+const s = {
+}
+
 class PieChart extends React.Component{
   constructor(props){
     super(props);
