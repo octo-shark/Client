@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
-import timer from './components/timer.js';
 
 const s = {
   wrap: {
@@ -53,18 +52,25 @@ class App extends React.Component {
       orientation: 0,
       startTime: null,
       stopTime: null,
+      keepTime: false
     }
             
   };
 
   startTimer() {
-    this.timerInterval = setInterval(this.tick(), 1000);
-    this.setState({startTime: Date.now()});
-  }
+    // this.setState({keepTime: true})
+    // .then (() => {
+    //   while (this.state.keepTime) {
+      setInterval(()=> {this.tick()}, 1000);
+    //   }
+    // })
+  };
 
   stopTimer() {
-    clearInterval(this.timerInterval);
-    this.setState({ stopTime: Date.now()})
+    clearInterval(interval);
+    // this.setState({ 
+    //   stopTime: Date.now(),
+    //   keepTime: false});
     console.log(Date.now() - this.state.startTime);
     console.log('FROM APP', this.state.hours, this.state.minutes, this.state.seconds);
   }
