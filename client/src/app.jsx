@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
+import History from './components/history.jsx';
 
 const s = {
   wrap: {
@@ -101,7 +102,7 @@ class App extends React.Component {
           <NavBar/>
         </div>
         <div style={s.page}>
-          <Main
+          {/* <Main
             settings={this.state.settings} 
             orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
@@ -109,7 +110,8 @@ class App extends React.Component {
             seconds={this.state.seconds}
             minutes={this.state.minutes}
             hours={this.state.hours}
-          />
+          /> */}
+          <History />
         </div>
       </div>
     )
