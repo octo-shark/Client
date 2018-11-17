@@ -59,7 +59,8 @@ class App extends React.Component {
       orientation: 0,
       startTime: null,
       stopTime: null,
-      keepTime: false
+      keepTime: false,
+      timerInterval: null
     }
             
   };
@@ -67,14 +68,17 @@ class App extends React.Component {
   startTimer() {
     // this.setState({keepTime: true})
     // .then (() => {
-    //   while (this.state.keepTime) {
-      setInterval(()=> {this.tick()}, 1000);
+    if (!this.state.keepTime) {
+      this.setState({ timerInterval: setInterval(()=> {this.tick()}, 1000)})
+    }
     //   }
     // })
   };
 
   stopTimer() {
-    clearInterval(interval);
+    this.setState({ 
+      timerInterval: clearInterval(this.state.timerInterval)
+    });
     // this.setState({ 
     //   stopTime: Date.now(),
     //   keepTime: false});

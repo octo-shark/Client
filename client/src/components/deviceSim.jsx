@@ -12,7 +12,7 @@ const DeviceSim = (props) => (
       <option value="6">Face 6</option>
       <option value="7">Face 7</option>
     </select>
-    <input type="submit"  onClick={props.startTimer}/>
+    <input type="submit" value="Start" onClick={props.startTimer}/>
     <input type="submit" value="Stop" onClick={() => props.stopTimer()}/>
   </div>
 );

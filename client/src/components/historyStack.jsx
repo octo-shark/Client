@@ -11,12 +11,15 @@ const s = {
   },
 }
 
-const HistoryStack = (props) => (
-  <div style={s.wrap}>
-    {props.userHistory.reverse().map((entry, index) => 
-      <HistoryItem entry={entry} key={index}/>
-    )}
-  </div>
-);
+const HistoryStack = (props) => {
+
+  return (
+    <div style={s.wrap}>
+      {props.userHistory.map((entry, index) => 
+        <HistoryItem entry={entry} key={index}/>
+      )}
+    </div>
+  )
+};
 
 export default HistoryStack;
