@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
+<<<<<<< HEAD
 import History from './components/history.jsx';
 
+=======
+import History from './components/history.jsx'
+>>>>>>> 510dfbf0ae61cb946059c313c102be935412d854
 const s = {
   wrap: {
     display: 'grid',
@@ -111,7 +115,11 @@ class App extends React.Component {
             minutes={this.state.minutes}
             hours={this.state.hours}
           /> */}
+<<<<<<< HEAD
           <History />
+=======
+          <History/>
+>>>>>>> 510dfbf0ae61cb946059c313c102be935412d854
         </div>
       </div>
     )
