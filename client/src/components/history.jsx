@@ -5,7 +5,7 @@ import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr, 250px',
+    gridTemplateColumns: '1fr, 300px',
     gridTemplateRows: 'repeat(2, 1fr)',
   },
   pieChart:{
