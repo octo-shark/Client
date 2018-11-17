@@ -16,10 +16,10 @@ const s = {
   }
 }
 
-const NavBar = () => (
+const NavBar = (props) => (
   <div style={s.wrap}>
-    <div style={s.item} onClick={() => console.log('A')}>A</div>
-    <div style={s.item}>B</div>
+    <div style={s.item} onClick={() => props.changeView('main')}>Main</div>
+    <div style={s.item} onClick={() => props.changeView('history')}>Hist</div>
     <div style={s.item}>C</div>
     <div style={s.item}>D</div>
   </div>

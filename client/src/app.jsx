@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
-<<<<<<< HEAD
 import History from './components/history.jsx';
 
-=======
-import History from './components/history.jsx'
->>>>>>> 510dfbf0ae61cb946059c313c102be935412d854
 const s = {
   wrap: {
     display: 'grid',
@@ -35,6 +31,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      view: 'main',
       settings: {
         faceAssignment: [
           {id: 22, name: 'Reading', color: '#ff9999'},
@@ -99,27 +96,48 @@ class App extends React.Component {
     }
   }
 
+  changeView(page) {
+    console.log(`VIEW SET TO: ${page}`);
+    this.setState({view: page});
+  }
+
+  dynamicPage() {
+    // FIXME do breaks need to be included?
+    switch(this.state.view) {
+      case 'main':
+        return (
+          <Main
+          settings={this.state.settings} 
+          orientation={this.state.orientation}
+          startTimer={this.startTimer.bind(this)}
+          stopTimer={this.stopTimer.bind(this)}
+          seconds={this.state.seconds}
+          minutes={this.state.minutes}
+          hours={this.state.hours}
+        /> 
+        );
+        break;
+      case 'history':
+        return (
+          <History />
+        )
+        break;
+      default: 
+        return (
+          <p>NO PAGE</p>
+        );
+        break;
+    }
+  }
+
   render() {
     return(
       <div style={s.wrap}>
         <div style={s.nav}>
-          <NavBar/>
+          <NavBar changeView={this.changeView.bind(this)}/>
         </div>
         <div style={s.page}>
-          {/* <Main
-            settings={this.state.settings} 
-            orientation={this.state.orientation}
-            startTimer={this.startTimer.bind(this)}
-            stopTimer={this.stopTimer.bind(this)}
-            seconds={this.state.seconds}
-            minutes={this.state.minutes}
-            hours={this.state.hours}
-          /> */}
-<<<<<<< HEAD
-          <History />
-=======
-          <History/>
->>>>>>> 510dfbf0ae61cb946059c313c102be935412d854
+           {this.dynamicPage()}
         </div>
       </div>
     )
