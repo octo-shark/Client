@@ -6,22 +6,34 @@ const s = {
   },
   name: {
     fontSize: 24,
-    fontStyle: 'bold'
+    fontStyle: 'bold',
+    color: 'white',
+    textShadow:
+		`-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000`
   },
   time: {
     paddingLeft: '10px',
-    color: 'grey',
+    color: 'white',
+    textShadow:
+		`-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000`,
     fontSize: 18
   }
 }
 
-const HistoryItem = (props) => (
-  <div style={s.wrap}>
-    <span>
-      <a style={s.name}>{props.entry.name}</a>
-      <a style={s.time}>{ props.entry.start} - {props.entry.finish}</a>
-    </span>
-  </div>
-)
+const HistoryItem = (props) => {
+  return (
+    <div style={{'backgroundColor': props.entry.color, display: 'grid', gridTemplateRows: 'repeat(4)'}}>
+        <a style={s.name}>{props.entry.name}</a>
+        <a style={s.time}>{ props.entry.start} - {props.entry.finish}</a>
+
+    </div>
+  )
+}
 
 export default HistoryItem;

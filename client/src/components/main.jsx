@@ -31,14 +31,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-       curActivity: 'name',
-      history: [
-        {name: 'Eating', start: 'hh:mm', finish: 'hh:mm', color: 0},
-        {name: 'Code Share', start: 'hh:mm', finish: 'hh:mm', color: 0},
-        {name: 'Research', start: 'hh:mm', finish: 'hh:mm', color: 0},
-        {name: 'Exercise', start: 'hh:mm', finish: 'hh:mm', color: 0}
-      ]
-
+      curActivity: 'name',
     };
   }
 
@@ -63,7 +56,7 @@ class Main extends React.Component {
            />
         </div>
         <div style={s.historyBox}>
-          <HistoryStack history={this.state.history}/>
+          <HistoryStack userHistory={this.props.userHistory}/>
         </div>
         <div>
           <DeviceSim startTimer={this.props.startTimer} stopTimer={this.props.stopTimer}/>

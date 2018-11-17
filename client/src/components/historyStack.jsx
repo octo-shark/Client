@@ -13,7 +13,7 @@ const s = {
 
 const HistoryStack = (props) => (
   <div style={s.wrap}>
-    {props.history.map((entry, index) => 
+    {props.userHistory.reverse().map((entry, index) => 
       <HistoryItem entry={entry} key={index}/>
     )}
   </div>

@@ -44,7 +44,12 @@ class App extends React.Component {
           {id: 76, name: 'Napping', color: '#666633'}
         ]
       },
-      history: {},
+      userHistory: [
+        {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
+        {name: 'Phone Calls', totalTime: 15, start: '12:30pm', finish: '12:45pm', color: '#660066'},
+        {name: 'Browsing Reddit', totalTime: 6, start: '12:45pm', finish: '12:51pm', color: '#ffcc00'},
+        {name: 'Walking in Circles', totalTime: 129, start: '12:51', finish: '3:00pm', color: '#669999'}
+      ],
       on: false,
       start: 0,
       stop: 0,
@@ -114,12 +119,13 @@ class App extends React.Component {
           seconds={this.state.seconds}
           minutes={this.state.minutes}
           hours={this.state.hours}
+          userHistory={this.state.userHistory}
         /> 
         );
         break;
       case 'history':
         return (
-          <History />
+          <History/>
         )
         break;
       default: 
