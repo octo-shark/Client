@@ -34,15 +34,6 @@ class Main extends React.Component {
       curActivity: 'name',
     };
   }
-
-  // startTimer() {
-  //   this.setState({startTime: new Date()});
-  //   console.log('started timer');
-  // }
-  // stopTimer() {
-  //   console.log(new Date() - this.state.startTime);
-  //   this.setState({startTime: new Date()}); // FIXME
-  // }
  
   render() {
     return (

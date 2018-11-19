@@ -1,5 +1,5 @@
 import React from 'react';
-import PieChart from './historyComponents/PieChart.jsx' 
+// import PieChart from './historyComponents/PieChart.jsx' 
 import BackLogs from './historyComponents/BackLogs.jsx'
 import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 const s = {
@@ -37,8 +37,8 @@ class History extends React.Component {
     return(
       <div style={s.wrap}>
       <div style={s.pieChart}>
-        <h1>Meme</h1>
-        <PieChart/>
+        <h1>PieChart</h1>
+        {/* <PieChart/> */}
       </div>
       <div style={s.backLogWrap}>
         <BackLogs/>

@@ -4,7 +4,8 @@ import NavBar from './components/navBar.jsx';
 import Main from './components/main.jsx';
 import DeviceSim from './components/deviceSim.jsx';
 import History from './components/history.jsx';
-
+const axios = require('axios');
+const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
 const s = {
   wrap: {
     display: 'grid',
@@ -65,23 +66,22 @@ class App extends React.Component {
             
   };
 
+  componentDidMount() {
+    axios.get(`${proxy}/rikki`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   startTimer() {
-    // this.setState({keepTime: true})
-    // .then (() => {
     if (!this.state.keepTime) {
       this.setState({ timerInterval: setInterval(()=> {this.tick()}, 1000)})
     }
-    //   }
-    // })
   };
 
   stopTimer() {
     this.setState({ 
       timerInterval: clearInterval(this.state.timerInterval)
     });
-    // this.setState({ 
-    //   stopTime: Date.now(),
-    //   keepTime: false});
     console.log(Date.now() - this.state.startTime);
     console.log('FROM APP', this.state.hours, this.state.minutes, this.state.seconds);
   }
