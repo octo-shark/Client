@@ -27,24 +27,24 @@ const s = {
   }
 }
 
+const exampleUserFaceAssignment = [
+  {id: 22, name: 'Reading', color: '#ff9999'},
+  {id: 23, name: 'Phone Calls', color: '#660066'},
+  {id: 24, name: 'Browsing Reddit', color: '#ffcc00'},
+  {id: 25, name: 'Walking in Circles', color: '#669999'},
+  {id: 26, name: 'Complaining', color: '#66ccff'},
+  {id: 33, name: 'Debugging', color: '#993333'},
+  {id: 66, name: 'Lunch', color: '#ff99ff'},
+  {id: 76, name: 'Napping', color: '#666633'}
+]
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       view: 'main',
-      settings: {
-        faceAssignment: [
-          {id: 22, name: 'Reading', color: '#ff9999'},
-          {id: 23, name: 'Phone Calls', color: '#660066'},
-          {id: 24, name: 'Browsing Reddit', color: '#ffcc00'},
-          {id: 25, name: 'Walking in Circles', color: '#669999'},
-          {id: 26, name: 'Complaining', color: '#66ccff'},
-          {id: 33, name: 'Debugging', color: '#993333'},
-          {id: 66, name: 'Lunch', color: '#ff99ff'},
-          {id: 76, name: 'Napping', color: '#666633'}
-        ]
-      },
+      faceAssignment: [],
       userHistory: [
         {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
         {name: 'Phone Calls', totalTime: 15, start: '12:30pm', finish: '12:45pm', color: '#660066'},
@@ -70,7 +70,10 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
-        this.setState({ account: res.data[0]});
+        this.setState({
+          account: res.data[0],
+          faceAssignment: exampleUserFaceAssignment
+        });
       })
       .catch(err => console.log(err));
     axios.get(`${proxy}/rikki/timestamps`)
@@ -93,7 +96,6 @@ class App extends React.Component {
   }
 
   tick() {
-    console.log('tik');
     this.setState({
       seconds: this.state.seconds + 1
     })
