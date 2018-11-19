@@ -38,7 +38,6 @@ class Main extends React.Component {
   render() {
     return (
       <div style={s.wrap}>
-      {console.log('FROM MAIN', this.props.hours, this.props.minutes, this.props.seconds)}
         <div style={s.timerBox}>
            <StopWatch
              seconds={this.props.seconds}

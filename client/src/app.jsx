@@ -53,8 +53,8 @@ class App extends React.Component {
       ],
       account: {email: 'test'},
       on: false,
-      start: 0,
-      stop: 0,
+      startTime: 0,
+      stopTime: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
@@ -83,16 +83,23 @@ class App extends React.Component {
 
   startTimer() {
     if (!this.state.keepTime) {
-      this.setState({ timerInterval: setInterval(()=> {this.tick()}, 1000), keepTime: true})
+      this.setState({
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        timerInterval: setInterval(()=> {this.tick()}, 1000),
+        keepTime: true,
+        startTime: Date.now()
+      })
     }
   };
 
   stopTimer() {
-    this.setState({ 
-      timerInterval: clearInterval(this.state.timerInterval)
-    });
     console.log(Date.now() - this.state.startTime);
-    console.log('FROM APP', this.state.hours, this.state.minutes, this.state.seconds);
+    this.setState({ 
+      timerInterval: clearInterval(this.state.timerInterval),
+      keepTime: false,
+    });
   }
 
   tick() {
@@ -111,10 +118,11 @@ class App extends React.Component {
         minutes: 0
       })
     }
+    console.log(`TIMER: ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`);
   }
 
   changeView(page) {
-    console.log(`VIEW SET TO: ${page}`);
+    console.log(`VIEW_CHANGED: ${page}`);
     this.setState({view: page});
   }
 

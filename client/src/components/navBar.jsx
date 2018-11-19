@@ -1,10 +1,10 @@
 import React from 'react';
-import DeviceSim from '../components/devSimB.jsx';
+import DevSimB from '../components/devSimB.jsx';
 
 const s = {
   wrap: {
    display: 'grid',
-   gridTemplateRows: '100px 100px 100px 100px 1fr 1fr',
+   gridTemplateRows: '100px 100px 100px 100px 1fr 100px',
    height: '100%',
    padding: '2px',
    gridGap: '2px'
@@ -16,10 +16,9 @@ const s = {
     fontStyle: 'bold',
   },
   account: {
-    width: '100%',
+    gridRow: '-1',
     fontSize: 12,
-    color: 'white',
-    verticalAlign: 'bottom'
+    color: 'white'
   }
 }
 
@@ -29,11 +28,12 @@ const NavBar = (props) => (
     <div style={s.item} onClick={() => props.changeView('history')}>Hist</div>
     <div style={s.item}>C</div>
     <div style={s.item}>D</div>
+    <div><DevSimB/></div>
     <div style={s.account}>
-      <p>For Development</p>
+      <p>Dev Info</p>
       <p>{props.account.email}</p>
       <p>{props.account.id}</p>
-      </div>
+    </div>
   </div>
 )
 

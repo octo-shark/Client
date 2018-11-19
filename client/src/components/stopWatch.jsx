@@ -20,7 +20,6 @@ const format = (num) => {
 
 const StopWatch = (props) => (
   <div>
-    {console.log('FROM STOPWATCH', props)}
     <a style={s.hours}>{format(props.hours)}h </a>
     <a style={s.minutes}>{format(props.minutes)}m </a>
     <a style={s.seconds}>{format(props.seconds)}s</a>
