@@ -7,11 +7,14 @@ const s = {
   }
 }
 
-const TimerDisplay = (props) => (
-  <div id="timer" syle={s.wrap}>
-    <a style={s.timer}>{props.runTime}</a>
-  </div>
-);
+const TimerDisplay = (props) => {
+
+  return (
+    <div id="timer" syle={s.wrap}>
+      <a style={s.timer}>{props.runTime}</a>
+    </div>
+  );
+}
 
 
 export default TimerDisplay;

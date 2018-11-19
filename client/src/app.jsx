@@ -51,6 +51,7 @@ class App extends React.Component {
         {name: 'Browsing Reddit', totalTime: 6, start: '12:45pm', finish: '12:51pm', color: '#ffcc00'},
         {name: 'Walking in Circles', totalTime: 129, start: '12:51', finish: '3:00pm', color: '#669999'}
       ],
+      account: {email: 'test'},
       on: false,
       start: 0,
       stop: 0,
@@ -63,18 +64,23 @@ class App extends React.Component {
       keepTime: false,
       timerInterval: null
     }
-            
   };
 
   componentDidMount() {
     axios.get(`${proxy}/rikki`)
+      .then(res => {
+        console.log(res);
+        this.setState({ account: res.data[0]});
+      })
+      .catch(err => console.log(err));
+    axios.get(`${proxy}/rikki/timestamps`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
 
   startTimer() {
     if (!this.state.keepTime) {
-      this.setState({ timerInterval: setInterval(()=> {this.tick()}, 1000)})
+      this.setState({ timerInterval: setInterval(()=> {this.tick()}, 1000), keepTime: true})
     }
   };
 
@@ -116,15 +122,15 @@ class App extends React.Component {
       case 'main':
         return (
           <Main
-          settings={this.state.settings} 
-          orientation={this.state.orientation}
-          startTimer={this.startTimer.bind(this)}
-          stopTimer={this.stopTimer.bind(this)}
-          seconds={this.state.seconds}
-          minutes={this.state.minutes}
-          hours={this.state.hours}
-          userHistory={this.state.userHistory}
-        /> 
+            settings={this.state.settings} 
+            orientation={this.state.orientation}
+            startTimer={this.startTimer.bind(this)}
+            stopTimer={this.stopTimer.bind(this)}
+            seconds={this.state.seconds}
+            minutes={this.state.minutes}
+            hours={this.state.hours}
+            userHistory={this.state.userHistory}
+          /> 
         );
         break;
       case 'history':
@@ -144,7 +150,10 @@ class App extends React.Component {
     return(
       <div style={s.wrap}>
         <div style={s.nav}>
-          <NavBar changeView={this.changeView.bind(this)}/>
+          <NavBar 
+            changeView={this.changeView.bind(this)}
+            account={this.state.account}
+          />
         </div>
         <div style={s.page}>
            {this.dynamicPage()}
