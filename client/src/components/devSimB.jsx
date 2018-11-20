@@ -1,5 +1,7 @@
 import React from 'react';
 
+const s = {wrap}
+
 const DevSimB = (props) => (
   <div>
     <input type='submit' value='0'/>
