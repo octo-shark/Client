@@ -28,7 +28,7 @@ const NavBar = (props) => (
     <div style={s.item} onClick={() => props.changeView('history')}>Hist</div>
     <div style={s.item}>C</div>
     <div style={s.item}>D</div>
-    <div><DevSimB/></div>
+    <div><DevSimB faceAssignment={props.faceAssignment} taskChange={props.taskChange}/></div>
     <div style={s.account}>
       <p>Dev Info</p>
       <p>{props.account.email}</p>

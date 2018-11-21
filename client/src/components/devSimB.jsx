@@ -1,18 +1,36 @@
 import React from 'react';
 
-const s = {wrap}
+const s = {
+  wrap: {
+    display: 'grid'
+  }
+}
 
-const DevSimB = (props) => (
-  <div>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-    <input type='submit' value='0'/>
-  </div>
-)
+
+const DevSimB = (props) => {
+  console.log(props);
+  return (
+    <div style={s.wrap}>
+      {props.faceAssignment.map((face, index) => {
+        const style = {
+          backgroundColor: face.color,
+          fontSize: 10,
+          border: 'none',
+          height: '30px',
+          overflow: 'hidden'
+        }
+        return (
+          <input 
+            style={style}
+            type='submit'
+            value={face.name}
+            key={`faceAssignment ${index}`}
+            onClick={() => props.taskChange(index)}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 export default DevSimB;

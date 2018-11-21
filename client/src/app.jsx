@@ -121,6 +121,11 @@ class App extends React.Component {
     console.log(`TIMER: ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`);
   }
 
+  taskChange(index) {
+    console.log(`taskChange - face: ${index}`);
+    console.table(this.state.faceAssignment[index]);
+  }
+
   changeView(page) {
     console.log(`VIEW_CHANGED: ${page}`);
     this.setState({view: page});
@@ -163,6 +168,8 @@ class App extends React.Component {
           <NavBar 
             changeView={this.changeView.bind(this)}
             account={this.state.account}
+            faceAssignment={this.state.faceAssignment}
+            taskChange={this.taskChange.bind(this)}
           />
         </div>
         <div style={s.page}>
