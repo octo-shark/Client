@@ -5,7 +5,7 @@ import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr, 200px',
+    gridTemplateColumns: '1fr 200px',
     gridTemplateRows: 'repeat(2, 1fr)',
   },
   pieChart:{
@@ -35,18 +35,16 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
-      <div style={s.pieChart}>
-        <h1>PieChart</h1>
-        {/* <PieChart/> */}
-      </div>
-      <div style={s.backLogWrap}>
-        <BackLogs/>
-
-      </div>
-      <div style={s.activityLog}>
-
-        <ActivityLogs/>
-      </div>
+        <div style={s.pieChart}>
+          <h1>PieChart</h1>
+          {/* <PieChart/> */}
+        </div>
+        <div style={s.backLogWrap}>
+          <BackLogs/>
+        </div>
+        <div style={s.activityLog}>
+          <ActivityLogs/>
+        </div>
       </div>
     )
   }

@@ -2,7 +2,8 @@ import React from 'react';
 
 const s = {
   wrap: {
-    display: 'grid'
+    display: 'grid',
+    gridGap: '2px'
   }
 }
 

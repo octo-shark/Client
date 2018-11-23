@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
+import SettingsView from './components/settingsView.jsx';
 import moment from 'moment';
 
 
@@ -158,17 +159,21 @@ class App extends React.Component {
             userHistory={this.state.userHistory}
           /> 
         );
-        break;
       case 'historyView':
         return (
           <HistoryView/>
-        )
-        break;
+        );
+      case 'settingsView':
+        return (
+          <SettingsView
+            account={this.state.account}
+            faceAssignment={this.state.faceAssignment}
+          />
+        );
       default: 
         return (
           <p>Invalid Page</p>
         );
-        break;
     }
   }
 
