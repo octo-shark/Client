@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
-import Moment from 'moment';
+import moment from 'moment';
 
 
 const axios = require('axios');
@@ -74,12 +74,17 @@ class App extends React.Component {
         console.log(res);
         this.setState({
           account: res.data[0],
-          faceAssignment: exampleUserFaceAssignment
+          faceAssignment: exampleUserFaceAssignment,
         });
       })
       .catch(err => console.log(err));
     axios.get(`${proxy}/rikki/timestamps`)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res);
+        this.setState({
+          userHistory: res.data
+        })
+      })
       .catch(err => console.log(err));
   }
 
@@ -91,17 +96,18 @@ class App extends React.Component {
         hours: 0,
         timerInterval: setInterval(()=> {this.tick()}, 1000),
         keepTime: true,
-        startTime: Date.now()
+        startTime: Date.now(),
       })
     }
   };
 
   stopTimer() {
-    console.log(Moment.duration(Date.now() - this.state.startTime).humanize());
+    let prev = moment.duration(Date.now() - this.state.startTime);
+    console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
     this.setState({ 
       timerInterval: clearInterval(this.state.timerInterval),
       keepTime: false,
-    });
+    })
   }
 
   tick() {
@@ -126,7 +132,9 @@ class App extends React.Component {
   taskChange(index) {
     console.log(`taskChange - face: ${index}`);
     console.table(this.state.faceAssignment[index]);
-
+    this.setState({
+      
+    })
   }
 
   changeView(page) {
@@ -140,7 +148,7 @@ class App extends React.Component {
       case 'mainView':
         return (
           <MainView
-            settings={this.state.settings} 
+            userHistory={this.state.userHistory}
             orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
             stopTimer={this.stopTimer.bind(this)}
@@ -158,7 +166,7 @@ class App extends React.Component {
         break;
       default: 
         return (
-          <p>NO PAGE</p>
+          <p>Invalid Page</p>
         );
         break;
     }

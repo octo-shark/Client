@@ -8,7 +8,6 @@ const s = {
 
 
 const DevSimB = (props) => {
-  console.log(props);
   return (
     <div style={s.wrap}>
       {props.faceAssignment.map((face, index) => {

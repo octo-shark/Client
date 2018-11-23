@@ -12,7 +12,6 @@ const s = {
 }
 
 const HistoryStack = (props) => {
-
   return (
     <div style={s.wrap}>
       {props.userHistory.map((entry, index) => 
