@@ -1,7 +1,7 @@
 import React from 'react';
-import TimerDisplay from '../components/timerDisplay.jsx';
-import HistoryStack from '../components/historyStack.jsx';
-import DeviceSim from '../components/deviceSim.jsx';
+import TimerDisplay from './timerDisplay.jsx';
+import HistoryStack from './historyStack.jsx';
+import DeviceSim from './deviceSim.jsx';
 import StopWatch from './stopWatch.jsx';
 
 const s = {
@@ -27,7 +27,7 @@ const s = {
   }
 }
 
-class Main extends React.Component {
+class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,4 +56,4 @@ class Main extends React.Component {
   };
 }
 
-export default Main;
+export default MainView;

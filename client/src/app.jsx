@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from './components/navBar.jsx';
-import Main from './components/main.jsx';
-import DeviceSim from './components/deviceSim.jsx';
-import History from './components/history.jsx';
+import MainView from './components/mainView.jsx';
+import HistoryView from './components/historyView.jsx';
+import Moment from 'moment';
+
+
 const axios = require('axios');
 const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
 const s = {
@@ -12,7 +14,7 @@ const s = {
     gridTemplateColumns: '100px 1fr',
     gridTemplateRows: '1fr', //placeholder
     gridGap: '5px',
-    height: '95vh'
+    height: '98vh'
   },
   nav: {
     gridArea: '1/1 / -1/1',
@@ -43,7 +45,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'main',
+      view: 'mainView',
       faceAssignment: [],
       userHistory: [
         {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
@@ -95,7 +97,7 @@ class App extends React.Component {
   };
 
   stopTimer() {
-    console.log(Date.now() - this.state.startTime);
+    console.log(Moment.duration(Date.now() - this.state.startTime).humanize());
     this.setState({ 
       timerInterval: clearInterval(this.state.timerInterval),
       keepTime: false,
@@ -124,6 +126,7 @@ class App extends React.Component {
   taskChange(index) {
     console.log(`taskChange - face: ${index}`);
     console.table(this.state.faceAssignment[index]);
+
   }
 
   changeView(page) {
@@ -134,9 +137,9 @@ class App extends React.Component {
   dynamicPage() {
     // FIXME do breaks need to be included?
     switch(this.state.view) {
-      case 'main':
+      case 'mainView':
         return (
-          <Main
+          <MainView
             settings={this.state.settings} 
             orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
@@ -148,9 +151,9 @@ class App extends React.Component {
           /> 
         );
         break;
-      case 'history':
+      case 'historyView':
         return (
-          <History/>
+          <HistoryView/>
         )
         break;
       default: 

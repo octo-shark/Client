@@ -24,10 +24,10 @@ const s = {
 
 const NavBar = (props) => (
   <div style={s.wrap}>
-    <div style={s.item} onClick={() => props.changeView('main')}>Main</div>
-    <div style={s.item} onClick={() => props.changeView('history')}>Hist</div>
+    <div style={s.item} onClick={() => props.changeView('mainView')}>Main</div>
+    <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
     <div style={s.item}>C</div>
-    <div style={s.item}>D</div>
+    <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
     <div><DevSimB faceAssignment={props.faceAssignment} taskChange={props.taskChange}/></div>
     <div style={s.account}>
       <p>Dev Info</p>
