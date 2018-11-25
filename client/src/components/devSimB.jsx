@@ -4,7 +4,7 @@ const s = {
   wrap: {
     display: 'grid',
     gridGap: '2px'
-  }
+  },
 }
 
 
@@ -12,16 +12,16 @@ const DevSimB = (props) => {
   return (
     <div style={s.wrap}>
       {props.faceAssignment.map((face, index) => {
-        const style = {
-          backgroundColor: face.color,
+        let faceStyle = {
           fontSize: 10,
           border: 'none',
           height: '30px',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          backgroundColor: props.colorAssignment[face.id]
         }
         return (
           <input 
-            style={style}
+            style={faceStyle}
             type='submit'
             value={face.name}
             key={`faceAssignment ${index}`}

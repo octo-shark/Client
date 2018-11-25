@@ -4,6 +4,7 @@ import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
+import fakeData from './components/fakeUserData.js';
 import moment from 'moment';
 
 
@@ -30,17 +31,16 @@ const s = {
   }
 }
 
-const exampleUserFaceAssignment = [
-  {id: 22, name: 'Reading', color: '#b9f6ca'},
-  {id: 23, name: 'Phone Calls', color: '#84ffff'},
-  {id: 24, name: 'Browsing Reddit', color: '#b388ff'},
-  {id: 25, name: 'Walking in Circles', color: '#ff80ab'},
-  {id: 26, name: 'Complaining', color: '#ff9e80'},
-  {id: 33, name: 'Debugging', color: '#ffff8d'},
-  {id: 66, name: 'Lunch', color: '#80d8ff'},
-  {id: 76, name: 'Napping', color: '#ea80fc'}
-]
-
+// const exampleUserFaceAssignment = [
+//   {id: 1, name: 'Reading', color: '#b9f6ca'},
+//   {id: 2, name: 'Phone Calls', color: '#84ffff'},
+//   {id: 3, name: 'Browsing Reddit', color: '#b388ff'},
+//   {id: 4, name: 'Walking in Circles', color: '#ff80ab'},
+//   {id: 26, name: 'Complaining', color: '#ff9e80'},
+//   {id: 33, name: 'Debugging', color: '#ffff8d'},
+//   {id: 66, name: 'Lunch', color: '#80d8ff'},
+//   {id: 76, name: 'Napping', color: '#ea80fc'}
+// ]
 
 class App extends React.Component {
   constructor() {
@@ -48,6 +48,7 @@ class App extends React.Component {
     this.state = {
       view: 'mainView',
       faceAssignment: [],
+      colorAssignment: {},
       userHistory: [
         {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
         {name: 'Phone Calls', totalTime: 15, start: '12:30pm', finish: '12:45pm', color: '#660066'},
@@ -73,9 +74,12 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
+        console.log(fakeData);
         this.setState({
+          // test data being used
           account: res.data[0],
-          faceAssignment: exampleUserFaceAssignment,
+          faceAssignment: fakeData.assigned_activites,
+          colorAssignment: fakeData.color_preferences
         });
       })
       .catch(err => console.log(err));
@@ -149,13 +153,13 @@ class App extends React.Component {
         return (
           <MainView
             userHistory={this.state.userHistory}
+            colorAssignment={this.state.colorAssignment}
             orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
             stopTimer={this.stopTimer.bind(this)}
             seconds={this.state.seconds}
             minutes={this.state.minutes}
             hours={this.state.hours}
-            userHistory={this.state.userHistory}
           /> 
         );
       case 'historyView':
@@ -184,6 +188,7 @@ class App extends React.Component {
             changeView={this.changeView.bind(this)}
             account={this.state.account}
             faceAssignment={this.state.faceAssignment}
+            colorAssignment={this.state.colorAssignment}
             taskChange={this.taskChange.bind(this)}
           />
         </div>

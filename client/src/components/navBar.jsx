@@ -28,7 +28,13 @@ const NavBar = (props) => (
     <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
     <div style={s.item}>C</div>
     <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
-    <div><DevSimB faceAssignment={props.faceAssignment} taskChange={props.taskChange}/></div>
+    <div>
+      <DevSimB
+        faceAssignment={props.faceAssignment}
+        colorAssignment={props.colorAssignment}
+        taskChange={props.taskChange}
+      />
+    </div>
     <div style={s.account}>
       <p>Dev Info</p>
       <p>{props.account.email}</p>
