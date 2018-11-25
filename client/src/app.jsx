@@ -31,14 +31,14 @@ const s = {
 }
 
 const exampleUserFaceAssignment = [
-  {id: 22, name: 'Reading', color: '#ff9999'},
-  {id: 23, name: 'Phone Calls', color: '#660066'},
-  {id: 24, name: 'Browsing Reddit', color: '#ffcc00'},
-  {id: 25, name: 'Walking in Circles', color: '#669999'},
-  {id: 26, name: 'Complaining', color: '#66ccff'},
-  {id: 33, name: 'Debugging', color: '#993333'},
-  {id: 66, name: 'Lunch', color: '#ff99ff'},
-  {id: 76, name: 'Napping', color: '#666633'}
+  {id: 22, name: 'Reading', color: '#b9f6ca'},
+  {id: 23, name: 'Phone Calls', color: '#84ffff'},
+  {id: 24, name: 'Browsing Reddit', color: '#b388ff'},
+  {id: 25, name: 'Walking in Circles', color: '#ff80ab'},
+  {id: 26, name: 'Complaining', color: '#ff9e80'},
+  {id: 33, name: 'Debugging', color: '#ffff8d'},
+  {id: 66, name: 'Lunch', color: '#80d8ff'},
+  {id: 76, name: 'Napping', color: '#ea80fc'}
 ]
 
 
@@ -127,7 +127,6 @@ class App extends React.Component {
         minutes: 0
       })
     }
-    console.log(`TIMER: ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`);
   }
 
   taskChange(index) {
