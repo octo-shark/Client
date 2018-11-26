@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment';
 const s = {
   wrap: {
     backgroundColor: 'lightgrey',
@@ -15,7 +15,7 @@ const s = {
 		1px 1px 0 #000`
   },
   time: {
-    paddingLeft: '10px',
+    paddingLeft: '4px',
     color: 'white',
     textShadow:
 		`-1px -1px 0 #000,
@@ -28,9 +28,11 @@ const s = {
 
 const HistoryItem = (props) => {
   return (
-    <div style={{'backgroundColor': props.entry.color, display: 'grid', gridTemplateRows: 'repeat(4)'}}>
+    <div style={{'backgroundColor': 'lightGreen', display: 'grid', gridTemplateRows: 'repeat(3)'}}>
         <a style={s.name}>{props.entry.name}</a>
-        <a style={s.time}>{ props.entry.start} - {props.entry.finish}</a>
+        <a style={s.time}>
+          {moment.unix(props.entry.timestamp_start).format('h:mm A')} - {moment.unix(props.entry.timestamp_end).format('h:mm A')}
+        </a>
 
     </div>
   )

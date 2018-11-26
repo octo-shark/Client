@@ -1,7 +1,7 @@
 import React from 'react';
-import TimerDisplay from '../components/timerDisplay.jsx';
-import HistoryStack from '../components/historyStack.jsx';
-import DeviceSim from '../components/deviceSim.jsx';
+import TimerDisplay from './timerDisplay.jsx';
+import HistoryStack from './historyStack.jsx';
+import DeviceSim from './deviceSim.jsx';
 import StopWatch from './stopWatch.jsx';
 
 const s = {
@@ -27,27 +27,17 @@ const s = {
   }
 }
 
-class Main extends React.Component {
+class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       curActivity: 'name',
     };
   }
-
-  // startTimer() {
-  //   this.setState({startTime: new Date()});
-  //   console.log('started timer');
-  // }
-  // stopTimer() {
-  //   console.log(new Date() - this.state.startTime);
-  //   this.setState({startTime: new Date()}); // FIXME
-  // }
  
   render() {
     return (
       <div style={s.wrap}>
-      {console.log('FROM MAIN', this.props.hours, this.props.minutes, this.props.seconds)}
         <div style={s.timerBox}>
            <StopWatch
              seconds={this.props.seconds}
@@ -66,4 +56,4 @@ class Main extends React.Component {
   };
 }
 
-export default Main;
+export default MainView;

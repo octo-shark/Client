@@ -12,19 +12,17 @@ const s = {
   }
 };
 
-const format = (num = 2) => {
-  let str = '';
-  if (num < 10) str += '0';
-  str += num.toString();
-  return str;
+const format = (num) => {
+  if (num === 0) return ' 0';
+  if (num > 0 && num < 10) return ' ' + num.toString();
+  if (num >= 10) return num.toString();
 };
 
 const StopWatch = (props) => (
   <div>
-    {console.log('FROM STOPWATCH', props)}
-    <a style={s.hours}>{props.hours}:</a>
-    <a style={s.minutes}>{props.minutes}:</a>
-    <a style={s.seconds}>{props.seconds}</a>
+    <a style={s.hours}>{format(props.hours)}h </a>
+    <a style={s.minutes}>{format(props.minutes)}m </a>
+    <a style={s.seconds}>{format(props.seconds)}s</a>
   </div>
 )
 

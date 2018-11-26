@@ -1,18 +1,17 @@
 import React from 'react';
-import PieChart from './historyComponents/PieChart.jsx' 
+// import PieChart from './historyComponents/PieChart.jsx' 
 import BackLogs from './historyComponents/BackLogs.jsx'
 import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr, 300px',
+    gridTemplateColumns: '1fr 200px',
     gridTemplateRows: 'repeat(2, 1fr)',
   },
   pieChart:{
     gridColumn: '1/2',
     gridRow: '1/2',
-    textAlign: 'center',
-    backgroundColor: 'lightBlue'
+    textAlign: 'center'
   },
   backLogWrap: {
     gridColumn: '1/2',
@@ -36,18 +35,16 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
-      <div style={s.pieChart}>
-        <h1>Meme</h1>
-        <PieChart/>
-      </div>
-      <div style={s.backLogWrap}>
-        <BackLogs/>
-
-      </div>
-      <div style={s.activityLog}>
-
-        <ActivityLogs/>
-      </div>
+        <div style={s.pieChart}>
+          <h1>PieChart</h1>
+          {/* <PieChart/> */}
+        </div>
+        <div style={s.backLogWrap}>
+          <BackLogs/>
+        </div>
+        <div style={s.activityLog}>
+          <ActivityLogs/>
+        </div>
       </div>
     )
   }

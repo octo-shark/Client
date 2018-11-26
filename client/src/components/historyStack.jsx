@@ -6,13 +6,12 @@ const s = {
     display: 'grid',
     gridAutoRows: 'minmax(80px, auto)',
     textAlign: 'center',
-    gridGap: '4px',
-    padding: '4px'
+    gridGap: '2px',
+    padding: '2px'
   },
 }
 
 const HistoryStack = (props) => {
-
   return (
     <div style={s.wrap}>
       {props.userHistory.map((entry, index) => 
