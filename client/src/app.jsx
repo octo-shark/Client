@@ -56,6 +56,7 @@ class App extends React.Component {
         {name: 'Walking in Circles', totalTime: 129, start: '12:51', finish: '3:00pm', color: '#669999'}
       ],
       account: {email: 'test'},
+      curActivity: null,
       on: false,
       startTime: 0,
       stopTime: 0,
@@ -93,9 +94,10 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  startTimer() {
+  startTimer(index) {
     if (!this.state.keepTime) {
       this.setState({
+        curActivity: index,
         seconds: 0,
         minutes: 0,
         hours: 0,
@@ -136,9 +138,10 @@ class App extends React.Component {
   taskChange(index) {
     console.log(`taskChange - face: ${index}`);
     console.table(this.state.faceAssignment[index]);
-    this.setState({
-      
-    })
+
+    this.stopTimer();
+    this.startTimer(index);
+
   }
 
   changeView(page) {

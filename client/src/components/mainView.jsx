@@ -46,7 +46,10 @@ class MainView extends React.Component {
            />
         </div>
         <div style={s.historyBox}>
-          <HistoryStack userHistory={this.props.userHistory}/>
+          <HistoryStack
+            userHistory={this.props.userHistory}
+            colorAssignment={this.props.colorAssignment}
+          />
         </div>
         <div>
           <DeviceSim startTimer={this.props.startTimer} stopTimer={this.props.stopTimer}/>

@@ -7,28 +7,18 @@ const s = {
   name: {
     fontSize: 24,
     fontStyle: 'bold',
-    color: 'white',
-    textShadow:
-		`-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000`
+    color: 'Black'
   },
   time: {
     paddingLeft: '4px',
-    color: 'white',
-    textShadow:
-		`-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000`,
+    color: 'Black',
     fontSize: 18
   }
 }
 
 const HistoryItem = (props) => {
   return (
-    <div style={{'backgroundColor': 'lightGreen', display: 'grid', gridTemplateRows: 'repeat(3)'}}>
+    <div style={{'backgroundColor': props.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
         <a style={s.name}>{props.entry.name}</a>
         <a style={s.time}>
           {moment.unix(props.entry.timestamp_start).format('h:mm A')} - {moment.unix(props.entry.timestamp_end).format('h:mm A')}
