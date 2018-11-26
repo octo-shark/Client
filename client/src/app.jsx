@@ -6,6 +6,7 @@ import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
 import fakeData from './components/fakeUserData.js';
 import moment from 'moment';
+import { throws } from 'assert';
 
 
 const axios = require('axios');
@@ -136,12 +137,22 @@ class App extends React.Component {
   }
 
   taskChange(index) {
-    console.log(`taskChange - face: ${index}`);
-    console.table(this.state.faceAssignment[index]);
-
-    this.stopTimer();
-    this.startTimer(index);
-
+    if (!this.state.keepTime) {this.startTimer(index)}
+    else {
+      let now = Date.now();
+      let prev_session = {
+        activity_id: this.state.faceAssignment[index].id,
+        timestamp_start: this.state.startTime,
+        timestamp_end: now
+      }
+      this.setState({
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        startTime: now,
+        userHistory: this.state.userHistory.concat(prev_session)
+      })
+    }
   }
 
   changeView(page) {
