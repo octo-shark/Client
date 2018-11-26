@@ -49,12 +49,7 @@ class App extends React.Component {
       view: 'mainView',
       faceAssignment: [],
       colorAssignment: {},
-      userHistory: [
-        {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
-        {name: 'Phone Calls', totalTime: 15, start: '12:30pm', finish: '12:45pm', color: '#660066'},
-        {name: 'Browsing Reddit', totalTime: 6, start: '12:45pm', finish: '12:51pm', color: '#ffcc00'},
-        {name: 'Walking in Circles', totalTime: 129, start: '12:51', finish: '3:00pm', color: '#669999'}
-      ],
+      userHistory: [],
       account: {email: 'test'},
       on: false,
       startTime: 0,
@@ -164,7 +159,10 @@ class App extends React.Component {
         );
       case 'historyView':
         return (
-          <HistoryView/>
+          <HistoryView
+          userHistory={this.state.userHistory}
+          colorAssignment={this.state.colorAssignment}
+          />
         );
       case 'settingsView':
         return (
