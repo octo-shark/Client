@@ -21,7 +21,7 @@ const HistoryItem = (props) => {
     <div style={{'backgroundColor': props.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
         <a style={s.name}>{props.entry.name}</a>
         <a style={s.time}>
-          {moment.unix(props.entry.timestamp_start).format('h:mm A')} - {moment.unix(props.entry.timestamp_end).format('h:mm A')}
+          {moment(parseInt(props.entry.timestamp_start)).format(`h:mm A`)} - {moment(parseInt(props.entry.timestamp_end)).format(`h:mm A`)}
         </a>
 
     </div>
