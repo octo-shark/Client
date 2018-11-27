@@ -135,17 +135,17 @@ class App extends React.Component {
     if (!this.state.keepTime) {this.startTimer(index)}
     else {
       let now = Date.now();
-      let prev_session = {
+      let prev_session = [{
         activity_id: this.state.faceAssignment[index].id,
         timestamp_start: this.state.startTime,
         timestamp_end: now
-      }
+      }];
       this.setState({
         seconds: 0,
         minutes: 0,
         hours: 0,
         startTime: now,
-        userHistory: this.state.userHistory.concat(prev_session)
+        userHistory: prev_session.concat(this.state.userHistory)
       })
     }
   }
