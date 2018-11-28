@@ -25,7 +25,7 @@ const s = {
     textAlign: 'center'
   },
   page: {
-    backgroundColor: 'pink'
+    backgroundColor: '#adb7c1'
   },
   sim: {
   }
