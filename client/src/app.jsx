@@ -157,11 +157,11 @@ class App extends React.Component {
       case 'mainView':
         return (
           <MainView
-            userHistory={this.state.userHistory}
-            colorAssignment={this.state.colorAssignment}
-            orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
             stopTimer={this.stopTimer.bind(this)}
+            getActInfo={this.getActInfo.bind(this)}
+            userHistory={this.state.userHistory}
+            orientation={this.state.orientation}
             seconds={this.state.seconds}
             minutes={this.state.minutes}
             hours={this.state.hours}

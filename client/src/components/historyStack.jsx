@@ -17,8 +17,8 @@ const HistoryStack = (props) => {
       {props.userHistory.map((entry, index) => 
         <HistoryItem
           entry={entry}
-          key={index}
-          color={props.colorAssignment[entry.activity_id]}
+          key={`History Item ${index}`}
+          getActInfo={props.getActInfo}
         />
       )}
     </div>
