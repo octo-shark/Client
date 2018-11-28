@@ -7,7 +7,8 @@ const s = {
    gridTemplateRows: '100px 100px 100px 100px 1fr 100px',
    height: '100%',
    padding: '2px',
-   gridGap: '2px'
+   gridGap: '2px',
+   overflow: 'hidden'
   },
   item: {
     backgroundColor: 'lightGrey',
@@ -30,8 +31,8 @@ const NavBar = (props) => (
     <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
     <div>
       <DevSimB
-        faceAssignment={props.faceAssignment}
-        colorAssignment={props.colorAssignment}
+        getActInfo={props.getActInfo}
+        assignedActivities={props.assignedActivities}
         taskChange={props.taskChange}
       />
     </div>

@@ -11,21 +11,22 @@ const s = {
 const DevSimB = (props) => {
   return (
     <div style={s.wrap}>
-      {props.faceAssignment.map((face, index) => {
+      {props.assignedActivities.map(id => {
+        let info = props.getActInfo(id);
         let faceStyle = {
           fontSize: 10,
           border: 'none',
           height: '30px',
           overflow: 'hidden',
-          backgroundColor: props.colorAssignment[face.id]
+          backgroundColor: info.color
         }
         return (
           <input 
             style={faceStyle}
             type='submit'
-            value={face.name}
-            key={`faceAssignment ${index}`}
-            onClick={() => props.taskChange(index)}
+            value={info.name}
+            key={`assignedAct ${id}`}
+            onClick={() => props.taskChange(id)}
           />
         );
       })}

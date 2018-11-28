@@ -74,11 +74,7 @@ class App extends React.Component {
 
         console.log('mockData:');
         console.log(mockData);
-        let temp  = mockData.assigned_activities.map(id =>
-          mockData.activities[id]
-        );
-        console.log('map');
-        console.table(temp);
+
         this.setState({
           // test data being used
           account: mockData.account,
@@ -209,10 +205,11 @@ class App extends React.Component {
         <div style={s.nav}>
           <NavBar 
             changeView={this.changeView.bind(this)}
-            account={this.state.account}
-            assignedActInfo={this.state.assignedActivities.map(id => this.getActInfo(id))}
-            colorAssignment={this.state.colorAssignment}
             taskChange={this.taskChange.bind(this)}
+            getActInfo={this.getActInfo.bind(this)}
+            account={this.state.account}
+            assignedActivities={this.state.assignedActivities}
+            colorAssignment={this.state.colorAssignment}
           />
         </div>
         <div style={s.page}>
