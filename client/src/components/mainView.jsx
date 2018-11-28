@@ -22,10 +22,6 @@ const s = {
     backgroundColor: 'Grey',
     overflow: 'auto',
     height: '98vh' // FIXME change literal to relative value
-  },
-  sim: {
-    gridRow: '2/3',
-    gridColumn: '1/2'
   }
 }
 
@@ -50,11 +46,8 @@ class MainView extends React.Component {
         <div style={s.historyBox}>
           <HistoryStack
             userHistory={this.props.userHistory}
-            colorAssignment={this.props.colorAssignment}
+            getActInfo={this.props.getActInfo}
           />
-        </div>
-        <div>
-          <DeviceSim startTimer={this.props.startTimer} stopTimer={this.props.stopTimer}/>
         </div>
       </div>
     );

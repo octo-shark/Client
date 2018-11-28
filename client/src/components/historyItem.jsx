@@ -26,18 +26,17 @@ const HistoryItem = (props) => {
   let seconds = dur.seconds();
   let minutes = dur.minutes();
   let hours = dur.hours();
-
+  let info = props.getActInfo(props.entry.activity_id);
 
   return (
-    <div style={{'backgroundColor': props.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
-        {/* <a style={s.name}>{props.entry.name}</a> */}
+    <div style={{'backgroundColor': info.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
+        <a>{info.name}</a>
         <a style={s.duration}>
           {`${hours}h ${minutes}m ${seconds}s`}
         </a>
         <a style={s.time}>
           {moment(parseInt(props.entry.timestamp_start)).format(`h:mm A`)} - {moment(parseInt(props.entry.timestamp_end)).format(`h:mm A`)}
         </a>
-
     </div>
   )
 }
