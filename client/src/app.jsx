@@ -5,6 +5,7 @@ import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
 import fakeData from './components/fakeUserData.js';
+import ActivityCreator from './components/activityCreator.jsx'; 
 import moment from 'moment';
 import { throws } from 'assert';
 
@@ -187,6 +188,10 @@ class App extends React.Component {
             faceAssignment={this.state.faceAssignment}
           />
         );
+      case 'activityCreator':
+          return (
+            <ActivityCreator/>
+          );
       default: 
         return (
           <p>Invalid Page</p>

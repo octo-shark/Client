@@ -26,7 +26,7 @@ const NavBar = (props) => (
   <div style={s.wrap}>
     <div style={s.item} onClick={() => props.changeView('mainView')}>Main</div>
     <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
-    <div style={s.item}>C</div>
+    <div style={s.item} onClick={() => props.changeView('activityCreator')}>create</div>
     <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
     <div>
       <DevSimB
