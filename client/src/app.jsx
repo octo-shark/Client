@@ -48,6 +48,7 @@ class App extends React.Component {
     this.state = {
       view: 'mainView',
       faceAssignment: [],
+      assignedActivities: [],
       colorAssignment: {},
       userHistory: [],
       account: {email: 'test'},
@@ -70,12 +71,14 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
-        console.log(fakeData);
+
+        console.log('mockData:');
+        console.log(mockData);
         this.setState({
           // test data being used
-          account: res.data[0],
-          faceAssignment: fakeData.assigned_activites,
-          colorAssignment: fakeData.color_preferences
+          account: mockData.account,
+          activities: mockData.activities,
+          assignedActivities: mockData.assigned_activities
         });
       })
       .catch(err => console.log(err));
