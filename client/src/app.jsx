@@ -74,6 +74,11 @@ class App extends React.Component {
 
         console.log('mockData:');
         console.log(mockData);
+        let temp  = mockData.assigned_activities.map(id =>
+          mockData.activities[id]
+        );
+        console.log('map');
+        console.table(temp);
         this.setState({
           // test data being used
           account: mockData.account,
@@ -92,6 +97,10 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  getActInfo(id) {
+    return this.state.activities[id];
+  }
+
   startTimer(index) {
     if (!this.state.keepTime) {
       this.setState({
@@ -104,7 +113,7 @@ class App extends React.Component {
         startTime: Date.now(),
       })
     }
-  };
+  }
 
   stopTimer() {
     let prev = moment.duration(Date.now() - this.state.startTime);
@@ -201,7 +210,7 @@ class App extends React.Component {
           <NavBar 
             changeView={this.changeView.bind(this)}
             account={this.state.account}
-            faceAssignment={this.state.faceAssignment}
+            assignedActInfo={this.state.assignedActivities.map(id => this.getActInfo(id))}
             colorAssignment={this.state.colorAssignment}
             taskChange={this.taskChange.bind(this)}
           />
