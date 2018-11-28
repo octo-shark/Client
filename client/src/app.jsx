@@ -5,9 +5,8 @@ import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
 import fakeData from './components/fakeUserData.js';
+import mockData from './components/mockData.js';
 import moment from 'moment';
-import { throws } from 'assert';
-
 
 const axios = require('axios');
 const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
