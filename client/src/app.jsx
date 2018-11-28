@@ -97,10 +97,10 @@ class App extends React.Component {
     return this.state.activities[id];
   }
 
-  startTimer(index) {
+  startTimer(id) {
     if (!this.state.keepTime) {
       this.setState({
-        curActivity: index,
+        curActivity: id,
         seconds: 0,
         minutes: 0,
         hours: 0,
@@ -138,12 +138,12 @@ class App extends React.Component {
     }
   }
 
-  taskChange(index) {
-    if (!this.state.keepTime) {this.startTimer(index)}
+  taskChange(id) {
+    if (!this.state.keepTime) {this.startTimer(id)}
     else {
       let now = Date.now();
       let prev_session = [{
-        activity_id: this.state.faceAssignment[index].id,
+        activity_id: id,
         timestamp_start: this.state.startTime,
         timestamp_end: now
       }];
