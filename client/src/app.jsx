@@ -31,17 +31,6 @@ const s = {
   }
 }
 
-// const exampleUserFaceAssignment = [
-//   {id: 1, name: 'Reading', color: '#b9f6ca'},
-//   {id: 2, name: 'Phone Calls', color: '#84ffff'},
-//   {id: 3, name: 'Browsing Reddit', color: '#b388ff'},
-//   {id: 4, name: 'Walking in Circles', color: '#ff80ab'},
-//   {id: 26, name: 'Complaining', color: '#ff9e80'},
-//   {id: 33, name: 'Debugging', color: '#ffff8d'},
-//   {id: 66, name: 'Lunch', color: '#80d8ff'},
-//   {id: 76, name: 'Napping', color: '#ea80fc'}
-// ]
-
 class App extends React.Component {
   constructor() {
     super();
