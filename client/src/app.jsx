@@ -6,9 +6,8 @@ import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
 import fakeData from './components/fakeUserData.js';
 import ActivityCreator from './components/activityCreator.jsx'; 
+import mockData from './components/mockData.js';
 import moment from 'moment';
-import { throws } from 'assert';
-
 
 const axios = require('axios');
 const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
@@ -51,12 +50,7 @@ class App extends React.Component {
       view: 'mainView',
       faceAssignment: [],
       colorAssignment: {},
-      userHistory: [
-        {name: 'Reading', totalTime: 90, start: '11:00am', finish: '12:30pm', color: '#ff9999'},
-        {name: 'Phone Calls', totalTime: 15, start: '12:30pm', finish: '12:45pm', color: '#660066'},
-        {name: 'Browsing Reddit', totalTime: 6, start: '12:45pm', finish: '12:51pm', color: '#ffcc00'},
-        {name: 'Walking in Circles', totalTime: 129, start: '12:51', finish: '3:00pm', color: '#669999'}
-      ],
+      userHistory: [],
       account: {email: 'test'},
       curActivity: null,
       on: false,
@@ -141,17 +135,17 @@ class App extends React.Component {
     if (!this.state.keepTime) {this.startTimer(index)}
     else {
       let now = Date.now();
-      let prev_session = {
+      let prev_session = [{
         activity_id: this.state.faceAssignment[index].id,
         timestamp_start: this.state.startTime,
         timestamp_end: now
-      }
+      }];
       this.setState({
         seconds: 0,
         minutes: 0,
         hours: 0,
         startTime: now,
-        userHistory: this.state.userHistory.concat(prev_session)
+        userHistory: prev_session.concat(this.state.userHistory)
       })
     }
   }
@@ -179,7 +173,10 @@ class App extends React.Component {
         );
       case 'historyView':
         return (
-          <HistoryView/>
+          <HistoryView
+          userHistory={this.state.userHistory}
+          colorAssignment={this.state.colorAssignment}
+          />
         );
       case 'settingsView':
         return (

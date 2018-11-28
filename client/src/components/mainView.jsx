@@ -19,7 +19,9 @@ const s = {
   historyBox: {
     gridRow: '1/3',
     gridColumn: '2/3',
-    backgroundColor: 'Grey'
+    backgroundColor: 'Grey',
+    overflow: 'auto',
+    height: '98vh' // FIXME change literal to relative value
   },
   sim: {
     gridRow: '2/3',

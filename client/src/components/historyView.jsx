@@ -2,6 +2,7 @@ import React from 'react';
 // import PieChart from './historyComponents/PieChart.jsx' 
 import BackLogs from './historyComponents/BackLogs.jsx'
 import ActivityLogs from './historyComponents/ActivityLogs.jsx'
+import PieChart from './historyComponents/PieChart.jsx'
 const s = {
   wrap: {
     display: 'grid',
@@ -25,8 +26,8 @@ const s = {
   }
 }
 class History extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
 
     };
@@ -37,7 +38,8 @@ class History extends React.Component {
       <div style={s.wrap}>
         <div style={s.pieChart}>
           <h1>PieChart</h1>
-          {/* <PieChart/> */}
+          <PieChart userHistory={this.props.userHistory} colorAssignment={this.props.colorAssignment}
+/>
         </div>
         <div style={s.backLogWrap}>
           <BackLogs/>
