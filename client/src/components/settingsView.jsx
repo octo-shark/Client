@@ -1,10 +1,11 @@
 import React from 'react';
+import ActivityButton from './activityButton.jsx';
 
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1f',
-    gridAutoRows: 'minmax(20px, 60px)',
+    gridTemplateColumns: '1fr',
+    gridAutoRows: '50px',
     height: '100%',
     padding: '4px',
     gridGap: '4px'
@@ -13,34 +14,33 @@ const s = {
     backgroundColor: 'lightGrey',
     textAlign: 'center',
     fontSize: 36
-  },
-  accountInfo: {
-    display: 'grid',
-    backgroundColor: 'lightGrey',
-    gridAutoRows: 'auto'
   }
 }
 
 class SettingsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+
+    };
   }
 
   render() {
     return (
       <div style={s.wrap}>
         <div style={s.title}>
-          <a>Account Settings</a>
+          <a>Settings</a>
         </div>
-        <div style={s.accountInfo}>
-          <a>username: {this.props.account.username}</a>
-          <a>email: {this.props.account.email}</a>
-          <a>id: {this.props.account.id}</a>
+        <div>
+          {Object.keys(this.props.activities).map(id=> (
+            <ActivityButton info={this.props.getActInfo(id)}/>
+          ))}
         </div>
+        
       </div>
-    )
+    );
   }
 }
+
 
 export default SettingsView;

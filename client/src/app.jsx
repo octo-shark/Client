@@ -178,7 +178,9 @@ class App extends React.Component {
         return (
           <SettingsView
             account={this.state.account}
-            faceAssignment={this.state.faceAssignment}
+            activities={this.state.activities}
+            assignedActivities={this.state.assignedActivities}
+            getActInfo={this.getActInfo.bind(this)}
           />
         );
       default: 
