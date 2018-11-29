@@ -4,7 +4,7 @@ const s = {
 }
 
 const ActivityButton = (props) => (
-  <div style={{backgroundColor: props.info.color}}>
+  <div style={{backgroundColor: props.info.color}} onClick={()=>props.clickEvent()}>
     <a>{props.info.name}</a>
   </div>
 )

@@ -127,6 +127,18 @@ class App extends React.Component {
     }
   }
 
+  updateAct(id, info) {
+    console.log('prev acts:');
+    console.log(this.state.activites);
+
+    let newActs = Object.assign({}, this.state.activites);
+    newActs[id] = info;
+    this.setState({activities: newActs});
+
+    console.log('new acts:');
+    console.log(this.state.activites);
+  }
+
   taskChange(id) {
     if (!this.state.keepTime) {this.startTimer(id)}
     else {
@@ -181,6 +193,7 @@ class App extends React.Component {
             activities={this.state.activities}
             assignedActivities={this.state.assignedActivities}
             getActInfo={this.getActInfo.bind(this)}
+            updateAct={this.updateAct.bind(this)}
           />
         );
       default: 
