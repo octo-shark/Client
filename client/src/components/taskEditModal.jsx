@@ -57,7 +57,12 @@ class TaskEditModal extends React.Component {
           <div>
             COLOR
           </div>
-          <button onClick={() => this.props.updateAct(this.props.id, this.state.name, this.state.color)}>Save</button>
+          <button onClick={() => {
+            this.props.updateAct(this.props.id, this.state.name, this.state.color);
+            this.props.handleClose();
+          }}>
+            Save
+            </button>
           <button onClick={() => this.props.handleClose()}>Cancel</button>
         </section>
       </div>
