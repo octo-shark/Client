@@ -38,6 +38,7 @@ class App extends React.Component {
       view: 'mainView',
       faceAssignment: [],
       assignedActivities: [],
+      activities: {},
       colorAssignment: {},
       userHistory: [],
       account: {email: 'test'},
@@ -127,6 +128,20 @@ class App extends React.Component {
     }
   }
 
+  updateAct(id, name, color) {
+    console.log(id);
+    console.log('prev acts:');
+    console.log(this.state.activities);
+
+    let newActs = Object.assign({}, this.state.activities);
+    newActs[id].name = name;
+    newActs[id].color = color;
+    this.setState({activities: newActs});
+
+    console.log('new acts:');
+    console.log(this.state.activities);
+  }
+
   taskChange(id) {
     if (!this.state.keepTime) {this.startTimer(id)}
     else {
@@ -178,7 +193,10 @@ class App extends React.Component {
         return (
           <SettingsView
             account={this.state.account}
-            faceAssignment={this.state.faceAssignment}
+            activities={this.state.activities}
+            assignedActivities={this.state.assignedActivities}
+            getActInfo={this.getActInfo.bind(this)}
+            updateAct={this.updateAct.bind(this)}
           />
         );
       default: 
