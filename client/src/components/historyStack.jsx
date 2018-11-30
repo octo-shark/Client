@@ -4,10 +4,10 @@ import HistoryItem from '../components/historyItem.jsx';
 const s = {
   wrap: {
     display: 'grid',
-    gridAutoRows: 'minmax(80px, auto)',
+    gridAutoRows: '8rem',
     textAlign: 'center',
-    gridGap: '2px',
-    padding: '2px'
+    gridGap: '0.2rem',
+    padding: '0.2rem'
   },
 }
 
@@ -17,8 +17,8 @@ const HistoryStack = (props) => {
       {props.userHistory.map((entry, index) => 
         <HistoryItem
           entry={entry}
-          key={index}
-          color={props.colorAssignment[entry.activity_id]}
+          key={`History Item ${index}`}
+          getActInfo={props.getActInfo}
         />
       )}
     </div>

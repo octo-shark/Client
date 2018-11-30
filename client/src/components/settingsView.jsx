@@ -1,45 +1,68 @@
 import React from 'react';
+import ActivityButton from './activityButton.jsx';
+import TaskEditModal from './taskEditModal.jsx';
 
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1f',
-    gridAutoRows: 'minmax(20px, 60px)',
+    gridAutoRows: 'auto',
     height: '100%',
-    padding: '4px',
-    gridGap: '4px'
+    padding: '0.4rem',
+    gridGap: '0.4rem'
   },
   title: {
     backgroundColor: 'lightGrey',
     textAlign: 'center',
-    fontSize: 36
-  },
-  accountInfo: {
-    display: 'grid',
-    backgroundColor: 'lightGrey',
-    gridAutoRows: 'auto'
+    fontSize: '3rem'
   }
 }
 
 class SettingsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modelToggled: false,
+      modelTarget: null
+    };
+  }
+
+  showModal(id) {
+    this.setState({
+      modelToggled: true,
+      modelTarget: id
+    })
+    console.log('show');
+  }
+
+  hideModal() {this.setState({ modelToggled: false })}
+
+  displayModal() {
+    if (this.state.modelToggled) {
+      return (
+        <TaskEditModal
+          handleClose={this.hideModal.bind(this)}
+          updateAct={this.props.updateAct}
+          actInfo={this.props.getActInfo(this.state.modelTarget)}
+          id={this.state.modelTarget}
+        />
+      )
+    }
   }
 
   render() {
     return (
       <div style={s.wrap}>
         <div style={s.title}>
-          <a>Account Settings</a>
+          <a>Settings</a>
         </div>
-        <div style={s.accountInfo}>
-          <a>username: {this.props.account.username}</a>
-          <a>email: {this.props.account.email}</a>
-          <a>id: {this.props.account.id}</a>
+        <div>
+          {Object.keys(this.props.activities).map(id=> (
+            <ActivityButton id={id} info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
+          ))}
         </div>
+        {this.displayModal()}
       </div>
-    )
+    );
   }
 }
 

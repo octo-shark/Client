@@ -3,7 +3,7 @@ import React from 'react';
 const s = {
   wrap: {
     display: 'grid',
-    gridGap: '2px'
+    gridGap: '0.2rem'
   },
 }
 
@@ -11,21 +11,22 @@ const s = {
 const DevSimB = (props) => {
   return (
     <div style={s.wrap}>
-      {props.faceAssignment.map((face, index) => {
+      {props.assignedActivities.map(id => {
+        let info = props.getActInfo(id);
         let faceStyle = {
-          fontSize: 10,
+          fontSize: '1em',
           border: 'none',
-          height: '30px',
+          height: '3rem',
           overflow: 'hidden',
-          backgroundColor: props.colorAssignment[face.id]
+          backgroundColor: info.color
         }
         return (
           <input 
             style={faceStyle}
             type='submit'
-            value={face.name}
-            key={`faceAssignment ${index}`}
-            onClick={() => props.taskChange(index)}
+            value={info.name}
+            key={`assignedAct ${id}`}
+            onClick={() => props.taskChange(id)}
           />
         );
       })}

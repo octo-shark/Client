@@ -4,19 +4,18 @@ import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
-import fakeData from './components/fakeUserData.js';
 import ActivityCreator from './components/activityCreator.jsx'; 
 import mockData from './components/mockData.js';
 import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
+const proxy = 'https://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '100px 1fr',
+    gridTemplateColumns: '10rem 1fr',
     gridTemplateRows: '1fr', //placeholder
-    gridGap: '5px',
+    gridGap: '0.5rem',
     height: '98vh'
   },
   nav: {
@@ -26,22 +25,11 @@ const s = {
     textAlign: 'center'
   },
   page: {
-    backgroundColor: 'pink'
+    backgroundColor: '#adb7c1'
   },
   sim: {
   }
 }
-
-// const exampleUserFaceAssignment = [
-//   {id: 1, name: 'Reading', color: '#b9f6ca'},
-//   {id: 2, name: 'Phone Calls', color: '#84ffff'},
-//   {id: 3, name: 'Browsing Reddit', color: '#b388ff'},
-//   {id: 4, name: 'Walking in Circles', color: '#ff80ab'},
-//   {id: 26, name: 'Complaining', color: '#ff9e80'},
-//   {id: 33, name: 'Debugging', color: '#ffff8d'},
-//   {id: 66, name: 'Lunch', color: '#80d8ff'},
-//   {id: 76, name: 'Napping', color: '#ea80fc'}
-// ]
 
 class App extends React.Component {
   constructor() {
@@ -49,6 +37,8 @@ class App extends React.Component {
     this.state = {
       view: 'mainView',
       faceAssignment: [],
+      assignedActivities: [],
+      activities: {},
       colorAssignment: {},
       userHistory: [],
       account: {email: 'test'},
@@ -71,12 +61,15 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
-        console.log(fakeData);
+
+        console.log('mockData:');
+        console.log(mockData);
+
         this.setState({
           // test data being used
-          account: res.data[0],
-          faceAssignment: fakeData.assigned_activites,
-          colorAssignment: fakeData.color_preferences
+          account: mockData.account,
+          activities: mockData.activities,
+          assignedActivities: mockData.assigned_activities
         });
       })
       .catch(err => console.log(err));
@@ -90,10 +83,14 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  startTimer(index) {
+  getActInfo(id) {
+    return this.state.activities[id];
+  }
+
+  startTimer(id) {
     if (!this.state.keepTime) {
       this.setState({
-        curActivity: index,
+        curActivity: id,
         seconds: 0,
         minutes: 0,
         hours: 0,
@@ -102,7 +99,7 @@ class App extends React.Component {
         startTime: Date.now(),
       })
     }
-  };
+  }
 
   stopTimer() {
     let prev = moment.duration(Date.now() - this.state.startTime);
@@ -131,12 +128,26 @@ class App extends React.Component {
     }
   }
 
-  taskChange(index) {
-    if (!this.state.keepTime) {this.startTimer(index)}
+  updateAct(id, name, color) {
+    console.log(id);
+    console.log('prev acts:');
+    console.log(this.state.activities);
+
+    let newActs = Object.assign({}, this.state.activities);
+    newActs[id].name = name;
+    newActs[id].color = color;
+    this.setState({activities: newActs});
+
+    console.log('new acts:');
+    console.log(this.state.activities);
+  }
+
+  taskChange(id) {
+    if (!this.state.keepTime) {this.startTimer(id)}
     else {
       let now = Date.now();
       let prev_session = [{
-        activity_id: this.state.faceAssignment[index].id,
+        activity_id: id,
         timestamp_start: this.state.startTime,
         timestamp_end: now
       }];
@@ -161,11 +172,11 @@ class App extends React.Component {
       case 'mainView':
         return (
           <MainView
-            userHistory={this.state.userHistory}
-            colorAssignment={this.state.colorAssignment}
-            orientation={this.state.orientation}
             startTimer={this.startTimer.bind(this)}
             stopTimer={this.stopTimer.bind(this)}
+            getActInfo={this.getActInfo.bind(this)}
+            userHistory={this.state.userHistory}
+            orientation={this.state.orientation}
             seconds={this.state.seconds}
             minutes={this.state.minutes}
             hours={this.state.hours}
@@ -182,10 +193,13 @@ class App extends React.Component {
         return (
           <SettingsView
             account={this.state.account}
-            faceAssignment={this.state.faceAssignment}
+            activities={this.state.activities}
+            assignedActivities={this.state.assignedActivities}
+            getActInfo={this.getActInfo.bind(this)}
+            updateAct={this.updateAct.bind(this)}
           />
         );
-      case 'activityCreator':
+      case 'activityView':
           return (
             <ActivityCreator/>
           );
@@ -202,10 +216,11 @@ class App extends React.Component {
         <div style={s.nav}>
           <NavBar 
             changeView={this.changeView.bind(this)}
-            account={this.state.account}
-            faceAssignment={this.state.faceAssignment}
-            colorAssignment={this.state.colorAssignment}
             taskChange={this.taskChange.bind(this)}
+            getActInfo={this.getActInfo.bind(this)}
+            account={this.state.account}
+            assignedActivities={this.state.assignedActivities}
+            colorAssignment={this.state.colorAssignment}
           />
         </div>
         <div style={s.page}>

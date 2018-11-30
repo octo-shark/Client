@@ -2,44 +2,35 @@ import React from 'react';
 import DevSimB from '../components/devSimB.jsx';
 
 const s = {
+  //FIXME navbar buttons are wrong size, 100x96
   wrap: {
-   display: 'grid',
-   gridTemplateRows: '100px 100px 100px 100px 1fr 100px',
-   height: '100%',
-   padding: '2px',
-   gridGap: '2px'
+    display: 'grid',
+    gridTemplateRows: '10rem 10rem 10rem 10rem',
+    height: '100%',
+    gridGap: '0.2rem',
+     padding: '0.2rem',
+    overflow: 'wrap'
   },
   item: {
+    fontSize: '2em',
     backgroundColor: 'lightGrey',
-    textAlign: 'center',
-    fontSize: 30,
-    fontStyle: 'bold',
-  },
-  account: {
-    gridRow: '-1',
-    fontSize: 12,
-    color: 'white'
+    textAlign: 'center'
   }
 }
 
 const NavBar = (props) => (
   <div style={s.wrap}>
-    <div style={s.item} onClick={() => props.changeView('mainView')}>Main</div>
-    <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
-    <div style={s.item} onClick={() => props.changeView('activityCreator')}>create</div>
-    <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
-    <div>
-      <DevSimB
-        faceAssignment={props.faceAssignment}
-        colorAssignment={props.colorAssignment}
-        taskChange={props.taskChange}
-      />
-    </div>
-    <div style={s.account}>
-      <p>Dev Info</p>
-      <p>{props.account.email}</p>
-      <p>{props.account.id}</p>
-    </div>
+      <div style={s.item} onClick={() => props.changeView('mainView')}>Main</div>
+      <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
+      <div style={s.item} onClick={() => props.changeView('activityView')}>Create</div>
+      <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
+      <div>
+        <DevSimB
+          getActInfo={props.getActInfo}
+          assignedActivities={props.assignedActivities}
+          taskChange={props.taskChange}
+        />
+      </div>
   </div>
 )
 
