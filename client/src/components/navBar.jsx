@@ -2,19 +2,19 @@ import React from 'react';
 import DevSimB from '../components/devSimB.jsx';
 
 const s = {
+  //FIXME navbar buttons are wrong size, 100x96
   wrap: {
-   display: 'grid',
-   gridTemplateRows: '100px 100px 100px 100px 1fr',
-   height: '100%',
-   gridGap: '2px',
-   padding: '2px',
-   overflow: 'wrap'
+    display: 'grid',
+    gridTemplateRows: '10rem 10rem 10rem 10rem',
+    height: '100%',
+    gridGap: '0.2rem',
+     padding: '0.2rem',
+    overflow: 'wrap'
   },
   item: {
+    fontSize: '2em',
     backgroundColor: 'lightGrey',
-    textAlign: 'center',
-    fontSize: 30,
-    fontStyle: 'bold',
+    textAlign: 'center'
   }
 }
 

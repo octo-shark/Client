@@ -3,7 +3,7 @@ import React from 'react';
 const s = {
   wrap: {
     display: 'grid',
-    gridGap: '2px'
+    gridGap: '0.2rem'
   },
 }
 
@@ -14,9 +14,9 @@ const DevSimB = (props) => {
       {props.assignedActivities.map(id => {
         let info = props.getActInfo(id);
         let faceStyle = {
-          fontSize: 10,
+          fontSize: '1em',
           border: 'none',
-          height: '30px',
+          height: '3rem',
           overflow: 'hidden',
           backgroundColor: info.color
         }
