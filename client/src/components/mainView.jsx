@@ -7,7 +7,7 @@ import StopWatch from './stopWatch.jsx';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr 300px',
+    gridTemplateColumns: '1fr 30rem',
     gridTemplateRows: '1fr 1fr', //placeholder
     height: '100%'
   },

@@ -13,9 +13,9 @@ const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '100px 1fr',
+    gridTemplateColumns: '10rem 1fr',
     gridTemplateRows: '1fr', //placeholder
-    gridGap: '5px',
+    gridGap: '0.5rem',
     height: '98vh'
   },
   nav: {

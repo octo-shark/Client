@@ -3,11 +3,10 @@ import React from 'react';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
     gridAutoRows: 'auto',
     height: '100%',
-    padding: '4px',
-    gridGap: '4px'
+    padding: '0.4rem',
+    gridGap: '0.4rem'
   },
 
   modal: {

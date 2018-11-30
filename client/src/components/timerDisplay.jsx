@@ -2,7 +2,7 @@ import React from 'react';
 
 const s = {
   timer: {
-    fontSize: 100,
+    fontSize: '50rem',
     fontStyle: 'bold',
   }
 }

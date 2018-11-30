@@ -1,23 +1,20 @@
 import React from 'react';
 import moment from 'moment';
+
 const s = {
   wrap: {
     backgroundColor: 'lightgrey',
   },
   name: {
-    fontSize: 18,
-    fontStyle: 'bold',
-    color: 'Black'
+    fontSize: '1.4rem',
+    fontStyle: 'bold'
   },
   duration: {
-    fontSize: 22,
-    fontStyle: 'bold',
-    color: 'Black'
+    fontSize: '2rem',
+    fontStyle: 'bold'
   },
   time: {
-    paddingLeft: '4px',
-    color: 'Black',
-    fontSize: 14
+    fontSize: '1.4rem'
   }
 }
 
@@ -30,7 +27,7 @@ const HistoryItem = (props) => {
 
   return (
     <div style={{'backgroundColor': info.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
-        <a>{info.name}</a>
+        <a style={s.name}>{info.name}</a>
         <a style={s.duration}>
           {`${hours}h ${minutes}m ${seconds}s`}
         </a>

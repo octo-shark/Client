@@ -2,13 +2,13 @@ import React from 'react';
 
 const s = {
   hours: {
-    fontSize: 250
+    fontSize: '20rem'
   },
   minutes: {
-    fontSize: 250
+    fontSize: '20rem'
   },
   seconds: {
-    fontSize: 125
+    fontSize: '12rem'
   }
 };
 
