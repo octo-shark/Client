@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-const {tFormat} = require('../components/tFormat.js');
+const {tFormat, humanDuration} = require('../components/tFormat.js');
 
 const s = {
   wrap: {
@@ -22,12 +22,11 @@ const s = {
 const HistoryItem = (props) => {
   let duration = moment.duration(props.entry.timestamp_end - props.entry.timestamp_start);
   let info = props.getActInfo(props.entry.activity_id);
-  console.log(tFormat(duration));
 
   return (
     <div style={{'backgroundColor': info.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>
         <a style={s.name}>{info.name}</a>
-        <a>{tFormat(duration)}</a>
+        <a style={s.duration}>{tFormat(humanDuration(duration))}</a>
         <a style={s.time}>
           {moment(parseInt(props.entry.timestamp_start)).format(`h:mm A`)} - {moment(parseInt(props.entry.timestamp_end)).format(`h:mm A`)}
         </a>

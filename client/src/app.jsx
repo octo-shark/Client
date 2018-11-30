@@ -9,7 +9,7 @@ import mockData from './components/mockData.js';
 import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'http://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
+const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
 const s = {
   wrap: {
     display: 'grid',
@@ -43,15 +43,12 @@ class App extends React.Component {
       userHistory: [],
       account: {email: 'test'},
       curActivity: null,
-      on: false,
       startTime: 0,
       stopTime: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
       orientation: 0,
-      startTime: null,
-      stopTime: null,
       keepTime: false,
       timerInterval: null
     }
@@ -87,6 +84,14 @@ class App extends React.Component {
     return this.state.activities[id];
   }
 
+  toggleTimer() {
+    if (!this.state.keepTime) this.startTimer(this.state.curActivity);
+    else {
+       this.saveAndReset();
+       this.stopTimer();
+    }
+  }
+
   startTimer(id) {
     if (!this.state.keepTime) {
       this.setState({
@@ -102,12 +107,14 @@ class App extends React.Component {
   }
 
   stopTimer() {
-    let prev = moment.duration(Date.now() - this.state.startTime);
-    console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
-    this.setState({ 
-      timerInterval: clearInterval(this.state.timerInterval),
-      keepTime: false,
-    })
+    if (this.state.keepTime) {
+      let prev = moment.duration(Date.now() - this.state.startTime);
+      console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
+      this.setState({ 
+        timerInterval: clearInterval(this.state.timerInterval),
+        keepTime: false,
+      })
+    }
   }
 
   tick() {
@@ -126,6 +133,20 @@ class App extends React.Component {
         minutes: 0
       })
     }
+  }
+  
+  saveAndReset() {
+    let prev_session = [{
+      activity_id: this.state.curActivity,
+      timestamp_start: this.state.startTime,
+      timestamp_end: Date.now()
+    }];
+    this.setState({
+      seconds: 0,
+      minutes: 0,
+      hours: 0,
+      userHistory: prev_session.concat(this.state.userHistory),
+    })
   }
 
   updateAct(id, name, color) {
@@ -147,7 +168,7 @@ class App extends React.Component {
     else {
       let now = Date.now();
       let prev_session = [{
-        activity_id: id,
+        activity_id: this.state.curActivity,
         timestamp_start: this.state.startTime,
         timestamp_end: now
       }];
@@ -156,6 +177,7 @@ class App extends React.Component {
         minutes: 0,
         hours: 0,
         startTime: now,
+        curActivity: id,
         userHistory: prev_session.concat(this.state.userHistory)
       })
     }
@@ -167,19 +189,21 @@ class App extends React.Component {
   }
 
   dynamicPage() {
-    // FIXME do breaks need to be included?
     switch(this.state.view) {
       case 'mainView':
         return (
           <MainView
-            startTimer={this.startTimer.bind(this)}
-            stopTimer={this.stopTimer.bind(this)}
+            toggleTimer={this.toggleTimer.bind(this)}
             getActInfo={this.getActInfo.bind(this)}
+            curActivity={this.state.curActivity}
             userHistory={this.state.userHistory}
             orientation={this.state.orientation}
-            seconds={this.state.seconds}
-            minutes={this.state.minutes}
-            hours={this.state.hours}
+            keepTime={this.state.keepTime}
+            curActTime={{
+              seconds: this.state.seconds,
+              minutes: this.state.minutes,
+              hours: this.state.hours
+            }}
           /> 
         );
       case 'historyView':
