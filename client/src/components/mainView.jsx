@@ -1,14 +1,12 @@
 import React from 'react';
-import TimerDisplay from './timerDisplay.jsx';
 import HistoryStack from './historyStack.jsx';
-import DeviceSim from './deviceSim.jsx';
 import StopWatch from './stopWatch.jsx';
+import CurrentActivityBlock from './currentActivityBlock.jsx';
 
 const s = {
   wrap: {
     display: 'grid',
     gridTemplateColumns: '1fr 30rem',
-    gridTemplateRows: '1fr 1fr', //placeholder
     height: '100%'
   },
   timerBox: {
@@ -17,7 +15,6 @@ const s = {
     gridArea: '1/1 / 2/2'
   },
   historyBox: {
-    gridRow: '1/3',
     gridColumn: '2/3',
     backgroundColor: 'Grey',
     overflow: 'auto',
@@ -29,20 +26,26 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      curActivity: 'name',
     };
   }
  
   render() {
     return (
       <div style={s.wrap}>
-        <div style={s.timerBox}>
+        <CurrentActivityBlock 
+          curActivity={this.props.curActivity}
+          actInfo={this.props.getActInfo(this.props.curActivity)}
+          curActTime={this.props.curActTime}
+          toggleTimer={this.props.toggleTimer}
+          keepTime={this.props.keepTime}
+        />
+        {/* <div style={s.timerBox}>
            <StopWatch
              seconds={this.props.seconds}
              minutes={this.props.minutes}
              hours={this.props.hours}
            />
-        </div>
+        </div> */}
         <div style={s.historyBox}>
           <HistoryStack
             userHistory={this.props.userHistory}
