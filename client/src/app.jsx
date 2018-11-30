@@ -38,6 +38,7 @@ class App extends React.Component {
       view: 'mainView',
       faceAssignment: [],
       assignedActivities: [],
+      activities: {},
       colorAssignment: {},
       userHistory: [],
       account: {email: 'test'},
@@ -127,16 +128,18 @@ class App extends React.Component {
     }
   }
 
-  updateAct(id, info) {
+  updateAct(id, name, color) {
+    console.log(id);
     console.log('prev acts:');
-    console.log(this.state.activites);
+    console.log(this.state.activities);
 
-    let newActs = Object.assign({}, this.state.activites);
-    newActs[id] = info;
+    let newActs = Object.assign({}, this.state.activities);
+    newActs[id].name = name;
+    newActs[id].color = color;
     this.setState({activities: newActs});
 
     console.log('new acts:');
-    console.log(this.state.activites);
+    console.log(this.state.activities);
   }
 
   taskChange(id) {

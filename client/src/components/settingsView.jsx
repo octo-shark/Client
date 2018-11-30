@@ -1,5 +1,6 @@
 import React from 'react';
 import ActivityButton from './activityButton.jsx';
+import TaskEditModal from './taskEditModal.jsx';
 
 const s = {
   wrap: {
@@ -44,12 +45,16 @@ class SettingsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modelToggled: false
+      modelToggled: false,
+      modelTarget: null
     };
   }
 
-  showModal() {
-    this.setState({ modelToggled: true })
+  showModal(id) {
+    this.setState({
+      modelToggled: true,
+      modelTarget: id
+    })
     console.log('show');
   }
 
@@ -58,8 +63,11 @@ class SettingsView extends React.Component {
   displayModal() {
     if (this.state.modelToggled) {
       return (
-        <Modal
+        <TaskEditModal
           handleClose={this.hideModal.bind(this)}
+          updateAct={this.props.updateAct}
+          actInfo={this.props.getActInfo(this.state.modelTarget)}
+          id={this.state.modelTarget}
         />
       )
     }
@@ -73,7 +81,7 @@ class SettingsView extends React.Component {
         </div>
         <div>
           {Object.keys(this.props.activities).map(id=> (
-            <ActivityButton info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
+            <ActivityButton id={id} info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
           ))}
         </div>
         {this.displayModal()}

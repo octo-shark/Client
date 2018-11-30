@@ -9,6 +9,7 @@ const s = {
     padding: '4px',
     gridGap: '4px'
   },
+
   modal: {
     position: 'fixed',
     top: 0,
@@ -34,10 +35,34 @@ const s = {
   }
 }
 
-const TaskEditModal = (props) => (
-  <div>
-    
-  </div>
-)
+class TaskEditModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.actInfo.name,
+      color: this.props.actInfo.color
+    }
+  }
+
+  handleNameChange(e) {
+    this.setState({name: e.target.value})
+  }
+
+
+  render() {
+    return (
+      <div style={s.modal}>
+        <section style={s.modalMain}>
+          <input type='text' name='actName' value={this.state.name} required onChange={this.handleNameChange.bind(this)}/>
+          <div>
+            COLOR
+          </div>
+          <button onClick={() => this.props.updateAct(this.props.id, this.state.name, this.state.color)}>Save</button>
+          <button onClick={() => this.props.handleClose()}>Cancel</button>
+        </section>
+      </div>
+    )
+  };
+}
 
 export default TaskEditModal;
