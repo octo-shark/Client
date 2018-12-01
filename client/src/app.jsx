@@ -9,7 +9,7 @@ import mockData from './components/mockData.js';
 import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'https://ec2-18-217-21-9.us-east-2.compute.amazonaws.com';
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
 const s = {
   wrap: {
     display: 'grid',
