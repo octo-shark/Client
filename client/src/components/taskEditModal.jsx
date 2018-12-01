@@ -2,8 +2,6 @@ import React from 'react';
 
 const s = {
   wrap: {
-    display: 'grid',
-    gridAutoRows: 'auto',
     height: '100%',
     padding: '0.4rem',
     gridGap: '0.4rem'
@@ -18,19 +16,27 @@ const s = {
     background: 'rgba(0, 0, 0, 0.6)'
   },
   modalMain: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
     position: 'fixed',
-    background: 'white',
+    background: 'grey',
     width: '80%',
-    height: 'auto',
+    height: '80%',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%,-50%)'
+    transform: 'translate(-50%,-50%)',
+    textAlign: 'center'
   },
-  displayBlock: {
-    display: 'block'
+  nameBlock: {
+    backgroundColor: 'lightgrey',
+    justifyContent: 'center'
   },
-  displayNone: {
-    display: 'none'
+  colorBlock: {
+    backgroundColor: 'lightgrey',
+  },
+  buttons: {
+    backgroundColor: 'lightgrey',
   }
 }
 
@@ -43,26 +49,45 @@ class TaskEditModal extends React.Component {
     }
   }
 
-  handleNameChange(e) {
-    this.setState({name: e.target.value})
-  }
+  handleNameChange(e) { this.setState({name: e.target.value}) };
+
+  handleColorChange(e) { this.setState({color: e.target.value}) };
+
 
 
   render() {
     return (
       <div style={s.modal}>
         <section style={s.modalMain}>
-          <input type='text' name='actName' value={this.state.name} required onChange={this.handleNameChange.bind(this)}/>
-          <div>
-            COLOR
+          <div style={s.nameBlock}>
+            <p>NAME</p>
+            <input
+              type='text'
+              name='actName'
+              required
+              value={this.state.name}
+              onChange={this.handleNameChange.bind(this)}
+            />
           </div>
-          <button onClick={() => {
-            this.props.updateAct(this.props.id, this.state.name, this.state.color);
-            this.props.handleClose();
-          }}>
-            Save
+          <div style={s.colorBlock}>
+            <p>COLOR</p>
+            <input
+              type='text'
+              name='actColor'
+              required
+              value={this.state.color}
+              onChange={this.handleColorChange.bind(this)}
+            />
+          </div>
+          <div style={s.buttons}>
+            <button onClick={() => {
+              this.props.updateAct(this.props.id, this.state.name, this.state.color);
+              this.props.handleClose();
+            }}>
+              Save
             </button>
-          <button onClick={() => this.props.handleClose()}>Cancel</button>
+            <button onClick={() => this.props.handleClose()}>Cancel</button>
+          </div>
         </section>
       </div>
     )
