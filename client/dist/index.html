@@ -3,9 +3,24 @@
 <head>
   <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <title>Time Shark</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta charset="uft-8" />
+  <meta name="theme-color" content="#536878" />
 </head>
 <body>
   <div id="App"></div>
   <script type="text/javascript" src="bundle.js"></script>
 </body>
+<script>
+(function () {
+    if ('serviceWorker' in navigator) {
+      console.log("Will the service worker register?");
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(reg){
+          console.log("Yes, it did.");
+        }).catch(function(err) {
+          console.log("No it didn't. This happened: ", err)
+        });
+    }})();
+</script>
 </html>
