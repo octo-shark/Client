@@ -1,0 +1,16 @@
+{
+  "name": "Timeshark",
+  "short_name": "Timeshark",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000",
+  "theme_color": "#536878",
+  "description": "Timeshark",
+  "icons": [
+    {
+      "src":"./timeshark512px.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
