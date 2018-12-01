@@ -7,7 +7,6 @@ const staticAssets = [
 ];
 
 self.addEventListener('install', async event => {
-  console.log('install event');
   const cache = await caches.open(cacheName);
   await cache.addAll(staticAssets).then(() => self.skipWaiting()); 
 });
@@ -17,7 +16,6 @@ self.addEventListener("activate",  async event =>
 );
 
 self.addEventListener('fetch', async event =>{
-  console.log('fetch event');
   const req = event.request;
   if (/.*(json)$/.test(req.url)) {
     event.respondWith(networkFirst(req));

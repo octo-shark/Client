@@ -34,7 +34,6 @@ const CurrentActivityBlock = (props) => {
     actName = props.actInfo.name;
   }
 
-  console.log(props);
   return (
     <div style={s.wrap}>
       <a style={s.time}>{tFormat(props.curActTime)}</a>
