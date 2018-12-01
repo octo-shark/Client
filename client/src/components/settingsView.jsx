@@ -1,5 +1,5 @@
 import React from 'react';
-import ActivityButton from './activityButton.jsx';
+import ActivityBlock from './activityBlock.jsx';
 import TaskEditModal from './taskEditModal.jsx';
 
 const s = {
@@ -56,7 +56,7 @@ class SettingsView extends React.Component {
         </div>
         <div>
           {Object.keys(this.props.activities).map(id=> (
-            <ActivityButton id={id} info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
+            <ActivityBlock id={id} info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
           ))}
         </div>
         {this.displayModal()}

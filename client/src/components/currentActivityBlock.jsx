@@ -6,25 +6,22 @@ const CurrentActivityBlock = (props) => {
   let s = {
     wrap: {
       display: 'grid',
-      gridTemplateRows: 'repeat(6, 1fr)',
+      gridTemplateRows: 'repeat(3, 10rem)',
       textAlign: 'center',
-      backgroundColor: 'lightgrey'
+      justifyContent: 'center'
     },
     time: {
-      fontSize: '10em',
-      gridRow: 2
+      fontSize: '10em'
     },
     name: {
-      fontSize: '7em',
-      gridRow: 3
+      fontSize: '7em'
     },
     toggleWrap: {
-      gridRow: 4
+      itemAlign: 'center'
     },
     toggleBtn: {
-      margin: '1rem',
-      width: '7em',
-      height: '7em',
+      height: '6rem',
+      width: '6rem'
     },
 
   }
@@ -38,14 +35,14 @@ const CurrentActivityBlock = (props) => {
     <div style={s.wrap}>
       <a style={s.time}>{tFormat(props.curActTime)}</a>
       <a style={s.name}>{actName}</a>
-      <a style={s.toggleWrap}>
+      <div>
         <input 
           style={s.toggleBtn}
           type='submit'
           value={props.keepTime ? 'End' : 'Start'}
           onClick={()=>(props.toggleTimer())}
         />
-      </a>
+      </div>
     </div>
   );
 }
