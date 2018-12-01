@@ -26,7 +26,6 @@
     "body-parser": "^1.18.3",
     "compression-webpack-plugin": "^2.0.0",
     "express": "^4.16.4",
-    "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.23.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2"
