@@ -31,7 +31,6 @@ class SettingsView extends React.Component {
       modelToggled: true,
       modelTarget: id
     })
-    console.log('show');
   }
 
   hideModal() {this.setState({ modelToggled: false })}
