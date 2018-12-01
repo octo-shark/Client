@@ -4,13 +4,13 @@ import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
+import ActivityCreator from './components/activityCreator.jsx'; 
 import TrackerView from './components/trackerView.jsx';
-import fakeData from './components/fakeUserData.js';
 import mockData from './components/mockData.js';
 import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
 const s = {
   wrap: {
     display: 'grid',
@@ -58,27 +58,20 @@ class App extends React.Component {
   componentDidMount() {
     axios.get(`${proxy}/rikki`)
       .then(res => {
-        console.log(res);
-
-        console.log('mockData:');
-        console.log(mockData);
-
         this.setState({
-          // test data being used
           account: mockData.account,
           activities: mockData.activities,
           assignedActivities: mockData.assigned_activities
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
     axios.get(`${proxy}/rikki/timestamps`)
       .then(res => {
-        console.log(res);
         this.setState({
           userHistory: res.data
         })
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   getActInfo(id) {
@@ -110,7 +103,6 @@ class App extends React.Component {
   stopTimer() {
     if (this.state.keepTime) {
       let prev = moment.duration(Date.now() - this.state.startTime);
-      console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
       this.setState({ 
         timerInterval: clearInterval(this.state.timerInterval),
         keepTime: false,
@@ -151,17 +143,10 @@ class App extends React.Component {
   }
 
   updateAct(id, name, color) {
-    console.log(id);
-    console.log('prev acts:');
-    console.log(this.state.activities);
-
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
     this.setState({activities: newActs});
-
-    console.log('new acts:');
-    console.log(this.state.activities);
   }
 
   taskChange(id) {
@@ -185,7 +170,6 @@ class App extends React.Component {
   }
 
   changeView(page) {
-    console.log(`VIEW_CHANGED: ${page}`);
     this.setState({view: page});
   }
 
@@ -239,6 +223,10 @@ class App extends React.Component {
             updateAct={this.updateAct.bind(this)}
           />
         );
+      case 'activityView':
+          return (
+            <ActivityCreator/>
+          );
       default: 
         return (
           <p>Invalid Page</p>

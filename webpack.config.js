@@ -1,6 +1,10 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/client/src');
-var DIST_DIR = path.join(__dirname, '/client/dist');
+const path = require('path');
+const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
+
+const SRC_DIR = path.join(__dirname, '/client/src');
+const DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
   entry: `${SRC_DIR}/app.jsx`,
@@ -19,5 +23,22 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  optimization: {
+    minimize: true,
+    mergeDuplicateChunks: true,
+    removeEmptyChunks: true,
+    nodeEnv: 'production'
+  },
+  plugins: [
+    // new BundleAnalyzerPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new CompressionPlugin({
+      filename: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
+  ]
 };

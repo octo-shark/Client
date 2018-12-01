@@ -1,5 +1,4 @@
 import React from 'react';
-// import PieChart from './historyComponents/PieChart.jsx' 
 import BackLogs from './historyComponents/BackLogs.jsx'
 import ActivityLogs from './historyComponents/ActivityLogs.jsx'
 import PieChart from './historyComponents/PieChart.jsx'

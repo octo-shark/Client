@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html style="font-size: 10px">
+<html lang="en" style="font-size: 10px">
 <head>
   <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <title>Time Shark</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Description" content="A simple time management app.">
+  <meta name="theme-color" content="#536878" />
 </head>
 <body>
   <div id="App"></div>
   <script type="text/javascript" src="bundle.js"></script>
 </body>
+<script>
+(function () {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }})();
+</script>
 </html>
