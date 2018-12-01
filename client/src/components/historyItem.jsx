@@ -22,6 +22,8 @@ const s = {
 const HistoryItem = (props) => {
   let duration = moment.duration(props.entry.timestamp_end - props.entry.timestamp_start);
   let info = props.getActInfo(props.entry.activity_id);
+  console.log('hist item:');
+  console.table(props);
 
   return (
     <div style={{'backgroundColor': info.color, display: 'grid', gridTemplateRows: 'repeat(3)'}}>

@@ -9,11 +9,6 @@ const s = {
     gridTemplateColumns: '1fr 30rem',
     height: '100%'
   },
-  timerBox: {
-    textAlign: 'center',
-    verticalAlign: 'middle',
-    gridArea: '1/1 / 2/2'
-  },
   historyBox: {
     gridColumn: '2/3',
     backgroundColor: 'Grey',
@@ -39,13 +34,6 @@ class MainView extends React.Component {
           toggleTimer={this.props.toggleTimer}
           keepTime={this.props.keepTime}
         />
-        {/* <div style={s.timerBox}>
-           <StopWatch
-             seconds={this.props.seconds}
-             minutes={this.props.minutes}
-             hours={this.props.hours}
-           />
-        </div> */}
         <div style={s.historyBox}>
           <HistoryStack
             userHistory={this.props.userHistory}

@@ -4,6 +4,7 @@ import NavBar from './components/navBar.jsx';
 import MainView from './components/mainView.jsx';
 import HistoryView from './components/historyView.jsx';
 import SettingsView from './components/settingsView.jsx';
+import TrackerView from './components/trackerView.jsx';
 import fakeData from './components/fakeUserData.js';
 import mockData from './components/mockData.js';
 import moment from 'moment';
@@ -35,7 +36,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'mainView',
+      view: 'trackerView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -206,11 +207,26 @@ class App extends React.Component {
             }}
           /> 
         );
+      case 'trackerView':
+        return (
+          <TrackerView
+            toggleTimer={this.toggleTimer.bind(this)}
+            getActInfo={this.getActInfo.bind(this)}
+            curActivity={this.state.curActivity}
+            assignedActivities={this.state.assignedActivities}
+            keepTime={this.state.keepTime}
+            curActTime={{
+              seconds: this.state.seconds,
+              minutes: this.state.minutes,
+              hours: this.state.hours
+            }}
+          />
+        )
       case 'historyView':
         return (
           <HistoryView
-          userHistory={this.state.userHistory}
-          colorAssignment={this.state.colorAssignment}
+            userHistory={this.state.userHistory}
+            colorAssignment={this.state.colorAssignment}
           />
         );
       case 'settingsView':
@@ -218,7 +234,6 @@ class App extends React.Component {
           <SettingsView
             account={this.state.account}
             activities={this.state.activities}
-            assignedActivities={this.state.assignedActivities}
             getActInfo={this.getActInfo.bind(this)}
             updateAct={this.updateAct.bind(this)}
           />
