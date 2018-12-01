@@ -1,19 +1,18 @@
 import React from 'react';
 import ActivityBlock from './activityBlock.jsx';
 import TaskEditModal from './taskEditModal.jsx';
+import DevSimB from './devSimB.jsx';
 
 const s = {
   wrap: {
-    display: 'grid',
-    gridAutoRows: 'auto',
-    height: '100%',
-    padding: '0.4rem',
-    gridGap: '0.4rem'
+
   },
-  title: {
-    backgroundColor: 'lightGrey',
-    textAlign: 'center',
-    fontSize: '3rem'
+  actButtons: {
+    display: 'grid',
+    pad: '3rem',
+    fontSize: '2rem',
+    marginLeft: '5rem',
+    marginRight: '5rem',
   }
 }
 
@@ -50,14 +49,14 @@ class SettingsView extends React.Component {
 
   render() {
     return (
-      <div style={s.wrap}>
-        <div style={s.title}>
-          <a>Settings</a>
-        </div>
-        <div>
-          {Object.keys(this.props.activities).map(id=> (
-            <ActivityBlock id={id} info={this.props.getActInfo(id)} key={`act_${id}`} clickEvent={this.showModal.bind(this)}/>
-          ))}
+      <div>
+        <div style={s.actButtons}>
+          <DevSimB
+            getActInfo={this.props.getActInfo}
+            activities={Object.keys(this.props.activities)}
+            clickEvent={this.showModal.bind(this)}
+            curActivity={this.props.curActivity}
+          />
         </div>
         {this.displayModal()}
       </div>

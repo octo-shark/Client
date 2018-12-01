@@ -1,22 +1,22 @@
 import React from 'react';
 import CurrentActivityBlock from './currentActivityBlock.jsx';
 import ActivityBlock from './activityBlock.jsx';
+import DevSimB from './devSimB.jsx';
 
 const s = {
   wrap: {
-    gridGap: '2rem',
-    padding: '2rem',
-    height: '100%',
-    textAlign: 'center',
+    overflowY: 'auto',
+    itemAlign: 'center',
+    height: '98vh' //FIXME
   },
-  activityBox: {
+  actButtons: {
     display: 'grid',
-    gridTemplateRows: 'auto',
-    backgroundColor: 'pink',
-    height: '98vh',
-    width: '100%',
-    overflowY: 'scroll',
-    itemAlign: 'center'
+    pad: '0.2rem',
+    itemAlign: 'center',
+    backgroundColor: 'grey',
+    marginLeft: '5rem',
+    marginRight: '5rem',
+    fontSize: '2rem'
   },
   trackedActBox: {
 
@@ -27,20 +27,24 @@ const TrackerView = (props) => {
 
   return (
     <div style={s.wrap}>
-      <div style={s.activitiesBox}>
-        <CurrentActivityBlock
+      <CurrentActivityBlock
+        curActivity={props.curActivity}
+        actInfo={props.getActInfo(props.curActivity)}
+        curActTime={props.curActTime}
+        toggleTimer={props.toggleTimer}
+        keepTime={props.keepTime}
+      />
+      <div style={s.actButtons}>
+        <DevSimB
+          getActInfo={props.getActInfo}
+          activities={props.assignedActivities}
+          clickEvent={props.taskChange}
           curActivity={props.curActivity}
-          actInfo={props.getActInfo(props.curActivity)}
-          curActTime={props.curActTime}
-          toggleTimer={props.toggleTimer}
-          keepTime={props.keepTime}
         />
       </div>
-      <div>
-          {props.assignedActivities.map(id=> (
-            <ActivityBlock id={id} info={props.getActInfo(id)} key={`assignedAct_${id}`}/>
-          ))}
-        </div>
+        {/* {props.assignedActivities.map(id=> (
+          <ActivityBlock id={id} info={props.getActInfo(id)} key={`assignedAct_${id}`}/>
+        ))} */}
     </div>
   );
 }

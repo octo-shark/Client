@@ -196,6 +196,7 @@ class App extends React.Component {
           <TrackerView
             toggleTimer={this.toggleTimer.bind(this)}
             getActInfo={this.getActInfo.bind(this)}
+            taskChange={this.taskChange.bind(this)}
             curActivity={this.state.curActivity}
             assignedActivities={this.state.assignedActivities}
             keepTime={this.state.keepTime}
