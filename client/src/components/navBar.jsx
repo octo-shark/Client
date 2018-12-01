@@ -22,15 +22,7 @@ const NavBar = (props) => (
   <div style={s.wrap}>
       <div style={s.item} onClick={() => props.changeView('trackerView')}>Track</div>
       <div style={s.item} onClick={() => props.changeView('historyView')}>Hist</div>
-      <div style={s.item} onClick={() => props.changeView('activityView')}>Create</div>
       <div style={s.item} onClick={() => props.changeView('settingsView')}>Set</div>
-      {/* <div>
-        <DevSimB
-          getActInfo={props.getActInfo}
-          assignedActivities={props.assignedActivities}
-          taskChange={props.taskChange}
-        />
-      </div> */}
   </div>
 )
 
