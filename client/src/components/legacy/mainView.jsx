@@ -1,7 +1,6 @@
 import React from 'react';
 import HistoryStack from './historyStack.jsx';
-import StopWatch from './stopWatch.jsx';
-import CurrentActivityBlock from './currentActivityBlock.jsx';
+import CurrentActivityBlock from '../currentActivityBlock.jsx';
 
 const s = {
   wrap: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import TaskEditModal from './taskEditModal.jsx';
-import DevSimB from './devSimB.jsx';
+import TaskEditModal from '../components/taskEditModal.jsx';
+import DevSimB from '../components/devSimB.jsx';
 
 const s = {
   wrap: {

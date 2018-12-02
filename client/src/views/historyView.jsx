@@ -1,5 +1,5 @@
 import React from 'react';
-import PieChart from './historyComponents/PieChart.jsx'
+import PieChart from '../components/legacy/PieChart.jsx';
 const s = {
   wrap: {
     display: 'grid',

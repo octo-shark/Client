@@ -1,6 +1,6 @@
 import React from 'react';
-import CurrentActivityBlock from './currentActivityBlock.jsx';
-import DevSimB from './devSimB.jsx';
+import CurrentActivityBlock from '../components/currentActivityBlock.jsx';
+import DevSimB from '../components/devSimB.jsx';
 
 const s = {
   wrap: {

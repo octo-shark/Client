@@ -1,5 +1,5 @@
 import React from 'react';
-const {tFormat} = require('./tFormat.js');
+const {tFormat} = require('./utilities/tFormat.js');
 
 const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
