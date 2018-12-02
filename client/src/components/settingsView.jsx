@@ -1,5 +1,4 @@
 import React from 'react';
-import ActivityBlock from './activityBlock.jsx';
 import TaskEditModal from './taskEditModal.jsx';
 import DevSimB from './devSimB.jsx';
 

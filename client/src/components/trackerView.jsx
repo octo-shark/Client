@@ -1,6 +1,5 @@
 import React from 'react';
 import CurrentActivityBlock from './currentActivityBlock.jsx';
-import ActivityBlock from './activityBlock.jsx';
 import DevSimB from './devSimB.jsx';
 
 const s = {
