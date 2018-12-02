@@ -5,6 +5,7 @@ import MainView from './components/legacy/mainView.jsx';
 import HistoryView from './views/historyView.jsx';
 import SettingsView from './views/settingsView.jsx';
 import TrackerView from './views/trackerView.jsx';
+import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
 import moment from 'moment';
 
@@ -35,7 +36,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'trackerView',
+      view: 'test',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -58,7 +59,6 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
-
         console.log('mockData is being used:');
         console.log(mockData);
 
@@ -237,6 +237,11 @@ class App extends React.Component {
             getActInfo={this.getActInfo.bind(this)}
             updateAct={this.updateAct.bind(this)}
           />
+        );
+      case 'test':
+        console.log('BURGER VIEW TEST');
+        return (
+          <Hamburger />
         );
       default: 
         return (
