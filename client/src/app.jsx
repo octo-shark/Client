@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NavBar from './components/navBar.jsx';
-import MainView from './components/legacy/mainView.jsx';
 import HistoryView from './views/historyView.jsx';
 import SettingsView from './views/settingsView.jsx';
 import TrackerView from './views/trackerView.jsx';
+import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
 import moment from 'moment';
 
@@ -13,16 +12,9 @@ const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '10rem 1fr',
-    gridTemplateRows: '1fr', //placeholder
-    gridGap: '0.5rem',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: '0 1fr', //placeholder
     height: '98vh'
-  },
-  nav: {
-    gridArea: '1/1 / -1/1',
-    backgroundColor: 'grey',
-    height: '100%',
-    textAlign: 'center'
   },
   page: {
     backgroundColor: '#adb7c1'
@@ -58,7 +50,6 @@ class App extends React.Component {
     axios.get(`${proxy}/rikki`)
       .then(res => {
         console.log(res);
-
         console.log('mockData is being used:');
         console.log(mockData);
 
@@ -248,16 +239,9 @@ class App extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
-        <div style={s.nav}>
-          <NavBar 
-            changeView={this.changeView.bind(this)}
-            taskChange={this.taskChange.bind(this)}
-            getActInfo={this.getActInfo.bind(this)}
-            account={this.state.account}
-            assignedActivities={this.state.assignedActivities}
-            colorAssignment={this.state.colorAssignment}
-          />
-        </div>
+        <Hamburger
+          changeView={this.changeView.bind(this)}
+        />
         <div style={s.page}>
            {this.dynamicPage()}
         </div>
