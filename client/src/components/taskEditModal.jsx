@@ -1,7 +1,7 @@
 import React from 'react';
 import { HuePicker } from 'react-color';
 
-const s = {
+let s = {
   wrap: {
     height: '100%',
     padding: '0.4rem',
@@ -27,7 +27,10 @@ const s = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%,-50%)',
-    textAlign: 'center'
+    textAlign: 'center',
+    borderStyle: 'solid',
+    borderWidth: '2rem',
+    borderColor: 'coral'
   },
   nameBlock: {
     backgroundColor: 'lightgrey',
@@ -57,8 +60,6 @@ class TaskEditModal extends React.Component {
     this.setState({color: newColor.hex});
     // console.log(newColor);
   };
-
-
 
   render() {
     return (
