@@ -35,7 +35,11 @@ class History extends React.Component {
       <div style={s.wrap}>
         <div style={s.pieChart}>
           <h1>PieChart</h1>
-          <PieChart userHistory={this.props.userHistory} colorAssignment={this.props.colorAssignment}/>
+          <PieChart 
+            getActInfo={this.props.getActInfo} 
+            userHistory={this.props.userHistory} 
+            colorAssignment={this.props.colorAssignment}
+          />
         </div>
       </div>
     )
