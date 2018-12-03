@@ -52,7 +52,11 @@ class TaskEditModal extends React.Component {
 
   handleNameChange(e) { this.setState({name: e.target.value}) };
 
-  handleColorChange(e) { this.setState({color: e.target.value}) };
+  handleColorChange(color) { 
+    let newColor = color;
+    this.setState({color: newColor.hex});
+    // console.log(newColor);
+  };
 
 
 
@@ -73,8 +77,8 @@ class TaskEditModal extends React.Component {
           <div style={s.colorBlock}>
             <p>COLOR</p>
             <HuePicker 
-              // color={this.state.color}
-              // onChange={this.handleColorChange.bind(this)}
+              color={this.state.color}
+              onChange={this.handleColorChange.bind(this)}
             />
           </div>
           <div style={s.buttons}>
