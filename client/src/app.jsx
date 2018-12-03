@@ -17,7 +17,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#adb7c1'
+    backgroundColor: '#606060'
   },
   sim: {
   }
@@ -98,14 +98,23 @@ class App extends React.Component {
   }
 
   stopTimer() {
-    if (this.state.keepTime) {
-      let prev = moment.duration(Date.now() - this.state.startTime);
-      console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
-      this.setState({ 
-        timerInterval: clearInterval(this.state.timerInterval),
-        keepTime: false,
-      })
-    }
+    let prev_session = [{
+      user_id: this.state.account.username,
+      activity_id: this.state.curActivity,
+      timestamp_start: this.state.startTime,
+      timestamp_end: Date.now()
+    }];
+    this.setState({
+      seconds: 0,
+      minutes: 0,
+      hours: 0,
+      timerInterval: clearInterval(this.state.timerInterval),
+      keepTime: false,
+      userHistory: prev_session.concat(this.state.userHistory),
+    });
+    axios.post(`${proxy}/rikki/timestamps`, prev_session[0])
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   }
 
   tick() {
@@ -128,6 +137,7 @@ class App extends React.Component {
   
   saveAndReset() {
     let prev_session = [{
+      user_id: this.state.account.username,
       activity_id: this.state.curActivity,
       timestamp_start: this.state.startTime,
       timestamp_end: Date.now()
@@ -138,6 +148,9 @@ class App extends React.Component {
       hours: 0,
       userHistory: prev_session.concat(this.state.userHistory),
     })
+    axios.post(`${proxy}/rikki/timestamps`, prev_session[0])
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   updateAct(id, name, color) {
@@ -159,9 +172,10 @@ class App extends React.Component {
     else {
       let now = Date.now();
       let prev_session = [{
+        user_id: this.state.account.username,
         activity_id: this.state.curActivity,
         timestamp_start: this.state.startTime,
-        timestamp_end: now
+        timestamp_end: Date.now()
       }];
       this.setState({
         seconds: 0,
@@ -171,6 +185,9 @@ class App extends React.Component {
         curActivity: id,
         userHistory: prev_session.concat(this.state.userHistory)
       })
+      axios.post(`${proxy}/rikki/timestamps`, prev_session[0])
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
   }
 

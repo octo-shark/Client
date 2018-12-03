@@ -8,9 +8,9 @@ const Hamburger = (props) => (
       <span></span>
       <span></span>
       <ul id="menu">
-        <li><button onClick={() => props.changeView('trackerView')}>Track</button></li>
-        <li><button onClick={() => props.changeView('historyView')}>Hist</button></li>
-        <li><button onClick={() => props.changeView('settingsView')}>Set</button></li>
+        <li><a onClick={() => props.changeView('trackerView')}>Track</a></li>
+        <li><a onClick={() => props.changeView('historyView')}>History</a></li>
+        <li><a onClick={() => props.changeView('settingsView')}>Settings</a></li>
       </ul>
     </div>
   </nav>
