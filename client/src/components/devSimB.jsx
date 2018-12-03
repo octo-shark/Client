@@ -20,7 +20,9 @@ const DevSimB = (props) => {
           border: 'none',
           height: '3em',
           overflow: 'hidden',
-          backgroundColor: info.color
+          backgroundColor: info.color,
+          color: 'white',
+          fontWeight: 'bold'
         }
         if (props.curActivity === id) faceStyle.display = 'none'
 
