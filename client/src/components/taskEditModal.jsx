@@ -1,4 +1,5 @@
 import React from 'react';
+import { HuePicker } from 'react-color';
 
 const s = {
   wrap: {
@@ -71,12 +72,9 @@ class TaskEditModal extends React.Component {
           </div>
           <div style={s.colorBlock}>
             <p>COLOR</p>
-            <input
-              type='text'
-              name='actColor'
-              required
-              value={this.state.color}
-              onChange={this.handleColorChange.bind(this)}
+            <HuePicker 
+              // color={this.state.color}
+              // onChange={this.handleColorChange.bind(this)}
             />
           </div>
           <div style={s.buttons}>

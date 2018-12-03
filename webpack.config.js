@@ -24,12 +24,12 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    minimize: true,
-    mergeDuplicateChunks: true,
-    removeEmptyChunks: true,
-    nodeEnv: 'production'
-  },
+  // optimization: {
+  //   minimize: true,
+  //   mergeDuplicateChunks: true,
+  //   removeEmptyChunks: true,
+  //   nodeEnv: 'production'
+  // },
   plugins: [
     // new BundleAnalyzerPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

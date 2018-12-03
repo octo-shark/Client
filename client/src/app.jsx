@@ -8,7 +8,7 @@ import mockData from './components/utilities/mockData.js';
 import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
 const s = {
   wrap: {
     display: 'grid',
@@ -27,7 +27,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'trackerView',
+      view: 'settingsView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -128,6 +128,7 @@ class App extends React.Component {
   
   saveAndReset() {
     let prev_session = [{
+      user_id: this.state.account.username,
       activity_id: this.state.curActivity,
       timestamp_start: this.state.startTime,
       timestamp_end: Date.now()
@@ -138,8 +139,11 @@ class App extends React.Component {
       hours: 0,
       userHistory: prev_session.concat(this.state.userHistory),
     })
+    axios.post(`${proxy}/rikki/timestamps`, prev_session)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
-
+  
   updateAct(id, name, color) {
     console.log(id);
     console.log('prev acts:');
