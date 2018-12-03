@@ -26,7 +26,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'settingsView',
+      view: 'trackerView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
