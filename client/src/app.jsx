@@ -236,11 +236,19 @@ class App extends React.Component {
     }
   }
 
+  loginCall(){
+    axios.get('http://localhost:4321/auth/google')
+    .then((response) =>{
+      console.log(response)
+    })
+  }
+
   render() {
     return(
       <div style={s.wrap}>
         <Hamburger
           changeView={this.changeView.bind(this)}
+          loginCall={this.loginCall.bind(this)}
         />
         <div style={s.page}>
            {this.dynamicPage()}
