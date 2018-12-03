@@ -31,6 +31,7 @@ const TrackerView = (props) => {
         actInfo={props.getActInfo(props.curActivity)}
         curActTime={props.curActTime}
         toggleTimer={props.toggleTimer}
+        duration={props.duration}
         keepTime={props.keepTime}
       />
       <div style={s.actButtons}>

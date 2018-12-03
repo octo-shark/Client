@@ -5,7 +5,6 @@ import SettingsView from './views/settingsView.jsx';
 import TrackerView from './views/trackerView.jsx';
 import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
-import moment from 'moment';
 
 const axios = require('axios');
 const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
@@ -37,6 +36,7 @@ class App extends React.Component {
       curActivity: null,
       startTime: 0,
       stopTime: 0,
+      duration: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
@@ -84,9 +84,6 @@ class App extends React.Component {
     if (!this.state.keepTime) {
       this.setState({
         curActivity: id,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
         timerInterval: setInterval(()=> {this.tick()}, 1000),
         keepTime: true,
         startTime: Date.now(),
@@ -97,9 +94,7 @@ class App extends React.Component {
   stopTimer() {
     this.postTimeStamp(Date.now());
     this.setState({
-      seconds: 0,
-      minutes: 0,
-      hours: 0,
+      duration: 0,
       timerInterval: clearInterval(this.state.timerInterval),
       keepTime: false
     });
@@ -107,20 +102,8 @@ class App extends React.Component {
 
   tick() {
     this.setState({
-      seconds: this.state.seconds + 1
+      duration: Date.now() - this.state.startTime
     })
-    if(this.state.seconds > 59) { 
-      this.setState({
-        minutes: this.state.minutes + 1,
-        seconds: 0
-      })
-    }
-    if (this.state.minutes > 59) {
-      this.setState({
-        hours: this.state.hours + 1,
-        minutes: 0
-      })
-    }
   }
   
   postTimeStamp(end) {
@@ -155,9 +138,6 @@ class App extends React.Component {
       let now = Date.now();
       this.postTimeStamp(now);
       this.setState({
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
         startTime: now,
         curActivity: id
       })
@@ -201,6 +181,7 @@ class App extends React.Component {
               minutes: this.state.minutes,
               hours: this.state.hours
             }}
+            duration={this.state.duration}
           />
         )
       case 'historyView':
