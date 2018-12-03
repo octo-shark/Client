@@ -7,7 +7,7 @@ import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
 
 const axios = require('axios');
-const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
 const s = {
   wrap: {
     display: 'grid',
@@ -117,7 +117,7 @@ class App extends React.Component {
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
-
+  
   updateAct(id, name, color) {
     console.log(id);
     console.log('prev acts:');
