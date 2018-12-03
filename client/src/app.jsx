@@ -5,10 +5,9 @@ import SettingsView from './views/settingsView.jsx';
 import TrackerView from './views/trackerView.jsx';
 import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
-import moment from 'moment';
 
 const axios = require('axios');
-const proxy = 'http://ec2-3-16-0-251.us-east-2.compute.amazonaws.com';
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
 const s = {
   wrap: {
     display: 'grid',
@@ -17,7 +16,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#adb7c1'
+    backgroundColor: '#606060'
   },
   sim: {
   }
@@ -37,6 +36,7 @@ class App extends React.Component {
       curActivity: null,
       startTime: 0,
       stopTime: 0,
+      duration: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
@@ -77,19 +77,13 @@ class App extends React.Component {
 
   toggleTimer() {
     if (!this.state.keepTime) this.startTimer(this.state.curActivity);
-    else {
-       this.saveAndReset();
-       this.stopTimer();
-    }
+    else this.stopTimer();
   }
 
   startTimer(id) {
     if (!this.state.keepTime) {
       this.setState({
         curActivity: id,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
         timerInterval: setInterval(()=> {this.tick()}, 1000),
         keepTime: true,
         startTime: Date.now(),
@@ -98,48 +92,32 @@ class App extends React.Component {
   }
 
   stopTimer() {
-    if (this.state.keepTime) {
-      let prev = moment.duration(Date.now() - this.state.startTime);
-      console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
-      this.setState({ 
-        timerInterval: clearInterval(this.state.timerInterval),
-        keepTime: false,
-      })
-    }
+    this.postTimeStamp(Date.now());
+    this.setState({
+      duration: 0,
+      timerInterval: clearInterval(this.state.timerInterval),
+      keepTime: false
+    });
   }
 
   tick() {
     this.setState({
-      seconds: this.state.seconds + 1
+      duration: Date.now() - this.state.startTime
     })
-    if(this.state.seconds > 59) { 
-      this.setState({
-        minutes: this.state.minutes + 1,
-        seconds: 0
-      })
-    }
-    if (this.state.minutes > 59) {
-      this.setState({
-        hours: this.state.hours + 1,
-        minutes: 0
-      })
-    }
   }
   
-  saveAndReset() {
-    let prev_session = [{
+  postTimeStamp(end) {
+    let stamp = {
+      user_id: this.state.account.username,
       activity_id: this.state.curActivity,
       timestamp_start: this.state.startTime,
-      timestamp_end: Date.now()
-    }];
-    this.setState({
-      seconds: 0,
-      minutes: 0,
-      hours: 0,
-      userHistory: prev_session.concat(this.state.userHistory),
-    })
+      timestamp_end: end
+    };
+    axios.post(`${proxy}/${this.state.account.username}/timestamps`, stamp)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
-
+  
   updateAct(id, name, color) {
     console.log(id);
     console.log('prev acts:');
@@ -158,18 +136,10 @@ class App extends React.Component {
     if (!this.state.keepTime) {this.startTimer(id)}
     else {
       let now = Date.now();
-      let prev_session = [{
-        activity_id: this.state.curActivity,
-        timestamp_start: this.state.startTime,
-        timestamp_end: now
-      }];
+      this.postTimeStamp(now);
       this.setState({
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
         startTime: now,
-        curActivity: id,
-        userHistory: prev_session.concat(this.state.userHistory)
+        curActivity: id
       })
     }
   }
@@ -211,6 +181,7 @@ class App extends React.Component {
               minutes: this.state.minutes,
               hours: this.state.hours
             }}
+            duration={this.state.duration}
           />
         )
       case 'historyView':
@@ -237,7 +208,7 @@ class App extends React.Component {
   }
 
   loginCall(){
-    axios.get('http://localhost:4321/auth/google')
+    axios.get('http://localhost:3000/auth/google')
     .then((response) =>{
       console.log(response)
     })

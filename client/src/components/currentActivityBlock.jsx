@@ -1,5 +1,5 @@
 import React from 'react';
-const {tFormat} = require('./utilities/tFormat.js');
+const {tFormat, humanDuration} = require('./utilities/tFormat.js');
 
 const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
@@ -33,7 +33,7 @@ const CurrentActivityBlock = (props) => {
 
   return (
     <div style={s.wrap}>
-      <a style={s.time}>{tFormat(props.curActTime)}</a>
+      <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
       <a style={s.name}>{actName}</a>
       <div>
         <input 
