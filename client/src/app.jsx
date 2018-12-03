@@ -17,7 +17,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#adb7c1'
+    backgroundColor: '#606060'
   },
   sim: {
   }
@@ -77,10 +77,7 @@ class App extends React.Component {
 
   toggleTimer() {
     if (!this.state.keepTime) this.startTimer(this.state.curActivity);
-    else {
-       this.saveAndReset();
-       this.stopTimer();
-    }
+    else this.stopTimer();
   }
 
   startTimer(id) {
@@ -98,14 +95,14 @@ class App extends React.Component {
   }
 
   stopTimer() {
-    if (this.state.keepTime) {
-      let prev = moment.duration(Date.now() - this.state.startTime);
-      console.log(`${prev.hours()}:${prev.minutes()}:${prev.seconds()}`);
-      this.setState({ 
-        timerInterval: clearInterval(this.state.timerInterval),
-        keepTime: false,
-      })
-    }
+    this.postTimeStamp(Date.now());
+    this.setState({
+      seconds: 0,
+      minutes: 0,
+      hours: 0,
+      timerInterval: clearInterval(this.state.timerInterval),
+      keepTime: false
+    });
   }
 
   tick() {
@@ -126,20 +123,14 @@ class App extends React.Component {
     }
   }
   
-  saveAndReset() {
-    let prev_session = [{
+  postTimeStamp(end) {
+    let stamp = {
       user_id: this.state.account.username,
       activity_id: this.state.curActivity,
       timestamp_start: this.state.startTime,
-      timestamp_end: Date.now()
-    }];
-    this.setState({
-      seconds: 0,
-      minutes: 0,
-      hours: 0,
-      userHistory: prev_session.concat(this.state.userHistory),
-    })
-    axios.post(`${proxy}/rikki/timestamps`, prev_session)
+      timestamp_end: end
+    };
+    axios.post(`${proxy}/${this.state.account.username}/timestamps`, stamp)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
@@ -162,18 +153,13 @@ class App extends React.Component {
     if (!this.state.keepTime) {this.startTimer(id)}
     else {
       let now = Date.now();
-      let prev_session = [{
-        activity_id: this.state.curActivity,
-        timestamp_start: this.state.startTime,
-        timestamp_end: now
-      }];
+      this.postTimeStamp(now);
       this.setState({
         seconds: 0,
         minutes: 0,
         hours: 0,
         startTime: now,
-        curActivity: id,
-        userHistory: prev_session.concat(this.state.userHistory)
+        curActivity: id
       })
     }
   }

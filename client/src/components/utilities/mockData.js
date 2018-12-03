@@ -13,7 +13,7 @@ const mockData = {
   assigned_activities: [1,2,3,4,26,33,66,76],
   account: {
     id: 20051920,
-    username: 'someUserName',
+    username: 'rikki',
     email: 'NotARealEmail@NotGmail.com'
   }
 }
