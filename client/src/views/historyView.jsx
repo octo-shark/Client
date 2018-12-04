@@ -1,5 +1,4 @@
 import React from 'react';
-import {Pie} from 'react-chartjs-2';
 import {Doughnut} from 'react-chartjs-2';
 import {Bar} from 'react-chartjs-2';
 const {tFormat, humanDuration} = require('../components/utilities/tFormat.js');
@@ -63,12 +62,6 @@ class History extends React.Component {
 
   dynamicPage() {
     switch(this.state.view) {
-      case 'Pie':
-        return (
-          <div id='pieChart'>
-            <Pie ref='chart' type='pie' data={this.data}/>
-         </div>
-        );
       case 'Doughnut':
         return (
           <div id='pieChart'>
@@ -88,7 +81,6 @@ class History extends React.Component {
     return(
       <div style={s.wrap}>
         <ul style={{textAlign: 'center'}}>
-          <button onClick={() => this.changeView('Pie')}>Pie</button>
           <button onClick={() => this.changeView('Doughnut')}>Doughnut</button>
           <button onClick={() => this.changeView('Bar')}>Bar</button>
         </ul>
