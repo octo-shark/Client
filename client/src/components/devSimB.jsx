@@ -35,7 +35,7 @@ const DevSimB = (props) => {
             key={`assignedAct ${id}`}
             onClick={() => props.clickEvent(id)}
           >
-            {info.name}
+            <div>{info.name}</div>
           </button>
         );
       })}
