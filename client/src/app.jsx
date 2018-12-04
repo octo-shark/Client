@@ -156,22 +156,6 @@ class App extends React.Component {
         return (
           <LandingView />
         );
-      case 'mainView':
-        return (
-          <MainView
-            toggleTimer={this.toggleTimer.bind(this)}
-            getActInfo={this.getActInfo.bind(this)}
-            curActivity={this.state.curActivity}
-            userHistory={this.state.userHistory}
-            orientation={this.state.orientation}
-            keepTime={this.state.keepTime}
-            curActTime={{
-              seconds: this.state.seconds,
-              minutes: this.state.minutes,
-              hours: this.state.hours
-            }}
-          /> 
-        );
       case 'trackerView':
         return (
           <TrackerView
@@ -206,26 +190,31 @@ class App extends React.Component {
             updateAct={this.updateAct.bind(this)}
           />
         );
-      case 'loginView':
-        return <div dangerouslySetInnerHTML={this.state.googleHTML} ></div>
       default: 
         return (
           <p>Invalid Page</p>
         );
     }
   }
-
   loginCall(){
-    axios.get('http://localhost:3000/auth/google')
-    .then((response) =>{
-      
-      console.log(response)
-      this.setState({googleHTML: {__html: response.data}})
-    }).then(() =>{
-      console.log(this.state.googleHTML)
-      this.changeView('loginView')
-    }).catch(err => {
-      console.log('lmao err when logging in: ', err)
+    window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
+    axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
+      console.log("...Waiting for google login response...",response)
+      return axios.get('http://localhost:3000/auth/wait?id='+response.data);
+    }).then(response=>{
+      this.changeView('trackerView')
+      console.log("Got response...: ", response);
+    })
+  }
+
+  logoutCall(){
+    axios.get('http://localhost:3000/auth/logout')
+    .then(() => {
+      console.log('Changing View')
+      this.changeView('landingView')
+    })
+    .catch((err)=>{
+      console.log('error logging out: ', err)
     })
   }
 
@@ -235,6 +224,7 @@ class App extends React.Component {
         <Hamburger
           changeView={this.changeView.bind(this)}
           loginCall={this.loginCall.bind(this)}
+          logoutCall={this.logoutCall.bind(this)}
         />
         <div style={s.page}>
            {this.dynamicPage()}
