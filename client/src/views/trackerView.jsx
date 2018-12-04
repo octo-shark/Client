@@ -6,7 +6,6 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
-    overflow: 'hidden',
     height: '98vh' //FIXME
   },
   actButtons: {
