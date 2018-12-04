@@ -3,13 +3,11 @@ import TaskEditModal from '../components/taskEditModal.jsx';
 import DevSimB from '../components/devSimB.jsx';
 
 const s = {
-  wrap: {
-
-  },
   actButtons: {
     display: 'grid',
     pad: '3rem',
     fontSize: '2rem',
+    marginTop: '6rem',
     marginLeft: '5rem',
     marginRight: '5rem',
   }

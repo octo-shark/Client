@@ -17,7 +17,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#adb7c1'
+    backgroundColor: '#606060'
   },
   sim: {
   }
@@ -27,7 +27,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'landingView',
+      view: 'trackerView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},

@@ -8,16 +8,19 @@ const CurrentActivityBlock = (props) => {
       display: 'grid',
       gridTemplateRows: 'repeat(3, 10rem)',
       textAlign: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      marginTop: '4rem',
     },
     time: {
       fontSize: '10em',
-      color: '#FFFFFF'
+      color: '#FFFFFF',
+      textShadow: '0px 2px 0px rgba(0, 0, 0, 0.4)'
     },
     name: {
       wordBreak: 'break-all',
       fontSize: '7em',
       color: '#FFFFFF',
+      textShadow: '0px 2px 0px rgba(0, 0, 0, 0.4)',
     },
     toggleWrap: {
       itemAlign: 'center'
