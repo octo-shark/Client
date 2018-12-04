@@ -19,7 +19,6 @@ let s = {
   modalMain: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
     position: 'fixed',
     background: 'grey',
     width: '80%',
@@ -30,7 +29,6 @@ let s = {
     textAlign: 'center',
     borderStyle: 'solid',
     borderWidth: '2rem',
-    borderColor: 'coral',
     fontSize: '4rem',
     color: 'black'
   },
@@ -39,21 +37,22 @@ let s = {
   },
   colorBlock: {
     backgroundColor: 'lightgrey',
-    display: 'grid',
-    gridTemplateColumns: '1fr auto 1fr'
+    height: '40%'
   },
   buttons: {
-    backgroundColor: 'lightgrey',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
+    gridGap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))',
     overflow: 'wrap',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: '0.5rem'
   },
   save: {
     backgroundColor: '#e7e7e7',
     border: 'none',
     color: 'Black',
     padding: '1.5rem, 3.2rem',
+    width: '20rem',
     textAlign: 'center',
     textDecoration: 'none',
     fontSize: '5.5rem'
@@ -63,6 +62,7 @@ let s = {
     border: 'none',
     color: 'Black',
     padding: '1.5rem, 3.2rem',
+    width: '20rem',
     textAlign: 'center',
     textDecoration: 'none',
     fontSize: '5.5rem'
@@ -108,7 +108,7 @@ class TaskEditModal extends React.Component {
           color: 'black'
         }}>
           <div style={s.nameBlock}>
-            <p>NAME</p>
+            <div>Name</div>
             <input
               type='text'
               name='actName'
@@ -118,16 +118,20 @@ class TaskEditModal extends React.Component {
             />
           </div>
           <div style={s.colorBlock}>
-            <CirclePicker onChangeComplete={this.handleColorChange.bind(this)}/>
+              <CirclePicker onChangeComplete={this.handleColorChange.bind(this)} width='85vw' circleSpacing='20px'/>
           </div>
           <div style={s.buttons}>
+            <div>
               <button style={s.save} onClick={() => {
                 this.props.updateAct(this.props.id, this.state.name, this.state.color);
                 this.props.handleClose();
               }}>
                 Save
               </button>
+            </div>
+            <div>
               <button style={s.cancel} onClick={() => this.props.handleClose()}>Cancel</button>
+            </div>
           </div>
         </section>
       </div>

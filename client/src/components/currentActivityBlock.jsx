@@ -22,7 +22,8 @@ const CurrentActivityBlock = (props) => {
     },
     toggleBtn: {
       height: '6rem',
-      width: '6rem'
+      width: '6rem',
+      border: 'none'
     },
 
   }
