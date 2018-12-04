@@ -6,12 +6,12 @@ const CurrentActivityBlock = (props) => {
   let s = {
     wrap: {
       display: 'grid',
-      gridTemplateRows: 'repeat(3, 10rem)',
+      gridTemplateRows: 'repeat(auto-fit, minmax(10rem, 1fr))',
       textAlign: 'center',
       justifyContent: 'center'
     },
     time: {
-      fontSize: '10em'
+      fontSize: '8em'
     },
     name: {
       wordBreak: 'break-all',
