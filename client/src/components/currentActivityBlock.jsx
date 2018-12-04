@@ -14,6 +14,7 @@ const CurrentActivityBlock = (props) => {
       fontSize: '10em'
     },
     name: {
+      wordBreak: 'break-all',
       fontSize: '7em'
     },
     toggleWrap: {

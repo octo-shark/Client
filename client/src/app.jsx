@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import HistoryView from './views/historyView.jsx';
 import SettingsView from './views/settingsView.jsx';
 import TrackerView from './views/trackerView.jsx';
+import LandingView from './views/landingView.jsx';
 import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
 
@@ -16,7 +17,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#606060'
+    backgroundColor: '#adb7c1'
   },
   sim: {
   }
@@ -26,7 +27,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'trackerView',
+      view: 'landingView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -151,6 +152,10 @@ class App extends React.Component {
 
   dynamicPage() {
     switch(this.state.view) {
+      case 'landingView':
+        return (
+          <LandingView />
+        );
       case 'mainView':
         return (
           <MainView
