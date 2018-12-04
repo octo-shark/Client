@@ -42,7 +42,8 @@ class App extends React.Component {
       seconds: 0,
       orientation: 0,
       keepTime: false,
-      timerInterval: null
+      timerInterval: null,
+      googleHTML: {}
     }
   };
 
@@ -200,6 +201,8 @@ class App extends React.Component {
             updateAct={this.updateAct.bind(this)}
           />
         );
+      case 'loginView':
+        return <div dangerouslySetInnerHTML={this.state.googleHTML} ></div>
       default: 
         return (
           <p>Invalid Page</p>
@@ -210,7 +213,14 @@ class App extends React.Component {
   loginCall(){
     axios.get('http://localhost:3000/auth/google')
     .then((response) =>{
+      
       console.log(response)
+      this.setState({googleHTML: {__html: response.data}})
+    }).then(() =>{
+      console.log(this.state.googleHTML)
+      this.changeView('loginView')
+    }).catch(err => {
+      console.log('lmao err when logging in: ', err)
     })
   }
 
