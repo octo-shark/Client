@@ -38,6 +38,7 @@ a
   z-index: 1;
   
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
@@ -56,6 +57,7 @@ a
   z-index: 2; /* and place it over the hamburger */
   
   -webkit-touch-callout: none;
+  -moz-touch-select: none;
 }
 
 /*
@@ -134,6 +136,7 @@ a
   background: #ededed;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   /* to stop flickering of text in safari */
   
   transform-origin: 0% 0%;
