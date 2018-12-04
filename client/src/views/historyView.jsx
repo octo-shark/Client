@@ -57,9 +57,9 @@ class History extends React.Component {
     return(
       <div style={s.wrap}>
             <ul style={{textAlign: 'center'}}>
-              <button><a onClick={() => this.changeView('Pie')}>Pie</a></button>
-              <button><a onClick={() => this.changeView('Doughnut')}>Doughnut</a></button>
-              <button><a onClick={() => this.changeView('Bar')}>Bar</a></button>
+              <button onClick={() => this.changeView('Pie')}>Pie</button>
+              <button onClick={() => this.changeView('Doughnut')}>Doughnut</button>
+              <button onClick={() => this.changeView('Bar')}>Bar</button>
             </ul>
          <PieChart 
             changeView={this.changeView.bind(this)}
