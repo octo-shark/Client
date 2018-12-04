@@ -160,3 +160,13 @@ a
 {
   grid-column: 2
 }
+
+.lBox {
+  background: #FFFFFF;
+  opacity: 0.5;
+}
+
+.dBox {
+  background: #000000;
+  opacity: 0.5;
+}
