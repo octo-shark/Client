@@ -5,25 +5,42 @@ const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
   let s = {
     wrap: {
+      paddingBottom: '4rem',
+      // marginBottom: '4rem'
+      // height: '95%'
+    },
+    textWrap: {
       display: 'grid',
       gridTemplateRows: 'repeat(auto-fit, minmax(10rem, 1fr))',
       textAlign: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      paddingTop: '4rem',
+      // marginBottom: '1rem',
     },
     time: {
-      fontSize: '8em'
+      fontSize: '10em',
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+      textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)'
     },
     name: {
       wordBreak: 'break-all',
-      fontSize: '7em'
+      fontSize: '7em',
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+      textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)',
     },
     toggleWrap: {
-      itemAlign: 'center'
+      display: 'grid',
+      justifyContent: 'center',
+      paddingTop: '1rem'
+      // paddingBottom: '2rem',
     },
     toggleBtn: {
       height: '6rem',
       width: '6rem',
-      border: 'none'
+      border: 'none',
+      // backgroundColor: 'transparent'
     },
 
   }
@@ -35,16 +52,22 @@ const CurrentActivityBlock = (props) => {
 
   return (
     <div style={s.wrap}>
-      <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
-      <a style={s.name}>{actName}</a>
-      <div>
-        <input 
-          style={s.toggleBtn}
-          type='submit'
-          value={props.keepTime ? 'End' : 'Start'}
-          onClick={()=>(props.toggleTimer())}
-        />
+      <div style={s.textWrap}>
+        <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
+        <a style={s.name}>{actName}</a>
       </div>
+      <div class='playstop' style={s.toggleWrap}>
+          <input 
+            style={s.toggleBtn}
+            type='checkbox'
+            aria-label='playstop'
+            id='playstop'
+            value='None'
+            // value={props.keepTime ? 'End' : 'Start'}
+            onClick={()=>(props.toggleTimer())}
+          />
+          <label for="playstop"></label>
+        </div>
     </div>
   );
 }

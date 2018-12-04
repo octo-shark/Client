@@ -12,8 +12,8 @@ const s = {
     display: 'grid',
     pad: '0.2rem',
     itemAlign: 'center',
-    marginLeft: '3rem',
-    marginRight: '3rem',
+    marginLeft: '0.2rem',
+    marginRight: '0.2rem',
     fontSize: '2rem'
   },
   trackedActBox: {

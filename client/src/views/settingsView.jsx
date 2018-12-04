@@ -12,8 +12,9 @@ const s = {
     display: 'grid',
     pad: '3rem',
     fontSize: '2rem',
-    marginLeft: '5rem',
-    marginRight: '5rem',
+    marginTop: '6rem',
+    // marginLeft: '5rem',
+    // marginRight: '5rem',
   }
 }
 

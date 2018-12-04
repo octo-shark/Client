@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 /*
  * Made by Erik Terwan
  * 24th of November 2015
@@ -17,7 +18,8 @@ body
   /* make it look decent enough */
   background: #232323;
   color: #cdcdcd;
-  font-family: "Avenir Next", "Avenir", sans-serif;
+  /* font-family: "Avenir Next", "Avenir", sans-serif; */
+  font-family: 'Helvetica', "Open Sans", sans-serif, 'Arial';
 }
 
 a
@@ -38,6 +40,7 @@ a
   z-index: 1;
   
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
@@ -56,6 +59,7 @@ a
   z-index: 2; /* and place it over the hamburger */
   
   -webkit-touch-callout: none;
+  -moz-touch-select: none;
 }
 
 /*
@@ -69,7 +73,7 @@ a
   margin-bottom: 5px;
   position: relative;
   
-  background: #cdcdcd;
+  background: #FFFFFF;
   border-radius: 3px;
   
   z-index: 1;
@@ -134,6 +138,7 @@ a
   background: #ededed;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   /* to stop flickering of text in safari */
   
   transform-origin: 0% 0%;
@@ -164,4 +169,28 @@ a
 .dBox {
   background: #000000;
   opacity: 0.5;
+}
+
+.playstop label {
+  display: block;
+  box-sizing: border-box;
+  width: 0;
+  height: 60px;
+  border-color: transparent transparent transparent #FFFFFF;
+  transition: 100ms all ease;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 30px 0 30px 60px;
+  user-select: none;
+}
+.playstop input[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+}
+.playstop input[type="checkbox"]:checked + label {
+  /* border-style: double; */
+  border-width: 0px 0 0px 60px;
+}
+.playstop input[type="checkbox"]:focus + label {
+  box-shadow: 0 0 5px lightblue;
 }

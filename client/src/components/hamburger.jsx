@@ -4,7 +4,7 @@ import React from 'react';
 const Hamburger = (props) => (
   <nav>
     <div id="menuToggle">
-      <input type="checkbox"/>
+      <input type="checkbox" aria-label="menu"/>
       <span></span>
       <span></span>
       <span></span>

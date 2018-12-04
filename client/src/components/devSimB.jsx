@@ -16,13 +16,17 @@ const DevSimB = (props) => {
       {props.activities.map(id => {
         let info = props.getActInfo(id);
         let faceStyle = {
-          fontSize: '1em',
+          fontSize: '1.5em',
+          fontWeight: 'bold',
           border: 'none',
           height: '3em',
           overflow: 'hidden',
-          backgroundColor: info.color,
+          background: info.color,
           color: 'white',
-          fontWeight: 'bold'
+          textShadow: '1px 2px 0px rgba(0, 0, 0, 0.4)',
+          WebkitBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)',
+          MozBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)'
         }
         if (props.curActivity === id) faceStyle.display = 'none'
 
