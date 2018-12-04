@@ -9,7 +9,7 @@ const CurrentActivityBlock = (props) => {
     },
     textWrap: {
       display: 'grid',
-      gridTemplateRows: 'repeat(2, 10rem)',
+      gridTemplateRows: 'repeat(auto-fit, minmax(10rem, 1fr))',
       textAlign: 'center',
       justifyContent: 'center',
       paddingTop: '4rem',
