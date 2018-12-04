@@ -14,10 +14,10 @@ const s = {
     display: 'grid',
     gridTemplateColumns: '1fr',
     gridTemplateRows: '0 1fr', //placeholder
-    height: '98vh'
+    height: '98vh',
   },
   page: {
-    backgroundColor: '#adb7c1'
+    backgroundColor: '#adb7c1',
   },
   sim: {
   }
