@@ -3,9 +3,9 @@ import React from 'react';
 const s = {
   wrap: {
     display: 'grid',
-    padding: '0.1em',
-    gridGap: '0.1em',
-    backgroundColor: 'grey'
+    gridTemplateRows: 'repeat(auto, 3em)',
+    padding: '1rem',
+    gridGap: '1rem'
   }
 }
 

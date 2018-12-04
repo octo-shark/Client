@@ -3,24 +3,9 @@ import PieChart from '../components/legacy/PieChart.jsx';
 const s = {
   wrap: {
     display: 'grid',
-    gridTemplateColumns: '1fr 200px',
-    gridTemplateRows: 'repeat(2, 1fr)',
+    overflow: 'hidden',
+    height: '98vh'
   },
-  pieChart:{
-    gridColumn: '1/2',
-    gridRow: '1/2',
-    textAlign: 'center'
-  },
-  backLogWrap: {
-    gridColumn: '1/2',
-    gridRow: '2/2',
-    backgroundColor: 'lightGrey'
-  },
-  activityLog: {
-    gridColumn: '2/3',
-    gridRow: '1/3',
-    backgroundColor: 'lightGreen'
-  }
 }
 class History extends React.Component {
   constructor(props) {
@@ -33,14 +18,11 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
-        <div style={s.pieChart}>
-          <h1>PieChart</h1>
           <PieChart 
             getActInfo={this.props.getActInfo} 
             userHistory={this.props.userHistory} 
             colorAssignment={this.props.colorAssignment}
           />
-        </div>
       </div>
     )
   }

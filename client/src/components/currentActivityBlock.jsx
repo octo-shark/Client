@@ -15,8 +15,9 @@ const CurrentActivityBlock = (props) => {
       color: '#FFFFFF'
     },
     name: {
+      wordBreak: 'break-all',
       fontSize: '7em',
-      color: '#FFFFFF'
+      color: '#FFFFFF',
     },
     toggleWrap: {
       itemAlign: 'center'
