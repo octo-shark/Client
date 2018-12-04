@@ -53,12 +53,11 @@ class App extends React.Component {
         console.log(res);
         console.log('mockData is being used:');
         console.log(mockData);
-
         this.setState({
           // test data being used
           account: mockData.account,
           activities: mockData.activities,
-          assignedActivities: mockData.assigned_activities
+          assignedActivities: mockData.assigned_activities,
         });
       })
       .catch(err => console.log(err));
@@ -190,6 +189,7 @@ class App extends React.Component {
           <HistoryView
             userHistory={this.state.userHistory}
             colorAssignment={this.state.colorAssignment}
+            getActInfo={this.getActInfo.bind(this)}
           />
         );
       case 'settingsView':

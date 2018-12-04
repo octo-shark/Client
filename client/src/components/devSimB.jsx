@@ -6,7 +6,7 @@ const s = {
     padding: '0.1em',
     gridGap: '0.1em',
     backgroundColor: 'grey'
-  },
+  }
 }
 
 
@@ -20,18 +20,20 @@ const DevSimB = (props) => {
           border: 'none',
           height: '3em',
           overflow: 'hidden',
-          backgroundColor: info.color
+          backgroundColor: info.color,
+          color: 'white',
+          fontWeight: 'bold'
         }
         if (props.curActivity === id) faceStyle.display = 'none'
 
         return (
-          <input 
+          <button 
             style={faceStyle}
-            type='submit'
-            value={info.name}
             key={`assignedAct ${id}`}
             onClick={() => props.clickEvent(id)}
-          />
+          >
+            {info.name}
+          </button>
         );
       })}
     </div>
