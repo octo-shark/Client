@@ -30,7 +30,6 @@ let s = {
     textAlign: 'center',
     borderStyle: 'solid',
     borderWidth: '2rem',
-    borderColor: 'coral',
     fontSize: '4rem',
     color: 'black'
   },
@@ -43,9 +42,9 @@ let s = {
     gridTemplateColumns: '1fr auto 1fr'
   },
   buttons: {
-    backgroundColor: 'lightgrey',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
+    gridGap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))',
     overflow: 'wrap',
     textAlign: 'center'
   },
@@ -54,6 +53,7 @@ let s = {
     border: 'none',
     color: 'Black',
     padding: '1.5rem, 3.2rem',
+    width: '20rem',
     textAlign: 'center',
     textDecoration: 'none',
     fontSize: '5.5rem'
@@ -63,6 +63,7 @@ let s = {
     border: 'none',
     color: 'Black',
     padding: '1.5rem, 3.2rem',
+    width: '20rem',
     textAlign: 'center',
     textDecoration: 'none',
     fontSize: '5.5rem'
@@ -121,13 +122,17 @@ class TaskEditModal extends React.Component {
             <CirclePicker onChangeComplete={this.handleColorChange.bind(this)}/>
           </div>
           <div style={s.buttons}>
+            <div>
               <button style={s.save} onClick={() => {
                 this.props.updateAct(this.props.id, this.state.name, this.state.color);
                 this.props.handleClose();
               }}>
                 Save
               </button>
+            </div>
+            <div>
               <button style={s.cancel} onClick={() => this.props.handleClose()}>Cancel</button>
+            </div>
           </div>
         </section>
       </div>
