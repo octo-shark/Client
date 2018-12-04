@@ -4,7 +4,9 @@ import DevSimB from '../components/devSimB.jsx';
 
 const s = {
   wrap: {
-
+    overflowY: 'auto',
+    itemAlign: 'center',
+    height: '98vh' //FIXME
   },
   actButtons: {
     display: 'grid',
@@ -48,7 +50,7 @@ class SettingsView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={s.wrap}>
         <div style={s.actButtons}>
           <DevSimB
             getActInfo={this.props.getActInfo}

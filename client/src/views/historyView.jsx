@@ -2,9 +2,9 @@ import React from 'react';
 import PieChart from '../components/legacy/PieChart.jsx';
 const s = {
   wrap: {
-    display: 'grid',
-    overflow: 'hidden',
-    height: '98vh'
+    overflowY: 'auto',
+    itemAlign: 'center',
+    height: '98vh' //FIXME
   },
 }
 class History extends React.Component {
