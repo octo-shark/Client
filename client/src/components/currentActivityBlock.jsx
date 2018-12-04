@@ -5,7 +5,9 @@ const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
   let s = {
     wrap: {
-      marginBottom: '2rem'
+      paddingBottom: '4rem',
+      // marginBottom: '4rem'
+      // height: '95%'
     },
     textWrap: {
       display: 'grid',
@@ -31,7 +33,7 @@ const CurrentActivityBlock = (props) => {
     toggleWrap: {
       display: 'grid',
       justifyContent: 'center',
-      marginTop: '1rem'
+      paddingTop: '1rem'
       // paddingBottom: '2rem',
     },
     toggleBtn: {

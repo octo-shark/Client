@@ -18,6 +18,7 @@ const s = {
   },
   page: {
     backgroundColor: '#606060'
+    // backgroundColor: '#ff80ab'
   },
   sim: {
   }

@@ -24,9 +24,9 @@ const DevSimB = (props) => {
           background: info.color,
           color: 'white',
           textShadow: '1px 2px 0px rgba(0, 0, 0, 0.4)',
-          WebkitBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.4)',
-          MozBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.4)',
-          boxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.4)'
+          WebkitBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)',
+          MozBoxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 4px 1px -1px rgba(0, 0, 0, 0.2)'
         }
         if (props.curActivity === id) faceStyle.display = 'none'
 

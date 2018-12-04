@@ -19,7 +19,7 @@ body
   background: #232323;
   color: #cdcdcd;
   /* font-family: "Avenir Next", "Avenir", sans-serif; */
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Helvetica', "Open Sans", sans-serif, 'Arial';
 }
 
 a
