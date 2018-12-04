@@ -33,7 +33,7 @@ class App extends React.Component {
       activities: {},
       colorAssignment: {},
       userHistory: [],
-      account: {email: 'test'},
+      account: null,
       curActivity: null,
       startTime: 0,
       stopTime: 0,
@@ -43,32 +43,33 @@ class App extends React.Component {
       seconds: 0,
       orientation: 0,
       keepTime: false,
-      timerInterval: null
+      timerInterval: null,
+      googleHTML: {}
     }
   };
 
   componentDidMount() {
-    axios.get(`${proxy}/rikki`)
-      .then(res => {
-        console.log(res);
-        console.log('mockData is being used:');
-        console.log(mockData);
-        this.setState({
-          // test data being used
-          account: mockData.account,
-          activities: mockData.activities,
-          assignedActivities: mockData.assigned_activities,
-        });
-      })
-      .catch(err => console.log(err));
-    axios.get(`${proxy}/rikki/timestamps`)
-      .then(res => {
-        console.log(res);
-        this.setState({
-          userHistory: res.data
+    console.log('Has account logged: ', this.state.account)
+    if(this.state.account){
+      axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
+        .then(res => {
+          console.log('COmponent Did mount',res);
+          this.setState({
+            account:  account.data.user,
+            activities: account.data.activities,
+            assignedActivities: account.data.assigned_activities,
+          });
         })
-      })
-      .catch(err => console.log(err));
+        .catch(err => console.log(err));
+      axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
+        .then(res => {
+          console.log(res);
+          this.setState({
+            userHistory: res.data
+          })
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   getActInfo(id) {
@@ -108,12 +109,12 @@ class App extends React.Component {
   
   postTimeStamp(end) {
     let stamp = {
-      user_id: this.state.account.username,
+      user_id: this.state.account.id,
       activity_id: this.state.curActivity,
       timestamp_start: this.state.startTime,
       timestamp_end: end
     };
-    axios.post(`${proxy}/${this.state.account.username}/timestamps`, stamp)
+    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
@@ -155,22 +156,6 @@ class App extends React.Component {
         return (
           <LandingView />
         );
-      case 'mainView':
-        return (
-          <MainView
-            toggleTimer={this.toggleTimer.bind(this)}
-            getActInfo={this.getActInfo.bind(this)}
-            curActivity={this.state.curActivity}
-            userHistory={this.state.userHistory}
-            orientation={this.state.orientation}
-            keepTime={this.state.keepTime}
-            curActTime={{
-              seconds: this.state.seconds,
-              minutes: this.state.minutes,
-              hours: this.state.hours
-            }}
-          /> 
-        );
       case 'trackerView':
         return (
           <TrackerView
@@ -207,9 +192,35 @@ class App extends React.Component {
         );
       default: 
         return (
-          <p>Invalid Page</p>
+          <p><h1>Invalid Page</h1></p>
         );
     }
+  }
+  loginCall(){
+    window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
+    axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
+      console.log("...Waiting for google login response...",response)
+      return axios.get('http://localhost:3000/auth/wait?id='+response.data);
+    }).then(response=>{
+      this.setState({account: response.data.user})
+      this.setState({activities: response.data.activities})
+      this.setState({assigned_activities: response.assigned_activities})
+      console.log('States have been set to: ', this.state.account, this.state.activities, this.state.assignedActivities)
+      this.changeView('trackerView')
+      console.log("Got response...: ", response);
+    })
+  }
+
+  logoutCall(){
+    axios.get('http://localhost:3000/auth/logout')
+    .then((response) => {
+      console.log('Something: ', response)
+      this.setState({account: null})
+      this.changeView('landingView')
+    })
+    .catch((err)=>{
+      console.log('error logging out: ', err)
+    })
   }
 
   render() {
@@ -217,6 +228,8 @@ class App extends React.Component {
       <div style={s.wrap}>
         <Hamburger
           changeView={this.changeView.bind(this)}
+          loginCall={this.loginCall.bind(this)}
+          logoutCall={this.logoutCall.bind(this)}
         />
         <div style={s.page}>
            {this.dynamicPage()}
