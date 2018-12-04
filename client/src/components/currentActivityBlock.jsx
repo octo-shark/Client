@@ -11,10 +11,12 @@ const CurrentActivityBlock = (props) => {
       justifyContent: 'center'
     },
     time: {
-      fontSize: '10em'
+      fontSize: '10em',
+      color: '#FFFFFF'
     },
     name: {
-      fontSize: '7em'
+      fontSize: '7em',
+      color: '#FFFFFF'
     },
     toggleWrap: {
       itemAlign: 'center'

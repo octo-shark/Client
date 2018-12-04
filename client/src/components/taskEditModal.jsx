@@ -1,6 +1,5 @@
 import React from 'react';
-import { HuePicker } from 'react-color';
-import { CirclePicker } from 'react-color';
+import CirclePicker from 'react-color/lib/Circle'
 
 let s = {
   wrap: {
