@@ -155,3 +155,8 @@ a
 {
   transform: none;
 }
+
+.circle-picker 
+{
+  grid-column: 2
+}
