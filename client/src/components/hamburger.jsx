@@ -3,7 +3,7 @@ import React from 'react';
 const Hamburger = (props) => (
   <nav>
     <div id="menuToggle">
-      <input type="checkbox" />
+      <input type="checkbox"/>
       <span></span>
       <span></span>
       <span></span>
