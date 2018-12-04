@@ -6,15 +6,15 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
+    overflow: 'hidden',
     height: '98vh' //FIXME
   },
   actButtons: {
     display: 'grid',
     pad: '0.2rem',
     itemAlign: 'center',
-    backgroundColor: 'grey',
-    marginLeft: '5rem',
-    marginRight: '5rem',
+    marginLeft: '3rem',
+    marginRight: '3rem',
     fontSize: '2rem'
   },
   trackedActBox: {

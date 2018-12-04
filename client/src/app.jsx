@@ -16,7 +16,7 @@ const s = {
     height: '98vh'
   },
   page: {
-    backgroundColor: '#606060'
+    backgroundColor: '#adb7c1'
   },
   sim: {
   }

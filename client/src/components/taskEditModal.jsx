@@ -8,7 +8,6 @@ let s = {
     padding: '0.4rem',
     gridGap: '0.4rem'
   },
-
   modal: {
     position: 'fixed',
     top: 0,
@@ -40,15 +39,17 @@ let s = {
   },
   colorBlock: {
     backgroundColor: 'lightgrey',
-    textAlign: 'center'
+    display: 'grid',
+    gridTemplateColumns: '1fr auto 1fr'
   },
   buttons: {
     backgroundColor: 'lightgrey',
     display: 'grid',
-    gridTemplateColumns: '3fr auto 1fr auto 3fr'
+    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
+    overflow: 'wrap',
+    textAlign: 'center'
   },
   save: {
-    gridColumn: '2',
     backgroundColor: '#e7e7e7',
     border: 'none',
     color: 'Black',
@@ -58,7 +59,6 @@ let s = {
     fontSize: '5.5rem'
   },
   cancel: {
-    gridColumn: '4',
     backgroundColor: '#e7e7e7',
     border: 'none',
     color: 'Black',
