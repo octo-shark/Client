@@ -14,13 +14,11 @@ const s = {
     display: 'grid',
     gridTemplateColumns: '1fr',
     gridTemplateRows: '0 1fr', //placeholder
-    height: '98vh',
+    height: '100vh'
   },
   page: {
-    backgroundColor: '#606060'
+    // backgroundColor: '#606060'
     // backgroundColor: '#ff80ab'
-  },
-  sim: {
   }
 }
 
@@ -49,28 +47,52 @@ class App extends React.Component {
     }
   };
 
+  // componentDidMount() {
+  //   console.log('Has account logged: ', this.state.account)
+  //   if(this.state.account){
+  //     axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
+  //       .then(res => {
+  //         console.log('COmponent Did mount',res);
+  //         this.setState({
+  //           account:  account.data.user,
+  //           activities: account.data.activities,
+  //           assignedActivities: account.data.assigned_activities,
+  //         });
+  //       })
+  //       .catch(err => console.log(err));
+  //     axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
+  //       .then(res => {
+  //         console.log(res);
+  //         this.setState({
+  //           userHistory: res.data
+  //         })
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  // }
+
   componentDidMount() {
-    console.log('Has account logged: ', this.state.account)
-    if(this.state.account){
-      axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
-        .then(res => {
-          console.log('COmponent Did mount',res);
-          this.setState({
-            account:  account.data.user,
-            activities: account.data.activities,
-            assignedActivities: account.data.assigned_activities,
-          });
+    axios.get(`${proxy}/rikki`)
+      .then(res => {
+        // console.log(res);
+        // console.log('mockData is being used:');
+        // console.log(mockData);
+        this.setState({
+          // test data being used
+          account: mockData.account,
+          activities: mockData.activities,
+          assignedActivities: mockData.assigned_activities,
+        });
+      })
+      // .catch(err => console.log(err));
+    axios.get(`${proxy}/rikki/timestamps`)
+      .then(res => {
+        // console.log(res);
+        this.setState({
+          userHistory: res.data
         })
-        .catch(err => console.log(err));
-      axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
-        .then(res => {
-          console.log(res);
-          this.setState({
-            userHistory: res.data
-          })
-        })
-        .catch(err => console.log(err));
-    }
+      })
+      // .catch(err => console.log(err));
   }
 
   getActInfo(id) {
@@ -84,6 +106,9 @@ class App extends React.Component {
 
   startTimer(id) {
     if (!this.state.keepTime) {
+      if (!document.getElementsByClassName('playstop')[1].checked) {
+        document.getElementsByClassName('playstop')[1].checked = true;
+      }
       this.setState({
         curActivity: id,
         timerInterval: setInterval(()=> {this.tick()}, 1000),
@@ -116,22 +141,22 @@ class App extends React.Component {
       timestamp_end: end
     };
     axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      // .then(res => console.log(res))
+      // .catch(err => console.log(err));
   }
   
   updateAct(id, name, color) {
-    console.log(id);
-    console.log('prev acts:');
-    console.log(this.state.activities);
+    // console.log(id);
+    // console.log('prev acts:');
+    // console.log(this.state.activities);
 
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
     this.setState({activities: newActs});
 
-    console.log('new acts:');
-    console.log(this.state.activities);
+    // console.log('new acts:');
+    // console.log(this.state.activities);
   }
 
   taskChange(id) {
@@ -147,8 +172,14 @@ class App extends React.Component {
   }
 
   changeView(page) {
-    console.log(`VIEW_CHANGED: ${page}`);
-    this.setState({view: page});
+    // console.log(`VIEW_CHANGED: ${page}`);
+    this.setState({view: page}, () => {
+      if (this.state.view === 'trackerView') {
+        if (this.state.keepTime && !document.getElementsByClassName('playstop')[1].checked) {
+          document.getElementsByClassName('playstop')[1].checked = true;
+        }
+      }
+    })
   }
 
   dynamicPage() {
@@ -198,30 +229,30 @@ class App extends React.Component {
     }
   }
   loginCall(){
-    window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
-    axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
-      console.log("...Waiting for google login response...",response)
-      return axios.get('http://localhost:3000/auth/wait?id='+response.data);
-    }).then(response=>{
-      this.setState({account: response.data.user})
-      this.setState({activities: response.data.activities})
-      this.setState({assigned_activities: response.assigned_activities})
-      console.log('States have been set to: ', this.state.account, this.state.activities, this.state.assignedActivities)
-      this.changeView('trackerView')
-      console.log("Got response...: ", response);
-    })
+    // window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
+    // axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
+    //   // console.log("...Waiting for google login response...",response)
+    //   return axios.get('http://localhost:3000/auth/wait?id='+response.data);
+    // }).then(response=>{
+    //   this.setState({account: response.data.user})
+    //   this.setState({activities: response.data.activities})
+    //   this.setState({assigned_activities: response.assigned_activities})
+    //   // console.log('States have been set to: ', this.state.account, this.state.activities, this.state.assignedActivities)
+    //   this.changeView('trackerView')
+    //   // console.log("Got response...: ", response);
+    // })
   }
 
   logoutCall(){
-    axios.get('http://localhost:3000/auth/logout')
-    .then((response) => {
-      console.log('Something: ', response)
-      this.setState({account: null})
-      this.changeView('landingView')
-    })
-    .catch((err)=>{
-      console.log('error logging out: ', err)
-    })
+    // axios.get('http://localhost:3000/auth/logout')
+    // .then((response) => {
+    //   // console.log('Something: ', response)
+    //   this.setState({account: null})
+    //   this.changeView('landingView')
+    // })
+    // .catch((err)=>{
+    //   // console.log('error logging out: ', err)
+    // })
   }
 
   render() {

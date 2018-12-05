@@ -7,7 +7,8 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
-    height: '98vh' //FIXME
+    height: '100vh', //FIXME
+    backgroundColor: 'white'
   },
 }
 class History extends React.Component {
@@ -30,7 +31,7 @@ class History extends React.Component {
   }
 
   changeView(page) {
-    console.log(`VIEW_CHANGED: ${page}`);
+    // console.log(`VIEW_CHANGED: ${page}`);
     this.setState({view: page});
   }
 

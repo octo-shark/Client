@@ -19,14 +19,14 @@ const CurrentActivityBlock = (props) => {
     },
     time: {
       fontSize: '10em',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)'
     },
     name: {
       wordBreak: 'break-all',
       fontSize: '7em',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)',
     },
@@ -47,22 +47,21 @@ const CurrentActivityBlock = (props) => {
     document.body.style.background = `${props.actInfo.color}`;
     actName = props.actInfo.name;
   }
-
   return (
     <div style={s.wrap}>
       <div style={s.textWrap}>
         <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
         <a style={s.name}>{actName}</a>
       </div>
-      <div class='playstop' style={s.toggleWrap}>
+      <div className='playstop' style={s.toggleWrap}>
           <input 
             type='checkbox'
             aria-label='playstop'
+            className='playstop'
             id='playstop'
-            value='None'
             onClick={()=>(props.toggleTimer())}
           />
-          <label for="playstop"></label>
+          <label htmlFor="playstop"></label>
         </div>
     </div>
   );
