@@ -29,6 +29,7 @@ class App extends React.Component {
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
+      colorAssignment: {},
       userHistory: [],
       account: null,
       curActivity: null,
@@ -135,17 +136,25 @@ class App extends React.Component {
   }
   
   updateAct(id, name, color) {
-    console.log(id);
-    console.log('prev acts:');
-    console.log(this.state.activities);
 
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
     this.setState({activities: newActs});
 
-    console.log('new acts:');
-    console.log(this.state.activities);
+    console.log({
+      id: id,
+      name: name,
+      color: color
+    });
+
+    axios.post(`${proxy}/profile/update_activity`, {
+        id: id,
+        name: name,
+        color: color
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   taskChange(id) {

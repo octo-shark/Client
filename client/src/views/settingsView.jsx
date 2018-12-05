@@ -41,7 +41,7 @@ class SettingsView extends React.Component {
       return (
         <TaskEditModal
           handleClose={this.hideModal.bind(this)}
-          updateAct={this.props.updateAct}
+          updateAct={this.props.updateAct.bind(this)}
           actInfo={this.props.getActInfo(this.state.modelTarget)}
           id={this.state.modelTarget}
         />
