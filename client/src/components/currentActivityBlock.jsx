@@ -5,9 +5,9 @@ const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
   let s = {
     wrap: {
-      paddingBottom: '4rem',
+      // paddingBottom: '4rem',
       // marginBottom: '4rem'
-      // height: '95%'
+      height: '95%'
     },
     textWrap: {
       display: 'grid',
@@ -34,19 +34,17 @@ const CurrentActivityBlock = (props) => {
       display: 'grid',
       justifyContent: 'center',
       paddingTop: '1rem'
-      // paddingBottom: '2rem',
     },
     toggleBtn: {
       height: '6rem',
       width: '6rem',
       border: 'none',
-      // backgroundColor: 'transparent'
     },
 
   }
   
   if (props.curActivity) {
-    s.wrap.backgroundColor = props.actInfo.color;
+    document.body.style.background = `${props.actInfo.color}`;
     actName = props.actInfo.name;
   }
 
@@ -58,12 +56,10 @@ const CurrentActivityBlock = (props) => {
       </div>
       <div class='playstop' style={s.toggleWrap}>
           <input 
-            style={s.toggleBtn}
             type='checkbox'
             aria-label='playstop'
             id='playstop'
             value='None'
-            // value={props.keepTime ? 'End' : 'Start'}
             onClick={()=>(props.toggleTimer())}
           />
           <label for="playstop"></label>
