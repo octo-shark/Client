@@ -81,6 +81,10 @@ class App extends React.Component {
     .catch(err => console.log(err));
   }
 
+  getTimeStampData() {
+    
+  }
+
   getActInfo(id) {
     return this.state.activities[id];
   }
@@ -219,7 +223,7 @@ class App extends React.Component {
          activities: this.formatActArrToObj(res.data.activities),
          assignedActivities: res.data.assigned_activities
        })
-       if (res.data.user && res.data.activities && res.assigned_activities) {
+       if (res.data.user) {
          this.changeView('trackerView');
        }
        console.log(res.data.assigned_activities, res.data.activities);
