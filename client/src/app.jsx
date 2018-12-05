@@ -1,32 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import HistoryView from './views/historyView.jsx';
-import SettingsView from './views/settingsView.jsx';
-import TrackerView from './views/trackerView.jsx';
-import LandingView from './views/landingView.jsx';
-import Hamburger from './components/hamburger.jsx';
-import mockData from './components/utilities/mockData.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import HistoryView from "./views/historyView.jsx";
+import SettingsView from "./views/settingsView.jsx";
+import TrackerView from "./views/trackerView.jsx";
+import LandingView from "./views/landingView.jsx";
+import Hamburger from "./components/hamburger.jsx";
+import mockData from "./components/utilities/mockData.js";
 
-const axios = require('axios');
-const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
+const axios = require("axios");
+const proxy = "https://d1fvvcoh0ci3m5.cloudfront.net";
 const s = {
   wrap: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '0 1fr', //placeholder
-    height: '100vh'
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gridTemplateRows: "0 1fr", //placeholder
+    height: "100vh"
   },
   page: {
     // backgroundColor: '#606060'
     // backgroundColor: '#ff80ab'
   }
-}
+};
+
+// Device
+var socket;
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'trackerView',
+      view: "trackerView",
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -44,10 +47,11 @@ class App extends React.Component {
       keepTime: false,
       timerInterval: null,
       googleHTML: {}
-    }
-  };
+    };
+  }
 
   // componentDidMount() {
+  //   this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
   //   console.log('Has account logged: ', this.state.account)
   //   if(this.state.account){
   //     axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
@@ -72,27 +76,54 @@ class App extends React.Component {
   // }
 
   componentDidMount() {
-    axios.get(`${proxy}/rikki`)
-      .then(res => {
-        // console.log(res);
-        // console.log('mockData is being used:');
-        // console.log(mockData);
-        this.setState({
-          // test data being used
-          account: mockData.account,
-          activities: mockData.activities,
-          assignedActivities: mockData.assigned_activities,
-        });
-      })
-      // .catch(err => console.log(err));
-    axios.get(`${proxy}/rikki/timestamps`)
-      .then(res => {
-        // console.log(res);
-        this.setState({
-          userHistory: res.data
-        })
-      })
-      // .catch(err => console.log(err));
+    this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
+    axios.get(`${proxy}/rikki`).then(res => {
+      // console.log(res);
+      // console.log('mockData is being used:');
+      // console.log(mockData);
+      this.setState({
+        // test data being used
+        account: mockData.account,
+        activities: mockData.activities,
+        assignedActivities: mockData.assigned_activities
+      });
+    });
+    // .catch(err => console.log(err));
+    axios.get(`${proxy}/rikki/timestamps`).then(res => {
+      // console.log(res);
+      this.setState({
+        userHistory: res.data
+      });
+    });
+    // .catch(err => console.log(err));
+  }
+
+  // Time Pylon device socket i/o
+  initDeviceSocket(setActivityIdToDeviceSide) {
+    socket = new WebSocket("ws://localhost:8081");
+    socket.onopen = this.openDeviceSocket;
+    socket.onmessage = this.getDeviceData;
+    socket.onerror = this.onDeviceError;
+    socket.setActivityIdToDeviceSide = setActivityIdToDeviceSide;
+  }
+  openDeviceSocket() {
+    //console.log("Socket to device is open");
+    socket.send("Connect to Time Pylon");
+  }
+  onDeviceError(evt) {
+    console.log("ERROR: " + evt.data + "\n");
+  }
+  getDeviceData(result) {
+    // "{\"side\":0}\r"
+    var inData = result.data.slice(1, -3); // strip out just JSON
+    inData = JSON.parse(inData.split("\\").join("")); // replace the backslashes
+    if (inData.side !== -1) {
+      this.setActivityIdToDeviceSide(+inData.side);
+    }
+  }
+  setActivityIdToDeviceSide(side) {
+    let newActivityId = Object.keys(this.state.activities)[side];
+    this.taskChange(newActivityId);
   }
 
   getActInfo(id) {
@@ -106,15 +137,17 @@ class App extends React.Component {
 
   startTimer(id) {
     if (!this.state.keepTime) {
-      if (!document.getElementsByClassName('playstop')[1].checked) {
-        document.getElementsByClassName('playstop')[1].checked = true;
+      if (!document.getElementsByClassName("playstop")[1].checked) {
+        document.getElementsByClassName("playstop")[1].checked = true;
       }
       this.setState({
         curActivity: id,
-        timerInterval: setInterval(()=> {this.tick()}, 1000),
+        timerInterval: setInterval(() => {
+          this.tick();
+        }, 1000),
         keepTime: true,
-        startTime: Date.now(),
-      })
+        startTime: Date.now()
+      });
     }
   }
 
@@ -130,9 +163,9 @@ class App extends React.Component {
   tick() {
     this.setState({
       duration: Date.now() - this.state.startTime
-    })
+    });
   }
-  
+
   postTimeStamp(end) {
     let stamp = {
       user_id: this.state.account.id,
@@ -140,11 +173,11 @@ class App extends React.Component {
       timestamp_start: this.state.startTime,
       timestamp_end: end
     };
-    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp)
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err));
+    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp);
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err));
   }
-  
+
   updateAct(id, name, color) {
     // console.log(id);
     // console.log('prev acts:');
@@ -153,42 +186,44 @@ class App extends React.Component {
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
-    this.setState({activities: newActs});
+    this.setState({ activities: newActs });
 
     // console.log('new acts:');
     // console.log(this.state.activities);
   }
 
   taskChange(id) {
-    if (!this.state.keepTime) {this.startTimer(id)}
-    else {
+    if (!this.state.keepTime) {
+      this.startTimer(id);
+    } else {
       let now = Date.now();
       this.postTimeStamp(now);
       this.setState({
         startTime: now,
         curActivity: id
-      })
+      });
     }
   }
 
   changeView(page) {
     // console.log(`VIEW_CHANGED: ${page}`);
-    this.setState({view: page}, () => {
-      if (this.state.view === 'trackerView') {
-        if (this.state.keepTime && !document.getElementsByClassName('playstop')[1].checked) {
-          document.getElementsByClassName('playstop')[1].checked = true;
+    this.setState({ view: page }, () => {
+      if (this.state.view === "trackerView") {
+        if (
+          this.state.keepTime &&
+          !document.getElementsByClassName("playstop")[1].checked
+        ) {
+          document.getElementsByClassName("playstop")[1].checked = true;
         }
       }
-    })
+    });
   }
 
   dynamicPage() {
-    switch(this.state.view) {
-      case 'landingView':
-        return (
-          <LandingView />
-        );
-      case 'trackerView':
+    switch (this.state.view) {
+      case "landingView":
+        return <LandingView />;
+      case "trackerView":
         return (
           <TrackerView
             toggleTimer={this.toggleTimer.bind(this)}
@@ -204,8 +239,8 @@ class App extends React.Component {
             }}
             duration={this.state.duration}
           />
-        )
-      case 'historyView':
+        );
+      case "historyView":
         return (
           <HistoryView
             userHistory={this.state.userHistory}
@@ -213,7 +248,7 @@ class App extends React.Component {
             getActInfo={this.getActInfo.bind(this)}
           />
         );
-      case 'settingsView':
+      case "settingsView":
         return (
           <SettingsView
             account={this.state.account}
@@ -222,13 +257,15 @@ class App extends React.Component {
             updateAct={this.updateAct.bind(this)}
           />
         );
-      default: 
+      default:
         return (
-          <p><h1>Invalid Page</h1></p>
+          <p>
+            <h1>Invalid Page</h1>
+          </p>
         );
     }
   }
-  loginCall(){
+  loginCall() {
     // window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
     // axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
     //   // console.log("...Waiting for google login response...",response)
@@ -243,7 +280,7 @@ class App extends React.Component {
     // })
   }
 
-  logoutCall(){
+  logoutCall() {
     // axios.get('http://localhost:3000/auth/logout')
     // .then((response) => {
     //   // console.log('Something: ', response)
@@ -256,19 +293,17 @@ class App extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div style={s.wrap}>
         <Hamburger
           changeView={this.changeView.bind(this)}
           loginCall={this.loginCall.bind(this)}
           logoutCall={this.logoutCall.bind(this)}
         />
-        <div style={s.page}>
-           {this.dynamicPage()}
-        </div>
+        <div style={s.page}>{this.dynamicPage()}</div>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('App'));
+ReactDOM.render(<App />, document.getElementById("App"));
