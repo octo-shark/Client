@@ -4,29 +4,24 @@ const {tFormat, humanDuration} = require('./utilities/tFormat.js');
 const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
   let s = {
-    wrap: {
-      // paddingBottom: '4rem',
-      // marginBottom: '4rem'
-      height: '95%'
-    },
     textWrap: {
       display: 'grid',
       gridTemplateRows: 'repeat(auto-fit, minmax(10rem, 1fr))',
       textAlign: 'center',
       justifyContent: 'center',
       paddingTop: '4rem',
-      // marginBottom: '1rem',
     },
     time: {
+      display: 'grid',
+      justifyContent: 'center',
+      textAlign: 'end',
       fontSize: '10em',
-      // fontWeight: 'bold',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)'
     },
     name: {
       wordBreak: 'break-all',
-      fontSize: '7em',
-      // fontWeight: 'bold',
+      fontSize: '9vw',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)',
     },
@@ -42,13 +37,12 @@ const CurrentActivityBlock = (props) => {
     },
 
   }
-  
   if (props.curActivity) {
     document.body.style.background = `${props.actInfo.color}`;
     actName = props.actInfo.name;
   }
   return (
-    <div style={s.wrap}>
+    <div>
       <div style={s.textWrap}>
         <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
         <a style={s.name}>{actName}</a>
