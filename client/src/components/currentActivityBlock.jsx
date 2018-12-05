@@ -56,7 +56,7 @@ const CurrentActivityBlock = (props) => {
         <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
         <a style={s.name}>{actName}</a>
       </div>
-      <div class='playstop' style={s.toggleWrap}>
+      <div className='playstop' style={s.toggleWrap}>
           <input 
             style={s.toggleBtn}
             type='checkbox'
@@ -66,7 +66,7 @@ const CurrentActivityBlock = (props) => {
             // value={props.keepTime ? 'End' : 'Start'}
             onClick={()=>(props.toggleTimer())}
           />
-          <label for="playstop"></label>
+          <label htmlFor="playstop"></label>
         </div>
     </div>
   );

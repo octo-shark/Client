@@ -28,7 +28,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'trackerView',
+      view: 'landingView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -50,27 +50,35 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    let baseView = 'landingView';
+    if(window.sessionStorage['authenticated']) baseView = 'trackerView';
     console.log('Has account logged: ', this.state.account)
-    if(this.state.account){
-      axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
-        .then(res => {
-          console.log('COmponent Did mount',res);
-          this.setState({
-            account:  account.data.user,
-            activities: account.data.activities,
-            assignedActivities: account.data.assigned_activities,
-          });
-        })
-        .catch(err => console.log(err));
-      axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
-        .then(res => {
-          console.log(res);
-          this.setState({
-            userHistory: res.data
-          })
-        })
-        .catch(err => console.log(err));
-    }
+    this.setState({view: baseView});
+    // this.getDataFromProxy();
+    // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
+    //   .then(res => {
+    //     console.log(res);
+    //     this.setState({
+    //       userHistory: res.data
+    //     })
+    //   })
+    //   .catch(err => console.log(err));
+  }
+  
+  getDataFromProxy() {
+    let baseView = 'landingView';
+    axios.get(`localhost:3000/`)
+    .then(res => {
+      console.log('got data from proxy: ',res.data);
+      if (res.data.user) baseView = 'trackingView';
+      this.setState({
+        account:  account.data.user,
+        activities: account.data.activities,
+        assignedActivities: account.data.assigned_activities,
+        view: baseView
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   getActInfo(id) {
@@ -155,7 +163,7 @@ class App extends React.Component {
     switch(this.state.view) {
       case 'landingView':
         return (
-          <LandingView />
+          <LandingView loginCall={this.loginCall.bind(this)}/>
         );
       case 'trackerView':
         return (
@@ -197,27 +205,49 @@ class App extends React.Component {
         );
     }
   }
+
   loginCall(){
     window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
-    axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
-      console.log("...Waiting for google login response...",response)
-      return axios.get('http://localhost:3000/auth/wait?id='+response.data);
-    }).then(response=>{
-      this.setState({account: response.data.user})
-      this.setState({activities: response.data.activities})
-      this.setState({assigned_activities: response.assigned_activities})
-      console.log('States have been set to: ', this.state.account, this.state.activities, this.state.assignedActivities)
-      this.changeView('trackerView')
-      console.log("Got response...: ", response);
-    })
+    axios.get('http://localhost:3000/auth/initLogin/google.com').then((res)=>{
+      console.log("...Waiting for google login response...",res)
+      return axios.get('http://localhost:3000/auth/wait?id='+res.data);
+    }).then(res => {
+
+       console.log(res);
+       this.setState({
+         account: res.data.user,
+         activities: this.formatActArrToObj(res.data.activities),
+         assignedActivities: res.data.assigned_activities
+       })
+       if (res.data.user && res.data.activities && res.assigned_activities) {
+         this.changeView('trackerView');
+       }
+       console.log(res.data.assigned_activities, res.data.activities);
+      // this.setState({account: response.data.user})
+      // this.setState({activities: response.data.activities})
+      // this.setState({assigned_activities: response.assigned_activities})
+
+      window.sessionStorage['authenticated'] = true;
+    }).catch(err => console.log(err));
+  }
+
+  formatActArrToObj(arr) {
+    let actObj = {};
+    for (let x of arr) {
+      actObj[x.activity_id] = {name: x.activity_name, color: x.color}
+    }
+    return actObj;
   }
 
   logoutCall(){
+    window.sessionStorage.clear();
+    this.setState({
+      account: null,
+      view: 'landingView'
+    })
     axios.get('http://localhost:3000/auth/logout')
     .then((response) => {
-      console.log('Something: ', response)
-      this.setState({account: null})
-      this.changeView('landingView')
+      console.log('logout res: ', response)
     })
     .catch((err)=>{
       console.log('error logging out: ', err)
