@@ -5,9 +5,9 @@ const CurrentActivityBlock = (props) => {
   let actName = 'No Activity';
   let s = {
     wrap: {
-      paddingBottom: '4rem',
+      // paddingBottom: '4rem',
       // marginBottom: '4rem'
-      // height: '95%'
+      height: '95%'
     },
     textWrap: {
       display: 'grid',
@@ -19,14 +19,14 @@ const CurrentActivityBlock = (props) => {
     },
     time: {
       fontSize: '10em',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)'
     },
     name: {
       wordBreak: 'break-all',
       fontSize: '7em',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       color: '#FFFFFF',
       textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)',
     },
@@ -34,39 +34,34 @@ const CurrentActivityBlock = (props) => {
       display: 'grid',
       justifyContent: 'center',
       paddingTop: '1rem'
-      // paddingBottom: '2rem',
     },
     toggleBtn: {
       height: '6rem',
       width: '6rem',
       border: 'none',
-      // backgroundColor: 'transparent'
     },
 
   }
   
   if (props.curActivity) {
-    s.wrap.backgroundColor = props.actInfo.color;
+    document.body.style.background = `${props.actInfo.color}`;
     actName = props.actInfo.name;
   }
-
   return (
     <div style={s.wrap}>
       <div style={s.textWrap}>
         <a style={s.time}>{tFormat(humanDuration(props.duration))}</a>
         <a style={s.name}>{actName}</a>
       </div>
-      <div class='playstop' style={s.toggleWrap}>
+      <div className='playstop' style={s.toggleWrap}>
           <input 
-            style={s.toggleBtn}
             type='checkbox'
             aria-label='playstop'
+            className='playstop'
             id='playstop'
-            value='None'
-            // value={props.keepTime ? 'End' : 'Start'}
             onClick={()=>(props.toggleTimer())}
           />
-          <label for="playstop"></label>
+          <label htmlFor="playstop"></label>
         </div>
     </div>
   );

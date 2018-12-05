@@ -1,19 +1,24 @@
 import React from 'react';
 
+const uncheck = () => {
+  if (document.getElementsByClassName('hamburger')[0].checked) {
+    document.getElementsByClassName('hamburger')[0].checked = false;
+  }
+}
 
 const Hamburger = (props) => (
   <nav>
     <div id="menuToggle">
-      <input type="checkbox" aria-label="menu"/>
+      <input type="checkbox" className="hamburger "aria-label="menu"/>
       <span></span>
       <span></span>
       <span></span>
       <ul id="menu">
-        <li><a onClick={() => props.changeView('trackerView')}>Track</a></li>
-        <li><a onClick={() => props.changeView('historyView')}>History</a></li>
-        <li><a onClick={() => props.changeView('settingsView')}>Settings</a></li>
-        <li><a onClick={() => props.loginCall()}>Login</a></li>
-        <li><a onClick={() => props.logoutCall()}>Logout</a></li>
+        <li><a onClick={() => (props.changeView('trackerView'), uncheck())}>Track</a></li>
+        <li><a onClick={() => (props.changeView('historyView'), uncheck())}>History</a></li>
+        <li><a onClick={() => (props.changeView('settingsView'), uncheck())}>Settings</a></li>
+        <li><a onClick={() => (props.loginCall(), uncheck())}>Login</a></li>
+        <li><a onClick={() => (props.logoutCall(), uncheck())}>Logout</a></li>
 
       </ul>
     </div>

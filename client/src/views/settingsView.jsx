@@ -6,7 +6,7 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
-    height: '98vh' //FIXME
+    height: '100vh' //FIXME
   },
   actButtons: {
     display: 'grid',
