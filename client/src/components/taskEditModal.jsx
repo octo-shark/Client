@@ -80,7 +80,7 @@ class TaskEditModal extends React.Component {
   handleNameChange(e) { this.setState({name: e.target.value}) };
 
   handleColorChange(newColor) { 
-    console.log(newColor.hex);
+    // console.log(newColor.hex);
     this.setState({color: newColor.hex});
     s.modalMain.backgroundColor = newColor;
   };

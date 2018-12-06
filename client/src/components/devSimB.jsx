@@ -17,7 +17,7 @@ const DevSimB = (props) => {
         let info = props.getActInfo(id);
         let faceStyle = {
           fontSize: '1.5em',
-          fontWeight: 'bold',
+          // fontWeight: 'bold',
           border: 'none',
           height: '3em',
           overflow: 'hidden',

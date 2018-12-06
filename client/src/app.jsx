@@ -14,12 +14,15 @@ const s = {
     display: 'grid',
     gridTemplateColumns: '1fr',
     gridTemplateRows: '0 1fr', //placeholder
-    height: '98vh',
+    height: '100vh'
   },
   page: {
     backgroundColor: '#606060'
   }
-}
+};
+
+// Device
+var socket;
 
 class App extends React.Component {
   constructor() {
@@ -43,8 +46,33 @@ class App extends React.Component {
       keepTime: false,
       timerInterval: null,
       googleHTML: {}
-    }
-  };
+    };
+  }
+
+  // componentDidMount() {
+  //   this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
+  //   console.log('Has account logged: ', this.state.account)
+  //   if(this.state.account){
+  //     axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
+  //       .then(res => {
+  //         console.log('COmponent Did mount',res);
+  //         this.setState({
+  //           account:  account.data.user,
+  //           activities: account.data.activities,
+  //           assignedActivities: account.data.assigned_activities,
+  //         });
+  //       })
+  //       .catch(err => console.log(err));
+  //     axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
+  //       .then(res => {
+  //         console.log(res);
+  //         this.setState({
+  //           userHistory: res.data
+  //         })
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  // }
 
   componentDidMount() {
     let baseView = 'landingView';
@@ -86,6 +114,48 @@ class App extends React.Component {
         })
       })
       .catch(err => console.log(err));
+   }
+//     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
+//     axios.get(`${proxy}/rikki`).then(res => {
+//       this.setState({
+//         account: mockData.account,
+//         activities: mockData.activities,
+//         assignedActivities: mockData.assigned_activities
+//       });
+//     });
+//     axios.get(`${proxy}/rikki/timestamps`).then(res => {
+//       this.setState({
+//         userHistory: res.data
+//       });
+//     });
+//   }
+
+  // Time Pylon device socket i/o
+  initDeviceSocket(setActivityIdToDeviceSide) {
+    socket = new WebSocket('ws://localhost:8081');
+    socket.onopen = this.openDeviceSocket;
+    socket.onmessage = this.getDeviceData;
+    socket.onerror = this.onDeviceError;
+    socket.setActivityIdToDeviceSide = setActivityIdToDeviceSide;
+  }
+  openDeviceSocket() {
+    //console.log('Socket to device is open');
+    socket.send('Connect to Time Pylon');
+  }
+  onDeviceError(evt) {
+    console.log('ERROR: ' + evt.data + '\n');
+  }
+  getDeviceData(result) {
+    // '{\'side\':0}\r'
+    var inData = result.data.slice(1, -3); // strip out just JSON
+    inData = JSON.parse(inData.split('\\').join('')); // replace the backslashes
+    if (inData.side !== -1) {
+      this.setActivityIdToDeviceSide(+inData.side);
+    }
+  }
+  setActivityIdToDeviceSide(side) {
+    let newActivityId = Object.keys(this.state.activities)[side];
+    this.taskChange(newActivityId);
   }
 
   getActInfo(id) {
@@ -99,12 +169,17 @@ class App extends React.Component {
 
   startTimer(id) {
     if (!this.state.keepTime) {
+      if (!document.getElementsByClassName('playstop')[1].checked) {
+        document.getElementsByClassName('playstop')[1].checked = true;
+      }
       this.setState({
         curActivity: id,
-        timerInterval: setInterval(()=> {this.tick()}, 1000),
+        timerInterval: setInterval(() => {
+          this.tick();
+        }, 1000),
         keepTime: true,
-        startTime: Date.now(),
-      })
+        startTime: Date.now()
+      });
     }
   }
 
@@ -120,9 +195,9 @@ class App extends React.Component {
   tick() {
     this.setState({
       duration: Date.now() - this.state.startTime
-    })
+    });
   }
-  
+
   postTimeStamp(end) {
     let stamp = {
       user_id: this.state.account.id,
@@ -130,24 +205,17 @@ class App extends React.Component {
       timestamp_start: this.state.startTime,
       timestamp_end: end
     };
-    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp);
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err));
   }
-  
-  updateAct(id, name, color) {
 
+  updateAct(id, name, color) {
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
-    this.setState({activities: newActs});
-
-    console.log({
-      id: id,
-      name: name,
-      color: color
-    });
-
+    this.setState({ activities: newActs });
+        
     axios.post(`${proxy}/profile/update_activity`, {
         id: id,
         name: name,
@@ -158,24 +226,31 @@ class App extends React.Component {
   }
 
   taskChange(id) {
-    if (!this.state.keepTime) {this.startTimer(id)}
-    else {
+    if (!this.state.keepTime) {
+      this.startTimer(id);
+    } else {
       let now = Date.now();
       this.postTimeStamp(now);
       this.setState({
         startTime: now,
         curActivity: id
-      })
+      });
     }
   }
 
   changeView(page) {
-    console.log(`VIEW_CHANGED: ${page}`);
-    this.setState({view: page});
+    // console.log(`VIEW_CHANGED: ${page}`);
+    this.setState({ view: page }, () => {
+      if (this.state.view === 'trackerView') {
+        if (this.state.keepTime) {
+          document.getElementsByClassName('playstop')[1].checked = true;
+        }
+      }
+    });
   }
 
   dynamicPage() {
-    switch(this.state.view) {
+    switch (this.state.view) {
       case 'landingView':
         return (
           <LandingView loginCall={this.loginCall.bind(this)}/>
@@ -196,7 +271,7 @@ class App extends React.Component {
             }}
             duration={this.state.duration}
           />
-        )
+        );
       case 'historyView':
         return (
           <HistoryView
@@ -214,9 +289,11 @@ class App extends React.Component {
             updateAct={this.updateAct.bind(this)}
           />
         );
-      default: 
+      default:
         return (
-          <p><h1>Invalid Page</h1></p>
+          <p>
+            <h1>Invalid Page</h1>
+          </p>
         );
     }
   }
@@ -265,18 +342,18 @@ class App extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div style={s.wrap}>
         <Hamburger
           changeView={this.changeView.bind(this)}
           loginCall={this.loginCall.bind(this)}
           logoutCall={this.logoutCall.bind(this)}
         />
-        <div style={s.page}>
-           {this.dynamicPage()}
+        <div>
+          {this.dynamicPage()}
         </div>
       </div>
-    )
+    );
   }
 }
 

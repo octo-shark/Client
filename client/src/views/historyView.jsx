@@ -1,15 +1,19 @@
 import React from 'react';
-import {Doughnut} from 'react-chartjs-2';
-import {Bar} from 'react-chartjs-2';
+import {Doughnut, Bar} from 'react-chartjs-2';
 const {tFormat, humanDuration} = require('../components/utilities/tFormat.js');
 
 const s = {
   wrap: {
+    padding: '5rem',
     overflowY: 'auto',
     itemAlign: 'center',
-    height: '98vh' //FIXME
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
 }
+
+// Chart.defaults.global.legend.position = 'bottom';
+
 class History extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +25,7 @@ class History extends React.Component {
     this.data = {
       labels: Object.values(this.state.obj).map(i => i.name),
       datasets: [{
-        label: Object.values(this.state.obj).map(i => 'garbage'),//tFormat(humanDuration(i.time))),
+        label: Object.values(this.state.obj).map(i => ''),//tFormat(humanDuration(i.time))),
         data: Object.values(this.state.obj).map(i => Math.round((i.time / this.state.obj.total) * 100)),
         backgroundColor: Object.values(this.state.obj).map(i => i.color),
         hoverBackgroundColor: Object.values(this.state.obj).map(i => i.color)
@@ -30,7 +34,6 @@ class History extends React.Component {
   }
 
   changeView(page) {
-    console.log(`VIEW_CHANGED: ${page}`);
     this.setState({view: page});
   }
 
@@ -64,14 +67,35 @@ class History extends React.Component {
     switch(this.state.view) {
       case 'Doughnut':
         return (
-          <div id='pieChart'>
-            <Doughnut ref='chart' type='pie' data={this.data}/>
+          <div>
+            <Doughnut 
+              ref={'chart'}
+              data={this.data}
+              // options={{
+                // responsive: true,
+                // maintainAspectRatio: false
+              // }}
+            />
          </div>
         );
       case 'Bar':
         return (
-          <div id='pieChart'>
-            <Bar ref='chart' type='pie' data={this.data}/>
+          <div style={s.chartWrap}>
+            <Bar
+              ref={'chart'}
+              data={this.data}
+              // options={{
+                // responsive: true,
+                // maintainAspectRatio: false,
+                // scales: {
+                //   yAxes: [{
+                //       ticks: {
+                //           beginAtZero:true
+                //       }
+                //   }]
+                // }
+              // }}
+            />
           </div>
         );
     }
@@ -80,11 +104,11 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
+        {this.dynamicPage()}
         <ul style={{textAlign: 'center'}}>
           <button onClick={() => this.changeView('Doughnut')}>Doughnut</button>
           <button onClick={() => this.changeView('Bar')}>Bar</button>
         </ul>
-        {this.dynamicPage()}
       </div>
     )
   }
