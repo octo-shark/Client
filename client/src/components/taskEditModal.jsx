@@ -117,7 +117,7 @@ class TaskEditModal extends React.Component {
             />
           </div>
           <div style={s.colorBlock}>
-              <CirclePicker onChangeComplete={this.handleColorChange.bind(this)} width='85vw' circleSpacing='20px'/>
+              <CirclePicker onChangeComplete={this.handleColorChange.bind(this)} width='85vw' circleSpacing='20'/>
           </div>
           <div style={s.buttons}>
             <div>

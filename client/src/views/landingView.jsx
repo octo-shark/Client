@@ -25,7 +25,7 @@ class LandingView extends React.Component {
       <div style={s.wrap}>
         <h1 className='dBox'>LANDING VIEW</h1>
         <div>
-          <button style={s.button}>Login</button>
+          <button style={s.button} onClick={() =>this.props.loginCall()}>Login</button>
         </div>
 
       </div>

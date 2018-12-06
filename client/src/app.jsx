@@ -8,7 +8,7 @@ import Hamburger from './components/hamburger.jsx';
 import mockData from './components/utilities/mockData.js';
 
 const axios = require('axios');
-const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net';
+const proxy = 'http://localhost:3000'; // https://d1fvvcoh0ci3m5.cloudfront.net
 const s = {
   wrap: {
     display: 'grid',
@@ -16,6 +16,9 @@ const s = {
     gridTemplateRows: '0 1fr', //placeholder
     height: '100vh'
   },
+  page: {
+    backgroundColor: '#606060'
+  }
 };
 
 // Device
@@ -25,7 +28,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'settingsView',
+      view: 'landingView',
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -72,20 +75,60 @@ class App extends React.Component {
   // }
 
   componentDidMount() {
-    this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
-    axios.get(`${proxy}/rikki`).then(res => {
-      this.setState({
-        account: mockData.account,
-        activities: mockData.activities,
-        assignedActivities: mockData.assigned_activities
-      });
-    });
-    axios.get(`${proxy}/rikki/timestamps`).then(res => {
-      this.setState({
-        userHistory: res.data
-      });
-    });
+    let baseView = 'landingView';
+    console.log('Has account logged: ', this.state.account)
+    this.setState({view: baseView});
+    // this.getDataFromProxy();
+    // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
+    //   .then(res => {
+    //     console.log(res);
+    //     this.setState({
+    //       userHistory: res.data
+    //     })
+    //   })
+    //   .catch(err => console.log(err));
   }
+  
+  getDataFromProxy() {
+    let baseView = 'landingView';
+    axios.get(`${proxy}/`)
+    .then(res => {
+      console.log('got data from proxy: ',res.data);
+      if (res.data.user) baseView = 'trackingView';
+      this.setState({
+        account:  account.data.user,
+        activities: account.data.activities,
+        assignedActivities: account.data.assigned_activities,
+        view: baseView
+      });
+    })
+    .catch(err => console.log(err));
+  }
+
+  getTimeStampData(id) {
+    axios.get(`${proxy}/profile/${id}/timestamps`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          userHistory: res.data
+        })
+      })
+      .catch(err => console.log(err));
+   }
+//     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
+//     axios.get(`${proxy}/rikki`).then(res => {
+//       this.setState({
+//         account: mockData.account,
+//         activities: mockData.activities,
+//         assignedActivities: mockData.assigned_activities
+//       });
+//     });
+//     axios.get(`${proxy}/rikki/timestamps`).then(res => {
+//       this.setState({
+//         userHistory: res.data
+//       });
+//     });
+//   }
 
   // Time Pylon device socket i/o
   initDeviceSocket(setActivityIdToDeviceSide) {
@@ -168,17 +211,18 @@ class App extends React.Component {
   }
 
   updateAct(id, name, color) {
-    // console.log(id);
-    // console.log('prev acts:');
-    // console.log(this.state.activities);
-
     let newActs = Object.assign({}, this.state.activities);
     newActs[id].name = name;
     newActs[id].color = color;
     this.setState({ activities: newActs });
-
-    // console.log('new acts:');
-    // console.log(this.state.activities);
+        
+    axios.post(`${proxy}/profile/update_activity`, {
+        id: id,
+        name: name,
+        color: color
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   taskChange(id) {
@@ -208,7 +252,9 @@ class App extends React.Component {
   dynamicPage() {
     switch (this.state.view) {
       case 'landingView':
-        return <LandingView />;
+        return (
+          <LandingView loginCall={this.loginCall.bind(this)}/>
+        );
       case 'trackerView':
         return (
           <TrackerView
@@ -251,31 +297,48 @@ class App extends React.Component {
         );
     }
   }
-  loginCall() {
-    // window.open('http://localhost:3000/auth/google','_blank','scrollbars=yes,width=500,height=500');
-    // axios.get('http://localhost:3000/auth/initLogin/google.com').then((response)=>{
-    //   // console.log('...Waiting for google login response...',response)
-    //   return axios.get('http://localhost:3000/auth/wait?id='+response.data);
-    // }).then(response=>{
-    //   this.setState({account: response.data.user})
-    //   this.setState({activities: response.data.activities})
-    //   this.setState({assigned_activities: response.assigned_activities})
-    //   // console.log('States have been set to: ', this.state.account, this.state.activities, this.state.assignedActivities)
-    //   this.changeView('trackerView')
-    //   // console.log('Got response...: ', response);
-    // })
+
+  loginCall(){
+    window.open(`${proxy}/auth/google`,'_blank','scrollbars=yes,width=500,height=500');
+
+    axios.get(`${proxy}/auth/initLogin/google.com`).then((res)=>{
+      console.log("...Waiting for google login response...",res)
+      return axios.get(`${proxy}/auth/wait?id='+${res.data}`);
+    }).then(res => {
+       console.log(res);
+       this.setState({
+         account: res.data.user,
+         activities: this.formatActArrToObj(res.data.activities),
+         assignedActivities: res.data.assigned_activities,
+         view: res.data.user ? 'trackerView' : 'landingView'
+       })
+       this.getTimeStampData(res.data.user)
+       console.log(res.data.assigned_activities, res.data.activities);
+      window.sessionStorage['authenticated'] = true;
+    }).catch(err => console.log(err));
   }
 
-  logoutCall() {
-    // axios.get('http://localhost:3000/auth/logout')
-    // .then((response) => {
-    //   // console.log('Something: ', response)
-    //   this.setState({account: null})
-    //   this.changeView('landingView')
-    // })
-    // .catch((err)=>{
-    //   // console.log('error logging out: ', err)
-    // })
+  formatActArrToObj(arr) {
+    let actObj = {};
+    for (let x of arr) {
+      actObj[x.activity_id] = {name: x.activity_name, color: x.color}
+    }
+    return actObj;
+  }
+
+  logoutCall(){
+    window.sessionStorage.clear();
+    this.setState({
+      account: null,
+      view: 'landingView'
+    })
+    axios.get(`${proxy}/auth/logout`)
+    .then((response) => {
+      console.log('logout res: ', response)
+    })
+    .catch((err)=>{
+      console.log('error logging out: ', err)
+    })
   }
 
   render() {
