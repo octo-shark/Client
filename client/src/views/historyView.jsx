@@ -10,7 +10,8 @@ const s = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   topText: {
-    size: '40px',
+    fontSize: '4rem',
+    color: 'white'
   }
 }
 
@@ -22,7 +23,12 @@ class History extends React.Component {
     this.state = {
       view: 'Doughnut',
       obj: this.consolidate(),
-      units: 'minutes'
+      units: 'minutes',
+      legend: {
+        labels: {
+          fontColor: 'rgb(255,255,255)'
+        }
+      }
     };
 
     this.data = {
@@ -79,6 +85,7 @@ class History extends React.Component {
               options={{
                 maintainAspectRatio: false
               }}
+              legend={this.state.legend}
               // options={{
                 // responsive: true,
                 // maintainAspectRatio: false
@@ -96,6 +103,7 @@ class History extends React.Component {
               options={{
                 maintainAspectRatio: false
               }}
+              legend={this.state.legend}
               // options={{
                 // responsive: true,
                 // maintainAspectRatio: false,
@@ -116,7 +124,7 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
-        <p style={s.topText}>Minutes</p>
+        <a style={s.topText}>Minutes</a>
         {this.dynamicPage()}
         <ul style={{textAlign: 'center'}}>
           <button onClick={() => this.changeView('Doughnut')}>Doughnut</button>
