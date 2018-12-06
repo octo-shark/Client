@@ -75,9 +75,22 @@ class App extends React.Component {
   // }
 
   componentDidMount() {
-    let baseView = 'landingView';
     console.log('Has account logged: ', this.state.account)
-    this.setState({view: baseView});
+
+    if (window.sessionStorage.authenticated) {
+      let baseView = 'trackerView'
+      axios.get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
+        .then((res) => {
+          console.log('!!!', res)
+          this.setState({
+            account: res.data.user,
+            activities: this.formatActArrToObj(res.data.activities),
+            assignedActivities: res.data.assigned_activities,
+            view: baseView
+          })
+        })
+        .catch((err) => console.log(err));
+    }
     // this.getDataFromProxy();
     // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
     //   .then(res => {
@@ -90,7 +103,6 @@ class App extends React.Component {
   }
   
   getDataFromProxy() {
-    let baseView = 'landingView';
     axios.get(`${proxy}/`)
     .then(res => {
       console.log('got data from proxy: ',res.data);
@@ -98,8 +110,7 @@ class App extends React.Component {
       this.setState({
         account:  account.data.user,
         activities: account.data.activities,
-        assignedActivities: account.data.assigned_activities,
-        view: baseView
+        assignedActivities: account.data.assigned_activities
       });
     })
     .catch(err => console.log(err));
@@ -216,7 +227,7 @@ class App extends React.Component {
     newActs[id].color = color;
     this.setState({ activities: newActs });
         
-    axios.post(`${proxy}/profile/update_activity`, {
+    axios.post(`${proxy}/auth/update_activity`, {
         id: id,
         name: name,
         color: color
@@ -314,7 +325,7 @@ class App extends React.Component {
        })
        this.getTimeStampData(res.data.user)
        console.log(res.data.assigned_activities, res.data.activities);
-      window.sessionStorage['authenticated'] = true;
+      window.sessionStorage['authenticated'] = res.data.user.googleID;
     }).catch(err => console.log(err));
   }
 
