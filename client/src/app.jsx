@@ -158,7 +158,8 @@ class App extends React.Component {
   }
   setActivityIdToDeviceSide(side) {
     // console.log("setActivityIdToDeviceSide", side);
-    let newActivityId = Object.keys(this.state.activities)[side];
+    let newActivityId = this.state.assignedActivities[side];
+    // console.log('newactID', newActivityId);
     this.taskChange(newActivityId);
   }
 
@@ -236,6 +237,7 @@ class App extends React.Component {
   }
 
   taskChange(id) {
+    console.log('taskchange', id);
     if (!this.state.keepTime) {
       this.startTimer(id);
     } else {
@@ -347,6 +349,7 @@ class App extends React.Component {
 
   logoutCall() {
     window.sessionStorage.clear();
+    document.body.style.background = `#606060`;
     this.setState({
       account: null,
       activities: {},
