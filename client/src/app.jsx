@@ -209,6 +209,11 @@ class App extends React.Component {
       timestamp_start: this.state.startTime,
       timestamp_end: end
     };
+
+    console.log(stamp);
+    this.setState({
+      userHistory: this.state.userHistory.concat(stamp)
+    })
     axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp);
     // .then(res => console.log(res))
     // .catch(err => console.log(err));
