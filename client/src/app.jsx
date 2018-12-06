@@ -216,7 +216,7 @@ class App extends React.Component {
     newActs[id].color = color;
     this.setState({ activities: newActs });
         
-    axios.post(`${proxy}/profile/update_activity`, {
+    axios.post(`${proxy}/auth/update_activity`, {
         id: id,
         name: name,
         color: color
