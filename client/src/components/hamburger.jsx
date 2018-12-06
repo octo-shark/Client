@@ -6,23 +6,30 @@ const uncheck = () => {
   }
 }
 
-const Hamburger = (props) => (
-  <nav>
-    <div id="menuToggle">
-      <input type="checkbox" className="hamburger "aria-label="menu"/>
-      <span></span>
-      <span></span>
-      <span></span>
-      <ul id="menu">
-        <li onClick={() => (props.changeView('trackerView'), uncheck())}><a>Track</a></li>
-        <li onClick={() => (props.changeView('historyView'), uncheck())}><a>History</a></li>
-        <li onClick={() => (props.changeView('settingsView'), uncheck())}><a>Settings</a></li>
-        <li onClick={() => (props.loginCall(), uncheck())}><a>Login</a></li>
-        <li onClick={() => (props.logoutCall(), uncheck())}><a>Logout</a></li>
+const Hamburger = (props) => {
+  const logout = () => {
+    if (props.loggedIn) return (
+      <li onClick={() => (props.logoutCall(), uncheck())}><a>Logout</a></li>
+    )
+  }
 
-      </ul>
-    </div>
-  </nav>
-)
+
+  return (
+    <nav>
+      <div id="menuToggle">
+        <input type="checkbox" className="hamburger "aria-label="menu"/>
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul id="menu">
+          <li onClick={() => (props.changeView('trackerView'), uncheck())}><a>Track</a></li>
+          <li onClick={() => (props.changeView('historyView'), uncheck())}><a>History</a></li>
+          <li onClick={() => (props.changeView('settingsView'), uncheck())}><a>Settings</a></li>
+          {logout()}
+        </ul>
+      </div>
+    </nav>
+  );
+}
 
 export default Hamburger;

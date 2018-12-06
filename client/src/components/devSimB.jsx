@@ -9,6 +9,17 @@ const s = {
   }
 }
 
+const scrollTo = (element, to, duration) => {
+  if (duration < 0) return;
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 2;
+
+  setTimeout(function() {
+    element.scrollTop = element.scrollTop + perTick;
+    scrollTo(element, to, duration - 2);
+  }, 10);
+}
+
 
 const DevSimB = (props) => {
   return (
@@ -34,8 +45,11 @@ const DevSimB = (props) => {
           <button 
             style={faceStyle}
             key={`assignedAct ${id}`}
-            onClick={() => props.clickEvent(id)}
-          >
+            onClick={() => {
+              props.clickEvent(id);
+              let element = document.getElementById('scrollDiv');
+              if (element) scrollTo(element, 0, 20);
+            }}>
             <div>{info.name}</div>
           </button>
         );

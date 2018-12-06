@@ -4,12 +4,14 @@ const {tFormat, humanDuration} = require('../components/utilities/tFormat.js');
 
 const s = {
   wrap: {
-    padding: '5rem',
-    overflowY: 'auto',
-    itemAlign: 'center',
+    overflow: 'auto',
+    textAlign: 'center',
     height: '100vh',
     backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
+  topText: {
+    size: '40px',
+  }
 }
 
 // Chart.defaults.global.legend.position = 'bottom';
@@ -20,17 +22,19 @@ class History extends React.Component {
     this.state = {
       view: 'Doughnut',
       obj: this.consolidate(),
+      units: 'minutes'
     };
 
     this.data = {
       labels: Object.values(this.state.obj).map(i => i.name),
       datasets: [{
         label: Object.values(this.state.obj).map(i => ''),//tFormat(humanDuration(i.time))),
-        data: Object.values(this.state.obj).map(i => Math.round((i.time / this.state.obj.total) * 100)),
+        data: Object.values(this.state.obj).map(i =>((i.time / (1000*60))).toPrecision(2)),  //Math.round((i.time / this.state.obj.total) * 100)
         backgroundColor: Object.values(this.state.obj).map(i => i.color),
         hoverBackgroundColor: Object.values(this.state.obj).map(i => i.color)
       }]
     }
+    
   }
 
   changeView(page) {
@@ -71,6 +75,10 @@ class History extends React.Component {
             <Doughnut 
               ref={'chart'}
               data={this.data}
+              height={450}
+              options={{
+                maintainAspectRatio: false
+              }}
               // options={{
                 // responsive: true,
                 // maintainAspectRatio: false
@@ -80,10 +88,14 @@ class History extends React.Component {
         );
       case 'Bar':
         return (
-          <div style={s.chartWrap}>
+          <div>
             <Bar
               ref={'chart'}
               data={this.data}
+              height={300}
+              options={{
+                maintainAspectRatio: false
+              }}
               // options={{
                 // responsive: true,
                 // maintainAspectRatio: false,
@@ -104,6 +116,7 @@ class History extends React.Component {
   render() {
     return(
       <div style={s.wrap}>
+        <p style={s.topText}>Minutes</p>
         {this.dynamicPage()}
         <ul style={{textAlign: 'center'}}>
           <button onClick={() => this.changeView('Doughnut')}>Doughnut</button>

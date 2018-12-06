@@ -28,7 +28,7 @@ const s = {
 const TrackerView = (props) => {
 
   return (
-    <div style={s.wrap}>
+    <div style={s.wrap} id='scrollDiv'>
       <div style={s.infoWrap}>
         <CurrentActivityBlock
           curActivity={props.curActivity}
