@@ -119,6 +119,10 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  scrollTop(id) {
+
+  }
+
   getTimeStampData(id) {
     axios
       .get(`${proxy}/profile/${id}/timestamps`)

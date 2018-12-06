@@ -35,7 +35,6 @@ let s = {
     backgroundColor: 'lightgrey',
   },
   colorBlock: {
-    backgroundColor: 'lightgrey',
     height: '40%'
   },
   buttons: {
@@ -100,9 +99,6 @@ class TaskEditModal extends React.Component {
           left: '50%',
           transform: 'translate(-50%,-50%)',
           textAlign: 'center',
-          // borderStyle: 'solid',
-          // borderWidth: '2rem',
-          // borderColor: this.state.color,
           fontSize: '4rem',
           color: 'black'
         }}>
@@ -116,7 +112,7 @@ class TaskEditModal extends React.Component {
             />
           </div>
           <div style={s.colorBlock}>
-              <CirclePicker onChangeComplete={this.handleColorChange.bind(this)} width='85vw' circleSpacing='20'/>
+              <CirclePicker onChangeComplete={this.handleColorChange.bind(this)} width='85vw' circleSpacing={20}/>
           </div>
           <div style={s.buttons}>
             <div>
