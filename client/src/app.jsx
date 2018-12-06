@@ -119,9 +119,6 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  scrollTop(id) {
-
-  }
 
   getTimeStampData(id) {
     axios
@@ -183,7 +180,7 @@ class App extends React.Component {
         curActivity: id,
         timerInterval: setInterval(() => {
           this.tick();
-        }, 1000),
+        }, 1001),
         keepTime: true,
         startTime: Date.now()
       });
@@ -248,13 +245,15 @@ class App extends React.Component {
 
   changeView(page) {
     // console.log(`VIEW_CHANGED: ${page}`);
-    this.setState({ view: page }, () => {
-      if (this.state.view === "trackerView") {
-        if (this.state.keepTime) {
-          document.getElementsByClassName("playstop")[1].checked = true;
+    if (this.state.account) {
+      this.setState({ view: page }, () => {
+        if (this.state.view === "trackerView") {
+          if (this.state.keepTime) {
+            document.getElementsByClassName("playstop")[1].checked = true;
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   dynamicPage() {
@@ -366,6 +365,7 @@ class App extends React.Component {
           changeView={this.changeView.bind(this)}
           loginCall={this.loginCall.bind(this)}
           logoutCall={this.logoutCall.bind(this)}
+          loggedIn={!!this.state.account}
         />
         <div>{this.dynamicPage()}</div>
       </div>
