@@ -6,15 +6,14 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
-    height: '100vh' //FIXME
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   actButtons: {
     display: 'grid',
     pad: '3rem',
     fontSize: '2rem',
     marginTop: '6rem',
-    // marginLeft: '5rem',
-    // marginRight: '5rem',
   }
 }
 

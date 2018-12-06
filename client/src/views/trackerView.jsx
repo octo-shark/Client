@@ -6,7 +6,14 @@ const s = {
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
-    height: '100vh' //FIXME
+    height: '100vh'
+  },
+  infoWrap: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 'auto',
+    height: '95%',
+    justifyContent: 'center'
   },
   actButtons: {
     display: 'grid',
@@ -15,9 +22,6 @@ const s = {
     marginLeft: '0.2rem',
     marginRight: '0.2rem',
     fontSize: '2rem'
-  },
-  trackedActBox: {
-
   }
 }
 
@@ -25,14 +29,16 @@ const TrackerView = (props) => {
 
   return (
     <div style={s.wrap}>
-      <CurrentActivityBlock
-        curActivity={props.curActivity}
-        actInfo={props.getActInfo(props.curActivity)}
-        curActTime={props.curActTime}
-        toggleTimer={props.toggleTimer}
-        duration={props.duration}
-        keepTime={props.keepTime}
-      />
+      <div style={s.infoWrap}>
+        <CurrentActivityBlock
+          curActivity={props.curActivity}
+          actInfo={props.getActInfo(props.curActivity)}
+          curActTime={props.curActTime}
+          toggleTimer={props.toggleTimer}
+          duration={props.duration}
+          keepTime={props.keepTime}
+        />
+      </div>
       <div style={s.actButtons}>
         <DevSimB
           getActInfo={props.getActInfo}

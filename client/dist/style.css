@@ -10,6 +10,8 @@
  * prefixes.
  */
  html, body {
+   /* font-size: 0.75rem; */
+   font-size: 10px;
    max-width: 100%;
    overflow-x: hidden;
  }
@@ -155,7 +157,13 @@ a
 #menu li
 {
   padding: 10px 0;
-  font-size: 22px;
+  font-size: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#menu li:hover 
+{
+  background: #DCDCDC;
 }
 
 /*
@@ -166,17 +174,24 @@ a
   transform: none;
 }
 
-.lBox {
+.lBox 
+{
   background: #FFFFFF;
   opacity: 0.5;
 }
 
-.dBox {
+.dBox 
+{
   background: #000000;
   opacity: 0.5;
 }
 
-.playstop label {
+/* .canvas-container {
+  height: 60vh !important
+} */
+
+.playstop label
+{
   display: block;
   box-sizing: border-box;
   width: 0;
@@ -188,9 +203,11 @@ a
   border-width: 30px 0 30px 60px;
   filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.4));
 }
-.playstop input[type="checkbox"] {
+.playstop input[type="checkbox"]
+{
   opacity: 0;
 }
-.playstop input[type="checkbox"]:checked + label {
+.playstop input[type="checkbox"]:checked + label
+{
   border-width: 0px 0 0px 60px;
 }
