@@ -6,6 +6,7 @@ import TrackerView from "./views/trackerView.jsx";
 import LandingView from "./views/landingView.jsx";
 import Hamburger from "./components/hamburger.jsx";
 import mockData from "./components/utilities/mockData.js";
+import { relativeTimeThreshold } from "moment";
 
 const axios = require("axios");
 const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net'
@@ -366,16 +367,21 @@ class App extends React.Component {
       // });
   }
 
+  dynamicBurger() {
+    if (!!this.state.account) return (
+      <Hamburger
+        changeView={this.changeView.bind(this)}
+        loginCall={this.loginCall.bind(this)}
+        logoutCall={this.logoutCall.bind(this)}
+        loggedIn={!!this.state.account}
+     />
+    );
+  }
+
   render() {
     return (
       <div style={s.wrap}>
-        <Hamburger
-          changeView={this.changeView.bind(this)}
-          loginCall={this.loginCall.bind(this)}
-          logoutCall={this.logoutCall.bind(this)}
-          loggedIn={!!this.state.account}
-
-        />
+        {this.dynamicBurger()}
         <div>{this.dynamicPage()}</div>
       </div>
     );
