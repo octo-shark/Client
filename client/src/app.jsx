@@ -8,7 +8,7 @@ import Hamburger from "./components/hamburger.jsx";
 import mockData from "./components/utilities/mockData.js";
 
 const axios = require("axios");
-const proxy = "http://localhost:3000"; // https://d1fvvcoh0ci3m5.cloudfront.net
+const proxy = "https://d1fvvcoh0ci3m5.cloudfront.net"; // https://d1fvvcoh0ci3m5.cloudfront.net
 const s = {
   wrap: {
     display: "grid",
