@@ -39,6 +39,7 @@ const CurrentActivityBlock = (props) => {
   }
   if (props.curActivity) {
     document.body.style.background = `${props.actInfo.color}`;
+    document.body.style.backgroundImage = 'radial-gradient(circle,transparent,rgba(0,0,0,0.25))'
     actName = props.actInfo.name;
   }
   return (

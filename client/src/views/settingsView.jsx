@@ -3,6 +3,14 @@ import TaskEditModal from '../components/taskEditModal.jsx';
 import DevSimB from '../components/devSimB.jsx';
 
 const s = {
+  header: {
+    paddingTop: '3rem',
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '5rem',
+    textShadow: '1px 2px 0px rgba(0, 0, 0, 0.4)'
+  },
   wrap: {
     overflowY: 'auto',
     itemAlign: 'center',
@@ -13,7 +21,7 @@ const s = {
     display: 'grid',
     pad: '3rem',
     fontSize: '2rem',
-    marginTop: '6rem',
+    marginTop: '2rem',
   }
 }
 
@@ -51,6 +59,9 @@ class SettingsView extends React.Component {
   render() {
     return (
       <div style={s.wrap}>
+        <div style={s.header}>
+          Settings
+        </div>
         <div style={s.actButtons}>
           <DevSimB
             getActInfo={this.props.getActInfo}
