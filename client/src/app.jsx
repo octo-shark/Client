@@ -5,7 +5,7 @@ import SettingsView from "./views/settingsView.jsx";
 import TrackerView from "./views/trackerView.jsx";
 import LandingView from "./views/landingView.jsx";
 import Hamburger from "./components/hamburger.jsx";
-import mockData from "./components/utilities/mockData.js";
+// import mockData from "./components/utilities/mockData.js";
 import { relativeTimeThreshold } from "moment";
 
 const axios = require("axios");
@@ -16,9 +16,6 @@ const s = {
     gridTemplateColumns: "1fr",
     gridTemplateRows: "0 1fr", //placeholder
     height: "100vh"
-  },
-  page: {
-    backgroundColor: "#606060"
   }
 };
 
@@ -238,7 +235,7 @@ class App extends React.Component {
   }
 
   taskChange(id) {
-    console.log('taskchange', id);
+    // console.log('taskchange', id);
     if (!this.state.keepTime) {
       this.startTimer(id);
     } else {
