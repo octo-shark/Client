@@ -5,20 +5,17 @@ import SettingsView from "./views/settingsView.jsx";
 import TrackerView from "./views/trackerView.jsx";
 import LandingView from "./views/landingView.jsx";
 import Hamburger from "./components/hamburger.jsx";
-import mockData from "./components/utilities/mockData.js";
+// import mockData from "./components/utilities/mockData.js";
 import { relativeTimeThreshold } from "moment";
 
 const axios = require("axios");
-const proxy = "https://d1fvvcoh0ci3m5.cloudfront.net"; // https://d1fvvcoh0ci3m5.cloudfront.net
+const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net'
 const s = {
   wrap: {
     display: "grid",
     gridTemplateColumns: "1fr",
     gridTemplateRows: "0 1fr", //placeholder
     height: "100vh"
-  },
-  page: {
-    backgroundColor: "#606060"
   }
 };
 
@@ -76,15 +73,14 @@ class App extends React.Component {
   // }
 
   componentDidMount() {
-    console.log("Has account logged: ", this.state.account);
-    this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
+    // console.log("Has account logged: ", this.state.account);
 
     if (window.sessionStorage.authenticated) {
       let baseView = "trackerView";
 
       axios.get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
         .then(res => {
-          console.log("!!!", res);
+          // console.log("!!!", res);
           this.setState({
             account: res.data.user,
             activities: this.formatActArrToObj(res.data.activities),
@@ -92,7 +88,7 @@ class App extends React.Component {
             view: baseView
           });
         })
-        .catch(err => console.log(err));
+        // .catch(err => console.log(err));
     }
     // this.getDataFromProxy();
     // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
@@ -109,7 +105,7 @@ class App extends React.Component {
     axios
       .get(`${proxy}/`)
       .then(res => {
-        console.log("got data from proxy: ", res.data);
+        // console.log("got data from proxy: ", res.data);
         if (res.data.user) baseView = "trackingView";
         this.setState({
           account: account.data.user,
@@ -117,7 +113,7 @@ class App extends React.Component {
           assignedActivities: account.data.assigned_activities
         });
       })
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   }
 
 
@@ -125,12 +121,12 @@ class App extends React.Component {
     axios
       .get(`${proxy}/profile/${id}/timestamps`)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({
           userHistory: res.data
         });
       })
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   }
   //     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
 
@@ -147,7 +143,8 @@ class App extends React.Component {
     socket.send("Connect to Time Pylon");
   }
   onDeviceError(evt) {
-    console.log("ERROR: " + evt.data + "\n");
+    // console.log("ERROR: " + evt.data + "\n");
+    return;
   }
   getDeviceData(result) {
     // '{\'side\':0}\r'
@@ -160,7 +157,7 @@ class App extends React.Component {
   setActivityIdToDeviceSide(side) {
     // console.log("setActivityIdToDeviceSide", side);
     let newActivityId = this.state.assignedActivities[side];
-    console.log('newactID', newActivityId);
+    // console.log('newactID', newActivityId);
     this.taskChange(newActivityId);
   }
 
@@ -212,7 +209,7 @@ class App extends React.Component {
       timestamp_end: end
     };
 
-    console.log(stamp);
+    // console.log(stamp);
     this.setState({
       userHistory: this.state.userHistory.concat(stamp)
     })
@@ -233,12 +230,12 @@ class App extends React.Component {
         name: name,
         color: color
       })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      // .then(res => console.log(res))
+      // .catch(err => console.log(err));
   }
 
   taskChange(id) {
-    console.log('taskchange', id);
+    // console.log('taskchange', id);
     if (!this.state.keepTime) {
       this.startTimer(id);
     } else {
@@ -322,11 +319,11 @@ class App extends React.Component {
     axios
       .get(`${proxy}/auth/initLogin/google.com`)
       .then(res => {
-        console.log("...Waiting for google login response...", res);
+        // console.log("...Waiting for google login response...", res);
         return axios.get(`${proxy}/auth/wait?id='+${res.data}`);
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({
           account: res.data.user,
           activities: this.formatActArrToObj(res.data.activities),
@@ -334,10 +331,10 @@ class App extends React.Component {
           view: res.data.user ? "trackerView" : "landingView"
         });
         this.getTimeStampData(res.data.account.id);
-        console.log(res.data.assigned_activities, res.data.activities);
+        // console.log(res.data.assigned_activities, res.data.activities);
         window.sessionStorage["authenticated"] = res.data.user.googleID;
       })
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   }
 
   formatActArrToObj(arr) {
@@ -359,12 +356,12 @@ class App extends React.Component {
     });
     axios
       .get(`${proxy}/auth/logout`)
-      .then(response => {
-        console.log("logout res: ", response);
-      })
-      .catch(err => {
-        console.log("error logging out: ", err);
-      });
+      // .then(response => {
+        // console.log("logout res: ", response);
+      // })
+      // .catch(err => {
+        // console.log("error logging out: ", err);
+      // });
   }
 
   dynamicBurger() {
