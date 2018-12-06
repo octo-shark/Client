@@ -340,6 +340,8 @@ class App extends React.Component {
     window.sessionStorage.clear();
     this.setState({
       account: null,
+      activities: {},
+      assignedActivities: [],
       view: "landingView"
     });
     axios
