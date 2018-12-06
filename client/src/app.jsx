@@ -347,6 +347,7 @@ class App extends React.Component {
 
   logoutCall() {
     window.sessionStorage.clear();
+    document.body.style.background = `#606060`;
     this.setState({
       account: null,
       activities: {},
