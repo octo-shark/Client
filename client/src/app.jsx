@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import HistoryView from './views/historyView.jsx';
-import SettingsView from './views/settingsView.jsx';
-import TrackerView from './views/trackerView.jsx';
-import LandingView from './views/landingView.jsx';
-import Hamburger from './components/hamburger.jsx';
-import mockData from './components/utilities/mockData.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import HistoryView from "./views/historyView.jsx";
+import SettingsView from "./views/settingsView.jsx";
+import TrackerView from "./views/trackerView.jsx";
+import LandingView from "./views/landingView.jsx";
+import Hamburger from "./components/hamburger.jsx";
+import mockData from "./components/utilities/mockData.js";
 
-const axios = require('axios');
-const proxy = 'http://localhost:3000'; // https://d1fvvcoh0ci3m5.cloudfront.net
+const axios = require("axios");
+const proxy = "http://localhost:3000"; // https://d1fvvcoh0ci3m5.cloudfront.net
 const s = {
   wrap: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '0 1fr', //placeholder
-    height: '100vh'
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gridTemplateRows: "0 1fr", //placeholder
+    height: "100vh"
   },
   page: {
-    backgroundColor: '#606060'
+    backgroundColor: "#606060"
   }
 };
 
@@ -28,7 +28,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'landingView',
+      view: "landingView",
       faceAssignment: [],
       assignedActivities: [],
       activities: {},
@@ -75,21 +75,23 @@ class App extends React.Component {
   // }
 
   componentDidMount() {
-    console.log('Has account logged: ', this.state.account)
+    console.log("Has account logged: ", this.state.account);
+    this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
 
     if (window.sessionStorage.authenticated) {
-      let baseView = 'trackerView'
-      axios.get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
-        .then((res) => {
-          console.log('!!!', res)
+      let baseView = "trackerView";
+      axios
+        .get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
+        .then(res => {
+          console.log("!!!", res);
           this.setState({
             account: res.data.user,
             activities: this.formatActArrToObj(res.data.activities),
             assignedActivities: res.data.assigned_activities,
             view: baseView
-          })
+          });
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     }
     // this.getDataFromProxy();
     // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
@@ -101,49 +103,38 @@ class App extends React.Component {
     //   })
     //   .catch(err => console.log(err));
   }
-  
+
   getDataFromProxy() {
-    axios.get(`${proxy}/`)
-    .then(res => {
-      console.log('got data from proxy: ',res.data);
-      if (res.data.user) baseView = 'trackingView';
-      this.setState({
-        account:  account.data.user,
-        activities: account.data.activities,
-        assignedActivities: account.data.assigned_activities
-      });
-    })
-    .catch(err => console.log(err));
+    axios
+      .get(`${proxy}/`)
+      .then(res => {
+        console.log("got data from proxy: ", res.data);
+        if (res.data.user) baseView = "trackingView";
+        this.setState({
+          account: account.data.user,
+          activities: account.data.activities,
+          assignedActivities: account.data.assigned_activities
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   getTimeStampData(id) {
-    axios.get(`${proxy}/profile/${id}/timestamps`)
+    axios
+      .get(`${proxy}/profile/${id}/timestamps`)
       .then(res => {
         console.log(res);
         this.setState({
           userHistory: res.data
-        })
+        });
       })
       .catch(err => console.log(err));
-   }
-//     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
-//     axios.get(`${proxy}/rikki`).then(res => {
-//       this.setState({
-//         account: mockData.account,
-//         activities: mockData.activities,
-//         assignedActivities: mockData.assigned_activities
-//       });
-//     });
-//     axios.get(`${proxy}/rikki/timestamps`).then(res => {
-//       this.setState({
-//         userHistory: res.data
-//       });
-//     });
-//   }
+  }
+  //     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
 
   // Time Pylon device socket i/o
   initDeviceSocket(setActivityIdToDeviceSide) {
-    socket = new WebSocket('ws://localhost:8081');
+    socket = new WebSocket("ws://localhost:8081");
     socket.onopen = this.openDeviceSocket;
     socket.onmessage = this.getDeviceData;
     socket.onerror = this.onDeviceError;
@@ -151,20 +142,21 @@ class App extends React.Component {
   }
   openDeviceSocket() {
     //console.log('Socket to device is open');
-    socket.send('Connect to Time Pylon');
+    socket.send("Connect to Time Pylon");
   }
   onDeviceError(evt) {
-    console.log('ERROR: ' + evt.data + '\n');
+    console.log("ERROR: " + evt.data + "\n");
   }
   getDeviceData(result) {
     // '{\'side\':0}\r'
     var inData = result.data.slice(1, -3); // strip out just JSON
-    inData = JSON.parse(inData.split('\\').join('')); // replace the backslashes
+    inData = JSON.parse(inData.split("\\").join("")); // replace the backslashes
     if (inData.side !== -1) {
       this.setActivityIdToDeviceSide(+inData.side);
     }
   }
   setActivityIdToDeviceSide(side) {
+    console.log("setActivityIdToDeviceSide", side);
     let newActivityId = Object.keys(this.state.activities)[side];
     this.taskChange(newActivityId);
   }
@@ -180,8 +172,8 @@ class App extends React.Component {
 
   startTimer(id) {
     if (!this.state.keepTime) {
-      if (!document.getElementsByClassName('playstop')[1].checked) {
-        document.getElementsByClassName('playstop')[1].checked = true;
+      if (!document.getElementsByClassName("playstop")[1].checked) {
+        document.getElementsByClassName("playstop")[1].checked = true;
       }
       this.setState({
         curActivity: id,
@@ -226,12 +218,13 @@ class App extends React.Component {
     newActs[id].name = name;
     newActs[id].color = color;
     this.setState({ activities: newActs });
-        
-    axios.post(`${proxy}/auth/update_activity`, {
+
+    axios
+      .post(`${proxy}/auth/update_activity`, {
         id: id,
         name: name,
         color: color
-    })
+      })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
@@ -252,9 +245,9 @@ class App extends React.Component {
   changeView(page) {
     // console.log(`VIEW_CHANGED: ${page}`);
     this.setState({ view: page }, () => {
-      if (this.state.view === 'trackerView') {
+      if (this.state.view === "trackerView") {
         if (this.state.keepTime) {
-          document.getElementsByClassName('playstop')[1].checked = true;
+          document.getElementsByClassName("playstop")[1].checked = true;
         }
       }
     });
@@ -262,11 +255,9 @@ class App extends React.Component {
 
   dynamicPage() {
     switch (this.state.view) {
-      case 'landingView':
-        return (
-          <LandingView loginCall={this.loginCall.bind(this)}/>
-        );
-      case 'trackerView':
+      case "landingView":
+        return <LandingView loginCall={this.loginCall.bind(this)} />;
+      case "trackerView":
         return (
           <TrackerView
             toggleTimer={this.toggleTimer.bind(this)}
@@ -283,7 +274,7 @@ class App extends React.Component {
             duration={this.state.duration}
           />
         );
-      case 'historyView':
+      case "historyView":
         return (
           <HistoryView
             userHistory={this.state.userHistory}
@@ -291,7 +282,7 @@ class App extends React.Component {
             getActInfo={this.getActInfo.bind(this)}
           />
         );
-      case 'settingsView':
+      case "settingsView":
         return (
           <SettingsView
             account={this.state.account}
@@ -309,47 +300,56 @@ class App extends React.Component {
     }
   }
 
-  loginCall(){
-    window.open(`${proxy}/auth/google`,'_blank','scrollbars=yes,width=500,height=500');
+  loginCall() {
+    window.open(
+      `${proxy}/auth/google`,
+      "_blank",
+      "scrollbars=yes,width=500,height=500"
+    );
 
-    axios.get(`${proxy}/auth/initLogin/google.com`).then((res)=>{
-      console.log("...Waiting for google login response...",res)
-      return axios.get(`${proxy}/auth/wait?id='+${res.data}`);
-    }).then(res => {
-       console.log(res);
-       this.setState({
-         account: res.data.user,
-         activities: this.formatActArrToObj(res.data.activities),
-         assignedActivities: res.data.assigned_activities,
-         view: res.data.user ? 'trackerView' : 'landingView'
-       })
-       this.getTimeStampData(res.data.user)
-       console.log(res.data.assigned_activities, res.data.activities);
-      window.sessionStorage['authenticated'] = res.data.user.googleID;
-    }).catch(err => console.log(err));
+    axios
+      .get(`${proxy}/auth/initLogin/google.com`)
+      .then(res => {
+        console.log("...Waiting for google login response...", res);
+        return axios.get(`${proxy}/auth/wait?id='+${res.data}`);
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          account: res.data.user,
+          activities: this.formatActArrToObj(res.data.activities),
+          assignedActivities: res.data.assigned_activities,
+          view: res.data.user ? "trackerView" : "landingView"
+        });
+        this.getTimeStampData(res.data.user);
+        console.log(res.data.assigned_activities, res.data.activities);
+        window.sessionStorage["authenticated"] = res.data.user.googleID;
+      })
+      .catch(err => console.log(err));
   }
 
   formatActArrToObj(arr) {
     let actObj = {};
     for (let x of arr) {
-      actObj[x.activity_id] = {name: x.activity_name, color: x.color}
+      actObj[x.activity_id] = { name: x.activity_name, color: x.color };
     }
     return actObj;
   }
 
-  logoutCall(){
+  logoutCall() {
     window.sessionStorage.clear();
     this.setState({
       account: null,
-      view: 'landingView'
-    })
-    axios.get(`${proxy}/auth/logout`)
-    .then((response) => {
-      console.log('logout res: ', response)
-    })
-    .catch((err)=>{
-      console.log('error logging out: ', err)
-    })
+      view: "landingView"
+    });
+    axios
+      .get(`${proxy}/auth/logout`)
+      .then(response => {
+        console.log("logout res: ", response);
+      })
+      .catch(err => {
+        console.log("error logging out: ", err);
+      });
   }
 
   render() {
@@ -360,12 +360,10 @@ class App extends React.Component {
           loginCall={this.loginCall.bind(this)}
           logoutCall={this.logoutCall.bind(this)}
         />
-        <div>
-          {this.dynamicPage()}
-        </div>
+        <div>{this.dynamicPage()}</div>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('App'));
+ReactDOM.render(<App />, document.getElementById("App"));
