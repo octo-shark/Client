@@ -100,17 +100,16 @@ class TaskEditModal extends React.Component {
           left: '50%',
           transform: 'translate(-50%,-50%)',
           textAlign: 'center',
-          borderStyle: 'solid',
-          borderWidth: '2rem',
-          borderColor: this.state.color,
+          // borderStyle: 'solid',
+          // borderWidth: '2rem',
+          // borderColor: this.state.color,
           fontSize: '4rem',
           color: 'black'
         }}>
-          <div style={s.nameBlock}>
-            <div>Name</div>
+          <div style={{'backgroundColor':`${this.state.color}`}}>
             <input
               type='text'
-              name='actName'
+              className='actName'
               required
               value={this.state.name}
               onChange={this.handleNameChange.bind(this)}

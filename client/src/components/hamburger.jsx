@@ -14,11 +14,11 @@ const Hamburger = (props) => (
       <span></span>
       <span></span>
       <ul id="menu">
-        <li><a onClick={() => (props.changeView('trackerView'), uncheck())}>Track</a></li>
-        <li><a onClick={() => (props.changeView('historyView'), uncheck())}>History</a></li>
-        <li><a onClick={() => (props.changeView('settingsView'), uncheck())}>Settings</a></li>
-        <li><a onClick={() => (props.loginCall(), uncheck())}>Login</a></li>
-        <li><a onClick={() => (props.logoutCall(), uncheck())}>Logout</a></li>
+        <li onClick={() => (props.changeView('trackerView'), uncheck())}><a>Track</a></li>
+        <li onClick={() => (props.changeView('historyView'), uncheck())}><a>History</a></li>
+        <li onClick={() => (props.changeView('settingsView'), uncheck())}><a>Settings</a></li>
+        <li onClick={() => (props.loginCall(), uncheck())}><a>Login</a></li>
+        <li onClick={() => (props.logoutCall(), uncheck())}><a>Logout</a></li>
 
       </ul>
     </div>
