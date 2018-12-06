@@ -65,7 +65,8 @@ class SettingsView extends React.Component {
         <div style={s.actButtons}>
           <DevSimB
             getActInfo={this.props.getActInfo}
-            activities={Object.keys(this.props.activities)}
+            activities={this.props.assignedActivities}
+            // activities={Object.keys(this.props.activities)}
             clickEvent={this.showModal.bind(this)}
             curActivity={this.props.curActivity}
           />

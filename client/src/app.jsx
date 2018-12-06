@@ -80,8 +80,8 @@ class App extends React.Component {
 
     if (window.sessionStorage.authenticated) {
       let baseView = "trackerView";
-      axios
-        .get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
+
+      axios.get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
         .then(res => {
           console.log("!!!", res);
           this.setState({
@@ -286,6 +286,7 @@ class App extends React.Component {
         return (
           <SettingsView
             account={this.state.account}
+            assignedActivities={this.state.assignedActivities}
             activities={this.state.activities}
             getActInfo={this.getActInfo.bind(this)}
             updateAct={this.updateAct.bind(this)}
@@ -321,7 +322,7 @@ class App extends React.Component {
           assignedActivities: res.data.assigned_activities,
           view: res.data.user ? "trackerView" : "landingView"
         });
-        this.getTimeStampData(res.data.user);
+        this.getTimeStampData(res.data.account.id);
         console.log(res.data.assigned_activities, res.data.activities);
         window.sessionStorage["authenticated"] = res.data.user.googleID;
       })
