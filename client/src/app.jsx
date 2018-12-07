@@ -5,22 +5,21 @@ import SettingsView from "./views/settingsView.jsx";
 import TrackerView from "./views/trackerView.jsx";
 import LandingView from "./views/landingView.jsx";
 import Hamburger from "./components/hamburger.jsx";
-// import mockData from "./components/utilities/mockData.js";
-import { relativeTimeThreshold } from "moment";
 
 const axios = require("axios");
-const proxy = 'https://d1fvvcoh0ci3m5.cloudfront.net'
+const {proxy} = require('../../config');
+
 const s = {
   wrap: {
     display: "grid",
     gridTemplateColumns: "1fr",
-    gridTemplateRows: "0 1fr", //placeholder
+    gridTemplateRows: "0 1fr",
     height: "100vh"
   }
 };
 
 // Device
-var socket;
+let socket;
 
 class App extends React.Component {
   constructor() {
@@ -47,40 +46,13 @@ class App extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
-  //   console.log('Has account logged: ', this.state.account)
-  //   if(this.state.account){
-  //     axios.get(`${proxy}/profile/${this.account.data.user.googleID}`)
-  //       .then(res => {
-  //         console.log('COmponent Did mount',res);
-  //         this.setState({
-  //           account:  account.data.user,
-  //           activities: account.data.activities,
-  //           assignedActivities: account.data.assigned_activities,
-  //         });
-  //       })
-  //       .catch(err => console.log(err));
-  //     axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
-  //       .then(res => {
-  //         console.log(res);
-  //         this.setState({
-  //           userHistory: res.data
-  //         })
-  //       })
-  //       .catch(err => console.log(err));
-  //   }
-  // }
-
   componentDidMount() {
-    // console.log("Has account logged: ", this.state.account);
-
+    this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
     if (window.sessionStorage.authenticated) {
       let baseView = "trackerView";
 
       axios.get(`${proxy}/auth/${window.sessionStorage.authenticated}`)
         .then(res => {
-          // console.log("!!!", res);
           this.setState({
             account: res.data.user,
             activities: this.formatActArrToObj(res.data.activities),
@@ -88,24 +60,14 @@ class App extends React.Component {
             view: baseView
           });
         })
-        // .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
-    // this.getDataFromProxy();
-    // axios.get(`${proxy}/profile/${this.account.data.user.id}/timestamps`)
-    //   .then(res => {
-    //     console.log(res);
-    //     this.setState({
-    //       userHistory: res.data
-    //     })
-    //   })
-    //   .catch(err => console.log(err));
   }
 
   getDataFromProxy() {
     axios
       .get(`${proxy}/`)
       .then(res => {
-        // console.log("got data from proxy: ", res.data);
         if (res.data.user) baseView = "trackingView";
         this.setState({
           account: account.data.user,
@@ -113,7 +75,7 @@ class App extends React.Component {
           assignedActivities: account.data.assigned_activities
         });
       })
-      // .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
 
@@ -121,16 +83,13 @@ class App extends React.Component {
     axios
       .get(`${proxy}/profile/${id}/timestamps`)
       .then(res => {
-        // console.log(res);
         this.setState({
           userHistory: res.data
         });
       })
-      // .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
-  //     this.initDeviceSocket(this.setActivityIdToDeviceSide.bind(this));
 
-  // Time Pylon device socket i/o
   initDeviceSocket(setActivityIdToDeviceSide) {
     socket = new WebSocket("ws://localhost:8081");
     socket.onopen = this.openDeviceSocket;
@@ -139,25 +98,21 @@ class App extends React.Component {
     socket.setActivityIdToDeviceSide = setActivityIdToDeviceSide;
   }
   openDeviceSocket() {
-    //console.log('Socket to device is open');
     socket.send("Connect to Time Pylon");
   }
   onDeviceError(evt) {
-    // console.log("ERROR: " + evt.data + "\n");
-    return;
+    console.error(evt.data);
   }
   getDeviceData(result) {
-    // '{\'side\':0}\r'
     var inData = result.data.slice(1, -3); // strip out just JSON
     inData = JSON.parse(inData.split("\\").join("")); // replace the backslashes
     if (inData.side !== -1) {
       this.setActivityIdToDeviceSide(+inData.side);
     }
   }
+
   setActivityIdToDeviceSide(side) {
-    // console.log("setActivityIdToDeviceSide", side);
     let newActivityId = this.state.assignedActivities[side];
-    // console.log('newactID', newActivityId);
     this.taskChange(newActivityId);
   }
 
@@ -208,14 +163,11 @@ class App extends React.Component {
       timestamp_start: this.state.startTime,
       timestamp_end: end
     };
-
-    // console.log(stamp);
     this.setState({
       userHistory: this.state.userHistory.concat(stamp)
     })
-    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp);
-    // .then(res => console.log(res))
-    // .catch(err => console.log(err));
+    axios.post(`${proxy}/${this.state.account.id}/timestamps`, stamp)
+    .catch(err => console.error(err));
   }
 
   updateAct(id, name, color) {
@@ -230,12 +182,10 @@ class App extends React.Component {
         name: name,
         color: color
       })
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   taskChange(id) {
-    // console.log('taskchange', id);
     if (!this.state.keepTime) {
       this.startTimer(id);
     } else {
@@ -249,7 +199,6 @@ class App extends React.Component {
   }
 
   changeView(page) {
-    // console.log(`VIEW_CHANGED: ${page}`);
     if (this.state.account) {
       this.setState({ view: page }, () => {
         if (this.state.view === "trackerView") {
@@ -319,11 +268,9 @@ class App extends React.Component {
     axios
       .get(`${proxy}/auth/initLogin/google.com`)
       .then(res => {
-        // console.log("...Waiting for google login response...", res);
         return axios.get(`${proxy}/auth/wait?id='+${res.data}`);
       })
       .then(res => {
-        // console.log(res);
         this.setState({
           account: res.data.user,
           activities: this.formatActArrToObj(res.data.activities),
@@ -331,10 +278,9 @@ class App extends React.Component {
           view: res.data.user ? "trackerView" : "landingView"
         });
         this.getTimeStampData(res.data.account.id);
-        // console.log(res.data.assigned_activities, res.data.activities);
         window.sessionStorage["authenticated"] = res.data.user.googleID;
       })
-      // .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   formatActArrToObj(arr) {
@@ -356,12 +302,9 @@ class App extends React.Component {
     });
     axios
       .get(`${proxy}/auth/logout`)
-      // .then(response => {
-        // console.log("logout res: ", response);
-      // })
-      // .catch(err => {
-        // console.log("error logging out: ", err);
-      // });
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   dynamicBurger() {

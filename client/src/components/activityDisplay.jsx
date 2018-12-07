@@ -21,14 +21,13 @@ const scrollTo = (element, to, duration) => {
 }
 
 
-const DevSimB = (props) => {
+const ActivityDisplay = (props) => {
   return (
     <div style={s.wrap}>
       {props.activities.map(id => {
         let info = props.getActInfo(id);
         let faceStyle = {
           fontSize: '1.5em',
-          // fontWeight: 'bold',
           border: 'none',
           height: '3em',
           overflow: 'hidden',
@@ -58,4 +57,4 @@ const DevSimB = (props) => {
   );
 }
 
-export default DevSimB;
+export default ActivityDisplay;

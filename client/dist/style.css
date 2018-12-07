@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 /*
  * Made by Erik Terwan
  * 24th of November 2015
@@ -25,7 +24,7 @@ body
   background: #606060;
   color: #cdcdcd;
   /* font-family: "Avenir Next", "Avenir", sans-serif; */
-  font-family: 'Helvetica', "Open Sans", sans-serif, 'Arial';
+  font-family: 'Helvetica', sans-serif, 'Arial';
   background-image: radial-gradient(
     circle,
     transparent,

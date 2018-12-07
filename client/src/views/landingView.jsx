@@ -18,7 +18,6 @@ const s = {
     fontSize: '4rem',
     background: 'none',
     border: 'none',
-    // borderRight: '3px solid rgba(255, 255, 255, 0.5)',
     paddingRight: '2rem',
     color: 'white',
     outline: 'none',
@@ -51,9 +50,7 @@ const s = {
 class LandingView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   render() {

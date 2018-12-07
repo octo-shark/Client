@@ -1,6 +1,6 @@
 import React from 'react';
 import CurrentActivityBlock from '../components/currentActivityBlock.jsx';
-import DevSimB from '../components/devSimB.jsx';
+import ActivityDisplay from '../components/activityDisplay.jsx';
 
 const s = {
   wrap: {
@@ -40,16 +40,13 @@ const TrackerView = (props) => {
         />
       </div>
       <div style={s.actButtons}>
-        <DevSimB
+        <ActivityDisplay
           getActInfo={props.getActInfo}
           activities={props.assignedActivities}
           clickEvent={props.taskChange}
           curActivity={props.curActivity}
         />
       </div>
-        {/* {props.assignedActivities.map(id=> (
-          <ActivityBlock id={id} info={props.getActInfo(id)} key={`assignedAct_${id}`}/>
-        ))} */}
     </div>
   );
 }

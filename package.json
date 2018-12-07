@@ -28,7 +28,6 @@
     "compression-webpack-plugin": "^2.0.0",
     "express": "^4.16.4",
     "webpack": "^4.26.1",
-    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2"
   }
 }

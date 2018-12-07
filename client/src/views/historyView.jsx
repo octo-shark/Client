@@ -1,6 +1,5 @@
 import React from 'react';
 import {Doughnut, Bar} from 'react-chartjs-2';
-const {tFormat, humanDuration} = require('../components/utilities/tFormat.js');
 
 const s = {
   wrap: {
@@ -14,8 +13,6 @@ const s = {
     color: 'white'
   }
 }
-
-// Chart.defaults.global.legend.position = 'bottom';
 
 class History extends React.Component {
   constructor(props) {
@@ -86,10 +83,6 @@ class History extends React.Component {
                 maintainAspectRatio: false
               }}
               legend={this.state.legend}
-              // options={{
-                // responsive: true,
-                // maintainAspectRatio: false
-              // }}
             />
          </div>
         );
@@ -104,17 +97,6 @@ class History extends React.Component {
                 maintainAspectRatio: false
               }}
               legend={this.state.legend}
-              // options={{
-                // responsive: true,
-                // maintainAspectRatio: false,
-                // scales: {
-                //   yAxes: [{
-                //       ticks: {
-                //           beginAtZero:true
-                //       }
-                //   }]
-                // }
-              // }}
             />
           </div>
         );

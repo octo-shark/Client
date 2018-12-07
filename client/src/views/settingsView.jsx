@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskEditModal from '../components/taskEditModal.jsx';
-import DevSimB from '../components/devSimB.jsx';
+import ActivityDisplay from '../components/activityDisplay.jsx';
 
 const s = {
   header: {
@@ -63,10 +63,9 @@ class SettingsView extends React.Component {
           Settings
         </div>
         <div style={s.actButtons}>
-          <DevSimB
+          <ActivityDisplay
             getActInfo={this.props.getActInfo}
             activities={this.props.assignedActivities}
-            // activities={Object.keys(this.props.activities)}
             clickEvent={this.showModal.bind(this)}
             curActivity={this.props.curActivity}
           />

@@ -13,7 +13,6 @@ const Hamburger = (props) => {
     )
   }
 
-
   return (
     <nav>
       <div id="menuToggle">
@@ -25,6 +24,7 @@ const Hamburger = (props) => {
           <li onClick={() => (props.changeView('trackerView'), uncheck())}><a>Track</a></li>
           <li onClick={() => (props.changeView('historyView'), uncheck())}><a>History</a></li>
           <li onClick={() => (props.changeView('settingsView'), uncheck())}><a>Settings</a></li>
+          {/* <li onClick={() => props.initDevice(props.setAct)}><a>Connect</a></li> */}
           {logout()}
         </ul>
       </div>
